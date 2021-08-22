@@ -15,7 +15,7 @@ class Global {
         var selectedSmoke = Int.MIN_VALUE
         var selectedPos = Int.MIN_VALUE
 
-        var land = "a"
-        var pos = "a"
+        var land = ""
+        var pos = ""
     }
 }
