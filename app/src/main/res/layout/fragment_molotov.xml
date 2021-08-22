@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/mirage_background_blur"
+    android:id="@+id/molotov_layout"
+    tools:context=".fragments.MolotovFragment">
+
+    <TextView
+        android:id="@+id/molotov"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/comingsoon"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:fontFamily="@font/lora_italic_semibold"
+        android:textSize="32sp"/>
+
+</RelativeLayout>

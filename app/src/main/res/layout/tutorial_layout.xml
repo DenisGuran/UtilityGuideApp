@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="3dp"
+    android:background="@drawable/tutorial_layout_bg">
+
+    <TextView
+        android:id="@+id/textview_above"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/myZoomageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/s1"
+        android:background="@drawable/text_bg"
+        android:textSize="32sp"
+        android:gravity="center"
+        android:layout_marginBottom="3dp"
+        android:fontFamily="@font/lora_italic"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+    <com.jsibbold.zoomage.ZoomageView
+        android:id="@+id/myZoomageView"
+        android:layout_width="400dp"
+        android:layout_height="230dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/stairs_smoke"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:zoomage_animateOnReset="true"
+        app:zoomage_autoCenter="false"
+        app:zoomage_autoResetMode="UNDER"
+        app:zoomage_maxScale="8"
+        app:zoomage_minScale="0.6"
+        app:zoomage_restrictBounds="false"
+        app:zoomage_translatable="true"
+        app:zoomage_zoomable="true" />
+
+    <ImageView
+        android:id="@+id/info_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/info_icon"
+        android:tint="@color/white"
+        android:layout_marginTop="7dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/myZoomageView"
+        android:contentDescription="@string/infoicon" />
+
+    <TextView
+        android:id="@+id/textview_below"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/throwpos"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        android:fontFamily="@font/lora_italic_semibold"
+        android:minLines="2"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toBottomOf="@id/myZoomageView"
+        app:layout_constraintLeft_toRightOf="@id/info_view"
+        app:layout_constraintRight_toRightOf="@id/myZoomageView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

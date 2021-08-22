@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">CsApp</string>
+    <string name="mirage">Mirage</string>
+    <string name="inferno">Inferno</string>
+    <string name="dust2">Dust2</string>
+    <string name="train">Train</string>
+    <string name="vertigo">Vertigo</string>
+    <string name="overpass">Overpass</string>
+    <string name="ancient">Ancient</string>
+    <string name="nadetype">Pick a grenade</string>
+    <string name="retake">Retake</string>
+    <string name="smokes">Smokes</string>
+    <string name="flashes">Flashes</string>
+    <string name="molotovs">Molotovs</string>
+    <string name="nuke">Nuke</string>
+    <string name="maps">Maps</string>
+    <string name="comingsoon">Coming Soon. Stay tuned!</string>
+    <string name="land">Landing spots</string>
+    <string name="throwpos">Throwing positions</string>
+    <string name="stairs">Stairs</string>
+    <string name="s1">1</string>
+    <string name="s2">2</string>
+    <string name="s3">3</string>
+    <string name="appTitle">Utility Guide for CS:GO</string>
+    <string name="infoicon">Info icon</string>
+    <string name="lineup">Smoke lineup</string>
+
+</resources>
