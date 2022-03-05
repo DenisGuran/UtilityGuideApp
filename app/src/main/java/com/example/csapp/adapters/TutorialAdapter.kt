@@ -19,7 +19,7 @@ class TutorialAdapter(private val lst:ArrayList<TutorialData>): RecyclerView.Ada
 
     override fun onBindViewHolder(holder: TutorialAdapter.ViewHolder, position: Int) {
         holder.apply {
-            itemView.textview_above.text = lst[position].step
+            itemView.textview_above.text = lst[position].step.toString()
             itemView.myZoomageView.setImageResource(lst[position].image)
             itemView.textview_below.text = lst[position].details
         }

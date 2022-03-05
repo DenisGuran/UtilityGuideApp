@@ -20,11 +20,13 @@
         android:name="com.example.csapp.fragments.MolotovFragment"
         android:label="fragment_molotov"
         tools:layout="@layout/fragment_molotov" />
+
     <fragment
         android:id="@+id/nav_retake"
         android:name="com.example.csapp.fragments.RetakeFragment"
         android:label="fragment_retake"
         tools:layout="@layout/fragment_retake" />
+
     <fragment
         android:id="@+id/nav_throw_pos"
         android:name="com.example.csapp.fragments.ThrowPos"

@@ -48,7 +48,8 @@ class SmokeFragment : Fragment(R.layout.fragment_smoke) {
                 "Stairs",
                 R.drawable.stairs_smoke)
             )
-            landingSpots.add(Data(
+            landingSpots.add(
+                Data(
                 "A Bench",
                 R.drawable.bench_smoke)
             )

@@ -166,7 +166,7 @@ class ThrowPos : Fragment(R.layout.fragment_throw_pos) {
                     throwSpots.add(
                         Data(
                             "Construction",
-                            R.drawable.in_triple
+                            R.drawable.in_construction
                         )
                     )
                 }

@@ -36,7 +36,7 @@
         android:drawablePadding="5dp"
         android:ems="10"
         android:fontFamily="sans-serif"
-        android:hint="Username"
+        android:hint="@string/username"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:padding="10dp"
@@ -46,7 +46,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        android:drawableStart="@drawable/ic_person" />
 
     <EditText
         android:id="@+id/inputPassword"
@@ -68,7 +69,8 @@
         app:layout_constraintEnd_toEndOf="@+id/inputUsername"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/inputUsername"
-        app:layout_constraintTop_toBottomOf="@+id/inputUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/inputUsername"
+        android:drawableStart="@drawable/ic_security" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogin"
@@ -85,22 +87,22 @@
         app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button"
+        android:id="@+id/btnForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
-        android:text="Forgot password?"
+        android:text="@string/forgot_password"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/btnLogin"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button2"
+        android:id="@+id/btnCreateAccount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/transparent"
-        android:text="Create account"
+        android:text="@string/create_account"
         android:textAllCaps="false"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/btnLogin"
