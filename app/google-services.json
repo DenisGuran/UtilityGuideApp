@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "259964324437",
+    "firebase_url": "https://utilityhub-db-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "utilityhub-db",
+    "storage_bucket": "utilityhub-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:259964324437:android:30ef9519a2fe10325e22dc",
+        "android_client_info": {
+          "package_name": "com.example.csapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "259964324437-omaholir1uvcod50pl29i07aa6881j8c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.csapp",
+            "certificate_hash": "78e7d218c04e50391eb3615fa7387b4c59f77b93"
+          }
+        },
+        {
+          "client_id": "259964324437-skeq9jv81hjhuo9geul1nfu1v5os9j6k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0GRtTO2DZSOqdH0znsbPp8FIxhsS-zbw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "259964324437-skeq9jv81hjhuo9geul1nfu1v5os9j6k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,6 +7,7 @@
     android:background="@drawable/main_bg"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:id="@+id/fragment_maps_layout"
     tools:context=".MainActivity">
 
     <TextView
@@ -106,7 +107,8 @@
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/inferno"
                         android:src="@drawable/inferno_pin"
-                        tools:ignore="HardcodedText" />
+                        tools:ignore="HardcodedText"
+                        tools:srcCompat="@drawable/inferno_pin" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -118,8 +120,8 @@
                         android:text="@string/inferno"
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:fontFamily="@font/lora_italic_semibold"
-                        android:textSize="38sp"/>
+                        android:textSize="38sp"
+                        android:fontFamily="@font/lora_italic_semibold" />
 
                 </LinearLayout>
 
@@ -330,6 +332,14 @@
                     android:orientation="vertical"
                     android:paddingTop="0dp"
                     android:paddingBottom="0dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/ancient"
+                        android:src="@drawable/ancient_pin"
+                        tools:ignore="HardcodedText"
+                        tools:srcCompat="@drawable/ancient_pin" />
 
                     <TextView
                         android:layout_width="wrap_content"

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.csapp.DataClasses.Data
+import com.example.csapp.models.Data
 import com.example.csapp.R
 import kotlinx.android.synthetic.main.card_layout.view.*
 

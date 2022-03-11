@@ -1,4 +1,4 @@
-package com.example.csapp.DataClasses
+package com.example.csapp.models
 
 data class TutorialData(
     var step: Int,

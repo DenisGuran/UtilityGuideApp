@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.csapp.DataClasses.Data
+import com.example.csapp.models.Data
 import com.example.csapp.Global.Companion.land
 import com.example.csapp.Global.Companion.maps
 import com.example.csapp.Global.Companion.selectedSmoke

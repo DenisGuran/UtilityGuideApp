@@ -2,10 +2,8 @@ package com.example.csapp.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.csapp.Global
 import com.example.csapp.NaviActivity
 import com.example.csapp.R
