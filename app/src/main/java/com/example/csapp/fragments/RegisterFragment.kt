@@ -10,10 +10,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.csapp.R
-import com.example.csapp.models.User
 import com.example.csapp.databinding.FragmentRegisterBinding
+import com.example.csapp.models.User
+import com.example.csapp.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
@@ -94,11 +94,11 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     }
 
     private fun saveUserInfo() {
-        val uid = auth.uid!!
-        val database = FirebaseFirestore.getInstance().collection("Users")
+        val userId = auth.uid!!
+        val database = FirebaseFirestore.getInstance().collection(Constants.USERS)
         val user = User(email, username)
 
-        database.document(uid)
+        database.document(userId)
             .set(user)
             .addOnSuccessListener {
                 Toast.makeText(activity,"Account created successfully!", Toast.LENGTH_SHORT).show()

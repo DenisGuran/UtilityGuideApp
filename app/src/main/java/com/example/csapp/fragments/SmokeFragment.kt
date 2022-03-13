@@ -30,7 +30,7 @@ class SmokeFragment : Fragment(R.layout.fragment_smoke) {
             override fun onItemClick(position: Int) {
                     findNavController().navigate(R.id.nav_throw_pos)
                 selectedSmoke = position
-                land = landingSpots.get(position).name
+                land = landingSpots[position].name
             }
         })
         recyclerView.setHasFixedSize(true)

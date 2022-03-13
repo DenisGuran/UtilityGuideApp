@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.csapp.R
 import com.example.csapp.databinding.FragmentProfileBinding
 import com.example.csapp.models.User
+import com.example.csapp.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
@@ -43,7 +44,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private fun loadUserInfo() {
         val userId = auth.currentUser!!.uid
-        val database = FirebaseFirestore.getInstance().collection("Users")
+        val database = FirebaseFirestore.getInstance().collection(Constants.USERS)
 
         database.document(userId).get()
             .addOnSuccessListener{

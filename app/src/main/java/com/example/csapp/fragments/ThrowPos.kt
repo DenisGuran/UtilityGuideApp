@@ -33,7 +33,7 @@ class ThrowPos : Fragment(R.layout.fragment_throw_pos) {
             override fun onItemClick(position: Int) {
                 findNavController().navigate(R.id.nav_tutorial)
                 selectedPos = position
-                pos = throwSpots.get(position).name
+                pos = throwSpots[position].name
             }
         })
         recyclerView.setHasFixedSize(true)

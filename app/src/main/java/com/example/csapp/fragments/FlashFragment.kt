@@ -16,8 +16,6 @@ class FlashFragment : Fragment(R.layout.fragment_flash) {
 
     }
 
-
-
     private fun initData(){
 
         if(Global.maps["mirage"] == true) {

@@ -9,7 +9,7 @@ import com.example.csapp.models.Data
 import com.example.csapp.R
 import kotlinx.android.synthetic.main.card_layout.view.*
 
-class RecyclerAdapter(private val lst:ArrayList<Data>, val onClickListener: OnClickListener ): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(){
+class RecyclerAdapter(private val lst:ArrayList<Data>, private val onClickListener: OnClickListener ): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>(){
 
     interface OnClickListener{
         fun onItemClick(position: Int)

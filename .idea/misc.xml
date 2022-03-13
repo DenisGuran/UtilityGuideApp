@@ -55,6 +55,25 @@
         <entry key="..\:/Android/App/app/src/main/res/layout/fragment_tutorial.xml" value="0.20677083333333332" />
         <entry key="..\:/Android/App/app/src/main/res/layout/tutorial_layout.xml" value="0.20677083333333332" />
         <entry key="..\:/Android/App/app/src/main/res/menu/menu.xml" value="0.18854166666666666" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/drawable/ancient_pin.xml" value="0.2985" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/drawable/custom_email_icon.xml" value="0.2985" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/drawable/custom_lock_icon.xml" value="0.2985" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/drawable/inferno_pin.xml" value="0.2985" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/drawable/mirage_pin.xml" value="0.2985" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/drawable/nav_bg.xml" value="0.2985" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/drawable/nuke_pin.xml" value="0.2985" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/layout/activity_navi.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/layout/fragment_favorites.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/layout/fragment_forgot_password.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/layout/fragment_login.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/layout/fragment_maps.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/layout/fragment_molotov.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/layout/fragment_profile.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/layout/fragment_register.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/layout/fragment_smoke.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/layout/fragment_throw_pos.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/layout/fragment_tutorial.xml" value="0.36666666666666664" />
+        <entry key="..\:/Android/UtilityGuideApp/app/src/main/res/layout/tutorial_layout.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>

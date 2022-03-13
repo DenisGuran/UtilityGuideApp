@@ -59,9 +59,10 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:contentDescription="@string/mirage"
                         android:src="@drawable/mirage_pin"
-                        tools:ignore="HardcodedText" />
+                        tools:ignore="HardcodedText"
+                        tools:srcCompat="@drawable/mirage_pin"
+                        android:contentDescription="@string/mirage" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -105,10 +106,9 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:contentDescription="@string/inferno"
-                        android:src="@drawable/inferno_pin"
                         tools:ignore="HardcodedText"
-                        tools:srcCompat="@drawable/inferno_pin" />
+                        tools:srcCompat="@drawable/mirage_pin"
+                        android:contentDescription="@string/inferno" />
 
                     <TextView
                         android:layout_width="wrap_content"

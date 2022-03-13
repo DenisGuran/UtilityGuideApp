@@ -11,11 +11,11 @@
         android:id="@+id/molotov"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fontFamily="@font/lora_italic_semibold"
         android:gravity="center"
         android:text="@string/comingsoon"
         android:textColor="@color/white"
-        android:textStyle="bold"
-        android:fontFamily="@font/lora_italic_semibold"
-        android:textSize="32sp"/>
+        android:textSize="32sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

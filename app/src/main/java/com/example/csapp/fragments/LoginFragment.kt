@@ -42,20 +42,16 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
 
         binding.btnContinue.setOnClickListener {
-            goTo(R.id.mapsFragment)
+            findNavController().navigate(R.id.mapsFragment)
         }
 
         binding.btnCreateAccount.setOnClickListener{
-            goTo(R.id.registerFragment)
+            findNavController().navigate(R.id.registerFragment)
         }
 
         binding.btnForgotPassword.setOnClickListener {
-           goTo(R.id.forgotPasswordFragment)
+            findNavController().navigate(R.id.forgotPasswordFragment)
         }
-    }
-
-    private fun goTo(fragment: Int) {
-        findNavController().navigate(fragment)
     }
 
     private fun validateDataAndLogin() {
@@ -88,8 +84,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 val email = loggedUser!!.email
 
                 Toast.makeText(activity,"Logged in as $email",Toast.LENGTH_SHORT).show()
-                goTo(R.id.profileFragment)
-
+                findNavController().navigate(R.id.profileFragment)
             }
             .addOnFailureListener {
                 Toast.makeText(activity,"Login failed",Toast.LENGTH_SHORT).show()
@@ -101,7 +96,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         if(user != null){
             //user is already logged in
-            goTo(R.id.profileFragment)
+            findNavController().navigate(R.id.profileFragment)
         }
     }
 
