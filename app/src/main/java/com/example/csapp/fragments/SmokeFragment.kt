@@ -1,48 +1,64 @@
 package com.example.csapp.fragments
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.csapp.models.Data
 import com.example.csapp.Global.Companion.land
 import com.example.csapp.Global.Companion.maps
 import com.example.csapp.Global.Companion.selectedSmoke
 import com.example.csapp.R
-import com.example.csapp.adapters.RecyclerAdapter
-import kotlinx.android.synthetic.main.fragment_smoke.*
+import com.example.csapp.adapters.UtilityAdapter
+import com.example.csapp.databinding.FragmentSmokeBinding
+import com.example.csapp.models.Data
 
 class SmokeFragment : Fragment(R.layout.fragment_smoke) {
 
+    private var _binding: FragmentSmokeBinding? = null
+    private val binding get() = _binding!!
     private val landingSpots = ArrayList<Data>()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentSmokeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initData()
         setRecyclerView()
     }
 
     private fun setRecyclerView(){
-        recyclerView.layoutManager = LinearLayoutManager(this.activity)
-        recyclerView.adapter = RecyclerAdapter(landingSpots, object:RecyclerAdapter.OnClickListener{
-            override fun onItemClick(position: Int) {
-                    findNavController().navigate(R.id.nav_throw_pos)
-                selectedSmoke = position
-                land = landingSpots[position].name
+        binding.recyclerView.layoutManager = LinearLayoutManager(this.activity)
+        binding.recyclerView.adapter =
+            context?.let {
+                UtilityAdapter(it,landingSpots, object:UtilityAdapter.OnClickListener{
+                    override fun onItemClick(position: Int) {
+                        findNavController().navigate(R.id.nav_throw_pos)
+                        selectedSmoke = position
+                        land = landingSpots[position].name
+                    }
+                })
             }
-        })
-        recyclerView.setHasFixedSize(true)
+        binding.recyclerView.setHasFixedSize(true)
     }
 
     private fun initData(){
 
+        val smokeLayout = binding.smokeLayout
         landingSpots.clear()
 
         if(maps["mirage"] == true) {
 
-            smoke_layout.setBackgroundResource(R.drawable.mirage_background_blur)
+            smokeLayout.setBackgroundResource(R.drawable.mirage_background_blur)
 
             landingSpots.add(Data(
                 "Stairs",
@@ -57,7 +73,7 @@ class SmokeFragment : Fragment(R.layout.fragment_smoke) {
 
         if(maps["inferno"] == true){
 
-            smoke_layout.setBackgroundResource(R.drawable.inferno_background_blur)
+            smokeLayout.setBackgroundResource(R.drawable.inferno_background_blur)
 
             landingSpots.add(Data(
                 "CT Spawn",
@@ -82,7 +98,7 @@ class SmokeFragment : Fragment(R.layout.fragment_smoke) {
         }
 
         if(maps["dust2"] == true) {
-            smoke_layout.setBackgroundResource(R.drawable.dust2_background_blur)
+            smokeLayout.setBackgroundResource(R.drawable.dust2_background_blur)
             landingSpots.add(Data(
                 "Coming Soon",
                 R.drawable.dust2_background)
@@ -90,7 +106,7 @@ class SmokeFragment : Fragment(R.layout.fragment_smoke) {
         }
 
         if(maps["overpass"] == true) {
-            smoke_layout.setBackgroundResource(R.drawable.overpass_background_blur)
+            smokeLayout.setBackgroundResource(R.drawable.overpass_background_blur)
             landingSpots.add(Data(
                 "Coming Soon",
                 R.drawable.overpass_background)
@@ -98,7 +114,7 @@ class SmokeFragment : Fragment(R.layout.fragment_smoke) {
         }
 
         if(maps["nuke"] == true) {
-            smoke_layout.setBackgroundResource(R.drawable.nuke_background_blur)
+            smokeLayout.setBackgroundResource(R.drawable.nuke_background_blur)
             landingSpots.add(Data(
                 "Coming Soon",
                 R.drawable.nuke_background)
@@ -106,7 +122,7 @@ class SmokeFragment : Fragment(R.layout.fragment_smoke) {
         }
 
         if(maps["vertigo"] == true) {
-            smoke_layout.setBackgroundResource(R.drawable.vertigo_background_blur)
+            smokeLayout.setBackgroundResource(R.drawable.vertigo_background_blur)
             landingSpots.add(Data(
                 "Coming Soon",
                 R.drawable.vertigo_background)
@@ -114,7 +130,7 @@ class SmokeFragment : Fragment(R.layout.fragment_smoke) {
         }
 
         if(maps["ancient"] == true) {
-            smoke_layout.setBackgroundResource(R.drawable.ancient_background_blur)
+            smokeLayout.setBackgroundResource(R.drawable.ancient_background_blur)
             landingSpots.add(Data(
                 "Coming Soon",
                 R.drawable.ancient_background)

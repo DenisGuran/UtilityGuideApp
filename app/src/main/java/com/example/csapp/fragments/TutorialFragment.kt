@@ -1,10 +1,11 @@
 package com.example.csapp.fragments
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.csapp.models.TutorialData
 import com.example.csapp.Global
 import com.example.csapp.Global.Companion.land
 import com.example.csapp.Global.Companion.pos
@@ -12,34 +13,47 @@ import com.example.csapp.Global.Companion.selectedPos
 import com.example.csapp.Global.Companion.selectedSmoke
 import com.example.csapp.R
 import com.example.csapp.adapters.TutorialAdapter
-import kotlinx.android.synthetic.main.fragment_smoke.recyclerView
-import kotlinx.android.synthetic.main.fragment_tutorial.*
+import com.example.csapp.databinding.FragmentTutorialBinding
+import com.example.csapp.models.TutorialData
 
-class Tutorial : Fragment(R.layout.fragment_tutorial) {
+class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
 
+    private var _binding: FragmentTutorialBinding? = null
+    private val binding get() = _binding!!
     private val tutorialList = ArrayList<TutorialData>()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentTutorialBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initData()
         setRecyclerView()
-        textview1.text = pos.plus(" to ").plus(land)
+        binding.textview1.text = pos.plus(" to ").plus(land)
     }
 
     private fun setRecyclerView() {
-        recyclerView.layoutManager = LinearLayoutManager(this.activity)
-        recyclerView.adapter = TutorialAdapter(tutorialList)
-        recyclerView.setHasFixedSize(true)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this.activity)
+        binding.recyclerView.adapter = context?.let { TutorialAdapter(it,tutorialList) }
+        binding.recyclerView.setHasFixedSize(true)
     }
 
     private fun initData() {
+
+        val tutorialLayout = binding.tutorialLayout
 
         tutorialList.clear()
 
         if (Global.maps["mirage"] == true) {
 
-            tutorial_layout.setBackgroundResource(R.drawable.mirage_background_blur)
+            tutorialLayout.setBackgroundResource(R.drawable.mirage_background_blur)
 
             when (selectedSmoke) {
 
@@ -148,7 +162,7 @@ class Tutorial : Fragment(R.layout.fragment_tutorial) {
 
         if (Global.maps["inferno"] == true) {
 
-            tutorial_layout.setBackgroundResource(R.drawable.inferno_background_blur)
+            tutorialLayout.setBackgroundResource(R.drawable.inferno_background_blur)
 
             when (selectedSmoke) {
 

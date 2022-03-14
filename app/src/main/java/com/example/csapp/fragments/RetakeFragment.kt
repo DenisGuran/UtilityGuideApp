@@ -1,52 +1,67 @@
 package com.example.csapp.fragments
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.csapp.Global
 import com.example.csapp.R
-import kotlinx.android.synthetic.main.fragment_retake.*
+import com.example.csapp.databinding.FragmentRetakeBinding
 
 
 class RetakeFragment : Fragment(R.layout.fragment_retake) {
+
+    private var _binding: FragmentRetakeBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentRetakeBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initData()
-
     }
 
     private fun initData(){
 
+        val retakeLayout = binding.retakeLayout
+
         if(Global.maps["mirage"] == true) {
 
-            retake_layout.setBackgroundResource(R.drawable.mirage_background_blur)
+            retakeLayout.setBackgroundResource(R.drawable.mirage_background_blur)
         }
 
         if(Global.maps["inferno"] == true) {
 
-            retake_layout.setBackgroundResource(R.drawable.inferno_background_blur)
+            retakeLayout.setBackgroundResource(R.drawable.inferno_background_blur)
         }
 
         if(Global.maps["dust2"] == true) {
-            retake_layout.setBackgroundResource(R.drawable.dust2_background_blur)
+            retakeLayout.setBackgroundResource(R.drawable.dust2_background_blur)
         }
 
         if(Global.maps["overpass"] == true) {
-            retake_layout.setBackgroundResource(R.drawable.overpass_background_blur)
+            retakeLayout.setBackgroundResource(R.drawable.overpass_background_blur)
         }
 
         if(Global.maps["nuke"] == true) {
-            retake_layout.setBackgroundResource(R.drawable.nuke_background_blur)
+            retakeLayout.setBackgroundResource(R.drawable.nuke_background_blur)
         }
 
         if(Global.maps["vertigo"] == true) {
-            retake_layout.setBackgroundResource(R.drawable.vertigo_background_blur)
+            retakeLayout.setBackgroundResource(R.drawable.vertigo_background_blur)
         }
 
         if(Global.maps["ancient"] == true) {
-            retake_layout.setBackgroundResource(R.drawable.ancient_background_blur)
+            retakeLayout.setBackgroundResource(R.drawable.ancient_background_blur)
         }
 
     }

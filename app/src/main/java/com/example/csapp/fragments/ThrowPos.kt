@@ -1,51 +1,67 @@
 package com.example.csapp.fragments
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.csapp.models.Data
 import com.example.csapp.Global.Companion.maps
 import com.example.csapp.Global.Companion.pos
 import com.example.csapp.Global.Companion.selectedPos
 import com.example.csapp.Global.Companion.selectedSmoke
 import com.example.csapp.R
-import com.example.csapp.adapters.RecyclerAdapter
-import kotlinx.android.synthetic.main.fragment_smoke.recyclerView
-import kotlinx.android.synthetic.main.fragment_throw_pos.*
+import com.example.csapp.adapters.UtilityAdapter
+import com.example.csapp.databinding.FragmentThrowPosBinding
+import com.example.csapp.models.Data
 
 
 class ThrowPos : Fragment(R.layout.fragment_throw_pos) {
 
+    private var _binding: FragmentThrowPosBinding? = null
+    private val binding get() = _binding!!
     private val throwSpots = ArrayList<Data>()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentThrowPosBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initData()
         setRecyclerView()
     }
 
     private fun setRecyclerView(){
-        recyclerView.layoutManager = LinearLayoutManager(this.activity)
-        recyclerView.adapter = RecyclerAdapter(throwSpots, object: RecyclerAdapter.OnClickListener{
-            override fun onItemClick(position: Int) {
-                findNavController().navigate(R.id.nav_tutorial)
-                selectedPos = position
-                pos = throwSpots[position].name
+        binding.recyclerView.layoutManager = LinearLayoutManager(this.activity)
+        binding.recyclerView.adapter =
+            context?.let {
+                UtilityAdapter(it, throwSpots, object: UtilityAdapter.OnClickListener{
+                    override fun onItemClick(position: Int) {
+                        findNavController().navigate(R.id.nav_tutorial)
+                        selectedPos = position
+                        pos = throwSpots[position].name
+                    }
+                })
             }
-        })
-        recyclerView.setHasFixedSize(true)
+        binding.recyclerView.setHasFixedSize(true)
     }
 
     private fun initData(){
+
+        val throwPosLayout = binding.throwPosLayout
 
         throwSpots.clear()
 
         if(maps["mirage"] == true) {
 
-            throw_pos_layout.setBackgroundResource(R.drawable.mirage_background_blur)
+            throwPosLayout.setBackgroundResource(R.drawable.mirage_background_blur)
 
             when(selectedSmoke){
                 0 -> {
@@ -82,7 +98,7 @@ class ThrowPos : Fragment(R.layout.fragment_throw_pos) {
 
         if(maps["inferno"] == true) {
 
-            throw_pos_layout.setBackgroundResource(R.drawable.inferno_background_blur)
+            throwPosLayout.setBackgroundResource(R.drawable.inferno_background_blur)
 
             when(selectedSmoke) {
                 0 ->{
