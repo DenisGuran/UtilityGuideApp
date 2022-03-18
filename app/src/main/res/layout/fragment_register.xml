@@ -15,7 +15,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="@font/lora_italic_bold"
         android:text="@string/appTitle"
-        android:textColor="@color/white"
+        android:textColor="@color/title_color"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +37,7 @@
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         android:padding="10dp"
-        android:textColor="@color/white"
+        android:textColor="@color/input_text_color"
         android:textColorHint="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/inputUsername"
@@ -45,51 +45,77 @@
         app:layout_constraintStart_toStartOf="@+id/inputUsername"
         app:layout_constraintTop_toBottomOf="@+id/inputUsername" />
 
-    <EditText
-        android:id="@+id/inputConfirmPassword"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutConfirmPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/custom_input"
-        android:drawableStart="@drawable/custom_lock_icon"
-        android:drawablePadding="5dp"
-        android:ems="10"
-        android:fontFamily="sans-serif"
-        android:hint="@string/confirm_password"
-        android:importantForAutofill="no"
-        android:inputType="textPassword"
-        android:minHeight="48dp"
-        android:padding="10dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/inputPassword"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="@+id/inputPassword"
-        app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
+        app:boxBackgroundMode="none"
+        app:boxStrokeWidthFocused="0dp"
+        app:boxStrokeWidth="0dp"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="@+id/layoutPassword"
+        app:layout_constraintStart_toStartOf="@+id/layoutPassword"
+        app:layout_constraintTop_toBottomOf="@+id/layoutPassword"
+        app:passwordToggleEnabled="true">
 
-    <EditText
-        android:id="@+id/inputPassword"
+        <EditText
+            android:id="@+id/inputConfirmPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/custom_lock_icon"
+            android:drawablePadding="5dp"
+            android:ems="10"
+            android:fontFamily="sans-serif"
+            android:hint="@string/confirm_password"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:textColor="@color/input_text_color"
+            android:textColorHint="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/layoutPassword"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="@+id/layoutPassword"
+            app:layout_constraintTop_toBottomOf="@+id/layoutPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/custom_input"
-        android:drawableStart="@drawable/custom_lock_icon"
-        android:drawablePadding="5dp"
-        android:ems="10"
-        android:fontFamily="sans-serif"
-        android:hint="@string/password"
-        android:importantForAutofill="no"
-        android:inputType="textPassword"
-        android:minHeight="48dp"
-        android:padding="10dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="14sp"
+        app:boxBackgroundMode="none"
+        app:boxStrokeWidthFocused="0dp"
+        app:boxStrokeWidth="0dp"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="@+id/inputEmail"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="@+id/inputEmail"
-        app:layout_constraintTop_toBottomOf="@+id/inputEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/inputEmail"
+        app:passwordToggleEnabled="true">
+
+        <EditText
+            android:id="@+id/inputPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/custom_lock_icon"
+            android:drawablePadding="5dp"
+            android:ems="10"
+            android:fontFamily="sans-serif"
+            android:hint="@string/password"
+            android:importantForAutofill="no"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:textColor="@color/input_text_color"
+            android:textColorHint="@color/white"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <EditText
         android:id="@+id/inputUsername"
@@ -106,7 +132,7 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:padding="10dp"
-        android:textColor="@color/white"
+        android:textColor="@color/input_text_color"
         android:textColorHint="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
@@ -127,10 +153,10 @@
         android:textColor="@color/white"
         app:backgroundTint="@color/teal_200"
         app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="@+id/inputConfirmPassword"
+        app:layout_constraintEnd_toEndOf="@+id/layoutConfirmPassword"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/inputConfirmPassword"
-        app:layout_constraintTop_toBottomOf="@+id/inputConfirmPassword" />
+        app:layout_constraintStart_toStartOf="@+id/layoutConfirmPassword"
+        app:layout_constraintTop_toBottomOf="@+id/layoutConfirmPassword" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

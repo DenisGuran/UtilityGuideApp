@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/mirage_background_blur"
     android:id="@+id/throw_pos_layout"
-    tools:context=".fragments.ThrowPos">
+    tools:context=".fragments.SmokeThrowFragment">
 
     <TextView
         android:id="@+id/textview1"
@@ -17,7 +17,7 @@
         android:layout_marginVertical="24dp"
         android:fontFamily="@font/lora_italic_bold"
         android:text="@string/throwpos"
-        android:textColor="@color/white"
+        android:textColor="@color/title_color"
         android:textSize="26sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,11 +31,46 @@
         android:layout_below="@+id/textview1"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="50dp"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputSearch" />
+
+    <EditText
+        android:id="@+id/inputSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/search"
+        android:ems="10"
+        android:hint="@string/search"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:textAlignment="center"
+        android:textColor="@color/text_color"
+        app:backgroundTint="@color/edit_text_line_color"
+        app:layout_constraintEnd_toEndOf="@+id/textview1"
+        app:layout_constraintStart_toStartOf="@+id/textview1"
         app:layout_constraintTop_toBottomOf="@+id/textview1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnMaps"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/transparent"
+        android:drawableTop="@drawable/ic_map"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="@string/maps"
+        android:textColor="@color/text_color"
+        android:textSize="11sp"
+        app:elevation="0dp"
+        app:iconPadding="0dp"
+        app:iconTint="@color/icon_color"
+        app:layout_constraintBottom_toBottomOf="@+id/textview1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textview1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

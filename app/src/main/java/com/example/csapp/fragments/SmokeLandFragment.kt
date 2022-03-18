@@ -1,57 +1,56 @@
 package com.example.csapp.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.csapp.Global.Companion.land
 import com.example.csapp.Global.Companion.maps
 import com.example.csapp.Global.Companion.selectedSmoke
+import com.example.csapp.activities.MainActivity
 import com.example.csapp.R
 import com.example.csapp.adapters.UtilityAdapter
-import com.example.csapp.databinding.FragmentSmokeBinding
+import com.example.csapp.databinding.FragmentSmokeLandBinding
 import com.example.csapp.models.Data
 
-class SmokeFragment : Fragment(R.layout.fragment_smoke) {
+class SmokeLandFragment : Fragment(R.layout.fragment_smoke_land) {
 
-    private var _binding: FragmentSmokeBinding? = null
-    private val binding get() = _binding!!
     private val landingSpots = ArrayList<Data>()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentSmokeBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initData()
-        setRecyclerView()
-    }
 
-    private fun setRecyclerView(){
-        binding.recyclerView.layoutManager = LinearLayoutManager(this.activity)
-        binding.recyclerView.adapter =
-            context?.let {
-                UtilityAdapter(it,landingSpots, object:UtilityAdapter.OnClickListener{
-                    override fun onItemClick(position: Int) {
-                        findNavController().navigate(R.id.nav_throw_pos)
-                        selectedSmoke = position
-                        land = landingSpots[position].name
-                    }
-                })
+        val binding = FragmentSmokeLandBinding.bind(view)
+        binding.apply{
+            initData(this)
+            setRecyclerView(this)
+            btnMaps.setOnClickListener {
+                startActivity(Intent(activity, MainActivity::class.java))
+                activity?.finish()
             }
-        binding.recyclerView.setHasFixedSize(true)
+        }
     }
 
-    private fun initData(){
+    private fun setRecyclerView(binding: FragmentSmokeLandBinding){
+        binding.apply {
+            recyclerView.layoutManager = LinearLayoutManager(this@SmokeLandFragment.activity)
+            recyclerView.adapter =
+                context?.let {
+                    UtilityAdapter(it,landingSpots, object:UtilityAdapter.OnClickListener{
+                        override fun onItemClick(position: Int) {
+                            findNavController().navigate(R.id.nav_throw_pos)
+                            selectedSmoke = position
+                            land = landingSpots[position].name
+                        }
+                    })
+                }
+            recyclerView.setHasFixedSize(true)
+        }
+    }
+
+    private fun initData(binding: FragmentSmokeLandBinding){
 
         val smokeLayout = binding.smokeLayout
         landingSpots.clear()

@@ -22,7 +22,7 @@
         <ImageView
             android:id="@+id/pos_image"
             android:layout_width="330dp"
-            android:layout_height="95dp"
+            android:layout_height="97dp"
             android:contentDescription="@string/smokes"
             android:scaleType="centerCrop"
             android:src="@drawable/stairs_smoke" />

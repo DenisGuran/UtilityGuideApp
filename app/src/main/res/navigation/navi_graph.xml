@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/nav_smoke"
-        android:name="com.example.csapp.fragments.SmokeFragment"
+        android:name="com.example.csapp.fragments.SmokeLandFragment"
         android:label="fragment_smoke"
-        tools:layout="@layout/fragment_smoke" />
+        tools:layout="@layout/fragment_smoke_land" />
     <fragment
         android:id="@+id/nav_flash"
         android:name="com.example.csapp.fragments.FlashFragment"
@@ -29,9 +29,9 @@
 
     <fragment
         android:id="@+id/nav_throw_pos"
-        android:name="com.example.csapp.fragments.ThrowPos"
+        android:name="com.example.csapp.fragments.SmokeThrowFragment"
         android:label="fragment_throw_pos"
-        tools:layout="@layout/fragment_throw_pos" />
+        tools:layout="@layout/fragment_smoke_throw" />
     <fragment
         android:id="@+id/nav_tutorial"
         android:name="com.example.csapp.fragments.TutorialFragment"

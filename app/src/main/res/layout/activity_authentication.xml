@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    tools:context=".activities.AuthenticationActivity">
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_main_layout"
+        android:id="@+id/fragment_authentication_layout"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,5 +16,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:navGraph="@navigation/main_graph" />
+        app:navGraph="@navigation/auth_graph" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,9 +1,10 @@
-package com.example.csapp
+package com.example.csapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.csapp.R
 
 import kotlinx.android.synthetic.main.activity_navi.*
 

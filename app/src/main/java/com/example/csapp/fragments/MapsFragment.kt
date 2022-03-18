@@ -4,63 +4,73 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.csapp.Global
-import com.example.csapp.NaviActivity
+import com.example.csapp.activities.NaviActivity
 import com.example.csapp.R
-import kotlinx.android.synthetic.main.fragment_maps.*
+import com.example.csapp.databinding.FragmentMapsBinding
 
 class MapsFragment : Fragment(R.layout.fragment_maps) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        card_mirage.setOnClickListener {
-            startActivity(Intent(activity, NaviActivity::class.java))
-            for (l in Global.maps)
-                l.setValue(false)
-            Global.maps["mirage"] = true
-        }
+        val binding = FragmentMapsBinding.bind(view)
 
-        card_inferno.setOnClickListener{
-            startActivity(Intent(activity, NaviActivity::class.java))
-            for (l in Global.maps)
-                l.setValue(false)
-            Global.maps["inferno"] = true
-        }
+        binding.apply {
+            buttonProfile.setOnClickListener {
+                findNavController().navigate(R.id.profileFragment)
+            }
+            cardMirage.setOnClickListener {
+                startActivity(Intent(activity, NaviActivity::class.java))
+                for (l in Global.maps)
+                    l.setValue(false)
+                Global.maps["mirage"] = true
+            }
 
-        card_dust2.setOnClickListener{
-            startActivity(Intent(activity, NaviActivity::class.java))
-            for (l in Global.maps)
-                l.setValue(false)
-            Global.maps["dust2"] = true
-        }
+            cardInferno.setOnClickListener{
+                startActivity(Intent(activity, NaviActivity::class.java))
+                activity?.finish()
+                for (l in Global.maps)
+                    l.setValue(false)
+                Global.maps["inferno"] = true
+            }
 
-        card_overpass.setOnClickListener{
-            startActivity(Intent(activity, NaviActivity::class.java))
-            for (l in Global.maps)
-                l.setValue(false)
-            Global.maps["overpass"] = true
-        }
+            cardDust2.setOnClickListener{
+                startActivity(Intent(activity, NaviActivity::class.java))
+                activity?.finish()
+                for (l in Global.maps)
+                    l.setValue(false)
+                Global.maps["dust2"] = true
+            }
 
-        card_nuke.setOnClickListener{
-            startActivity(Intent(activity, NaviActivity::class.java))
-            for (l in Global.maps)
-                l.setValue(false)
-            Global.maps["nuke"] = true
-        }
+            cardOverpass.setOnClickListener{
+                startActivity(Intent(activity, NaviActivity::class.java))
+                for (l in Global.maps)
+                    l.setValue(false)
+                Global.maps["overpass"] = true
+            }
 
-        card_vertigo.setOnClickListener{
-            startActivity(Intent(activity, NaviActivity::class.java))
-            for (l in Global.maps)
-                l.setValue(false)
-            Global.maps["vertigo"] = true
-        }
+            cardNuke.setOnClickListener{
+                startActivity(Intent(activity, NaviActivity::class.java))
+                for (l in Global.maps)
+                    l.setValue(false)
+                Global.maps["nuke"] = true
+            }
 
-        card_ancient.setOnClickListener{
-            startActivity(Intent(activity, NaviActivity::class.java))
-            for (l in Global.maps)
-                l.setValue(false)
-            Global.maps["ancient"] = true
+            cardVertigo.setOnClickListener{
+                startActivity(Intent(activity, NaviActivity::class.java))
+                for (l in Global.maps)
+                    l.setValue(false)
+                Global.maps["vertigo"] = true
+            }
+
+            cardAncient.setOnClickListener{
+                startActivity(Intent(activity, NaviActivity::class.java))
+                for (l in Global.maps)
+                    l.setValue(false)
+                Global.maps["ancient"] = true
+            }
         }
     }
 

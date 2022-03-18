@@ -3,9 +3,7 @@ package com.example.csapp.fragments
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -18,9 +16,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
 
-    private var _binding: FragmentRegisterBinding? = null
-    private val binding get() = _binding!!
-
     private lateinit var auth : FirebaseAuth
 
     private var username = ""
@@ -28,58 +23,54 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     private var password = ""
     private var confirmPassword = ""
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val binding = FragmentRegisterBinding.bind(view)
+
         auth = FirebaseAuth.getInstance()
 
-        binding.btnRegister.setOnClickListener {
-            validateDataAndRegister()
+        binding.apply {
+            btnRegister.setOnClickListener {
+                validateDataAndRegister(this)
+            }
         }
     }
 
-    private fun validateDataAndRegister() {
-        username = binding.inputUsername.text.toString().trim()
-        email = binding.inputEmail.text.toString().trim()
-        password = binding.inputPassword.text.toString().trim()
-        confirmPassword = binding.inputConfirmPassword.text.toString().trim()
+    private fun validateDataAndRegister(binding: FragmentRegisterBinding) {
+        binding.apply {
+            username = inputUsername.text.toString().trim()
+            email = inputEmail.text.toString().trim()
+            password = inputPassword.text.toString().trim()
+            confirmPassword = inputConfirmPassword.text.toString().trim()
 
-        if (TextUtils.isEmpty(username)){
-            binding.inputUsername.error = "Username is required"
-            binding.inputUsername.requestFocus()
+            if (TextUtils.isEmpty(username)){
+                inputUsername.error = "Username is required"
+                inputUsername.requestFocus()
+            }
+            else if (TextUtils.isEmpty(email)){
+                inputEmail.error = "Email is required"
+                inputEmail.requestFocus()
+            }
+            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                inputEmail.error = "Invalid email format"
+                inputEmail.requestFocus()
+            }
+            else if (TextUtils.isEmpty(password)){
+                inputPassword.error = "Password is required"
+                inputPassword.requestFocus()
+            }
+            else if (password.length < 6){
+                inputPassword.error = "Password must have at least 6 characters"
+                inputPassword.requestFocus()
+            }
+            else if (password != confirmPassword){
+                inputConfirmPassword.error = "Passwords do not match"
+            }
+            else{
+                register()
+            }
         }
-        else if (TextUtils.isEmpty(email)){
-            binding.inputEmail.error = "Email is required"
-            binding.inputEmail.requestFocus()
-        }
-        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            binding.inputEmail.error = "Invalid email format"
-            binding.inputEmail.requestFocus()
-        }
-        else if (TextUtils.isEmpty(password)){
-            binding.inputPassword.error = "Password is required"
-            binding.inputPassword.requestFocus()
-        }
-        else if (password.length < 6){
-            binding.inputPassword.error = "Password must have at least 6 characters"
-            binding.inputPassword.requestFocus()
-        }
-        else if (password != confirmPassword){
-            binding.inputConfirmPassword.error = "Passwords do not match"
-        }
-        else{
-            register()
-        }
-
     }
 
     private fun register() {
@@ -104,11 +95,6 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 Toast.makeText(activity,"Account created successfully!", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.loginFragment)
             }
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 
 }

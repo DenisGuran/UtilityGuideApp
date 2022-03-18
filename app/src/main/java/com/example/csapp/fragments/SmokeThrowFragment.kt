@@ -1,9 +1,8 @@
 package com.example.csapp.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,49 +10,50 @@ import com.example.csapp.Global.Companion.maps
 import com.example.csapp.Global.Companion.pos
 import com.example.csapp.Global.Companion.selectedPos
 import com.example.csapp.Global.Companion.selectedSmoke
+import com.example.csapp.activities.MainActivity
 import com.example.csapp.R
 import com.example.csapp.adapters.UtilityAdapter
-import com.example.csapp.databinding.FragmentThrowPosBinding
+import com.example.csapp.databinding.FragmentSmokeThrowBinding
 import com.example.csapp.models.Data
 
 
-class ThrowPos : Fragment(R.layout.fragment_throw_pos) {
+class SmokeThrowFragment : Fragment(R.layout.fragment_smoke_throw) {
 
-    private var _binding: FragmentThrowPosBinding? = null
-    private val binding get() = _binding!!
     private val throwSpots = ArrayList<Data>()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentThrowPosBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initData()
-        setRecyclerView()
-    }
 
-    private fun setRecyclerView(){
-        binding.recyclerView.layoutManager = LinearLayoutManager(this.activity)
-        binding.recyclerView.adapter =
-            context?.let {
-                UtilityAdapter(it, throwSpots, object: UtilityAdapter.OnClickListener{
-                    override fun onItemClick(position: Int) {
-                        findNavController().navigate(R.id.nav_tutorial)
-                        selectedPos = position
-                        pos = throwSpots[position].name
-                    }
-                })
+        val binding = FragmentSmokeThrowBinding.bind(view)
+        binding.apply{
+            initData(this)
+            setRecyclerView(this)
+            btnMaps.setOnClickListener {
+                startActivity(Intent(activity, MainActivity::class.java))
+                activity?.finish()
             }
-        binding.recyclerView.setHasFixedSize(true)
+        }
     }
 
-    private fun initData(){
+    private fun setRecyclerView(binding: FragmentSmokeThrowBinding){
+        binding.apply {
+            recyclerView.layoutManager = LinearLayoutManager(this@SmokeThrowFragment.activity)
+            recyclerView.adapter =
+                context?.let {
+                    UtilityAdapter(it, throwSpots, object: UtilityAdapter.OnClickListener{
+                        override fun onItemClick(position: Int) {
+                            findNavController().navigate(R.id.nav_tutorial)
+                            selectedPos = position
+                            pos = throwSpots[position].name
+                        }
+                    })
+                }
+            recyclerView.setHasFixedSize(true)
+        }
+
+    }
+
+    private fun initData(binding: FragmentSmokeThrowBinding){
 
         val throwPosLayout = binding.throwPosLayout
 

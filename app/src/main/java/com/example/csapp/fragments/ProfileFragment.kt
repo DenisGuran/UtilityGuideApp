@@ -1,13 +1,12 @@
 package com.example.csapp.fragments
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.example.csapp.R
+import com.example.csapp.activities.AuthenticationActivity
 import com.example.csapp.databinding.FragmentProfileBinding
 import com.example.csapp.models.User
 import com.example.csapp.utils.Constants
@@ -17,47 +16,48 @@ import com.google.firebase.firestore.ktx.toObject
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
-    private var _binding: FragmentProfileBinding? = null
-    private val binding get() = _binding!!
-
     private lateinit var auth : FirebaseAuth
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        auth = FirebaseAuth.getInstance()
-        loadUserInfo()
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnLogout.setOnClickListener {
-            auth.signOut()
-            findNavController().navigate(R.id.loginFragment)
+        val binding = FragmentProfileBinding.bind(view)
+        auth = FirebaseAuth.getInstance()
+
+        binding.apply {
+            loadUserInfo(this)
+
+            btnLogout.setOnClickListener {
+                auth.signOut()
+                startActivity(Intent(activity, AuthenticationActivity::class.java))
+                activity?.finish()
+            }
         }
     }
 
-    private fun loadUserInfo() {
-        val userId = auth.currentUser!!.uid
+    private fun loadUserInfo(binding: FragmentProfileBinding) {
+        val userId = auth.currentUser?.uid
         val database = FirebaseFirestore.getInstance().collection(Constants.USERS)
 
-        database.document(userId).get()
-            .addOnSuccessListener{
-                val userProfile = it.toObject<User>()
+        if (userId != null) {
+            database.document(userId).get()
+                .addOnSuccessListener{
+                    val userProfile = it.toObject<User>()
 
-                if(userProfile != null){
-                    binding.email.text = userProfile.email.toString()
-                    binding.username.text = userProfile.username.toString()
+                    if(userProfile != null){
+                        binding.apply {
+                            email.text = userProfile.email.toString()
+                            username.text = userProfile.username.toString()
+                        }
+                    }
                 }
-            }
-            .addOnFailureListener {
-                Toast.makeText(activity, "Failed loading the profile", Toast.LENGTH_SHORT).show()
-            }
-
+                .addOnFailureListener {
+                    Toast.makeText(activity, "Failed loading the profile", Toast.LENGTH_SHORT).show()
+                    binding.apply {
+                        email.text = ""
+                        username.text = ""
+                    }
+                }
+        }
     }
 }

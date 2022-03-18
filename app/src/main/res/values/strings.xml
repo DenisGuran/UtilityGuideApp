@@ -46,5 +46,6 @@
     <string name="continue_without_login">Continue without login</string>
     <string name="reset_password">Reset password</string>
     <string name="enter_your_email">Enter your email</string>
+    <string name="search">Search</string>
 
 </resources>
