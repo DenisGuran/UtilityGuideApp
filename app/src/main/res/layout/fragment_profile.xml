@@ -84,17 +84,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogout"
+        style="@style/MaterialButton_AuthenticationStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
-        android:background="@color/black"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
         android:text="@string/logout"
-        android:textColor="@color/white"
         app:backgroundTint="@color/teal_200"
-        app:cornerRadius="70dp"
-        app:elevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
         app:layout_constraintStart_toStartOf="@+id/textView2"

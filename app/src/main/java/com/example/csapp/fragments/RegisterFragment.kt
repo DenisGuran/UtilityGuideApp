@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.csapp.R
 import com.example.csapp.databinding.FragmentRegisterBinding
-import com.example.csapp.models.User
 import com.example.csapp.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
@@ -76,21 +76,23 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     private fun register() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                //add user to database
-                saveUserInfo()
+                auth.currentUser!!.updateProfile(userProfileChangeRequest {
+                    displayName = username
+                })
+                // store user id in database
+                saveUserId()
             }
             .addOnFailureListener {
                 Toast.makeText(activity,"Account already exists!", Toast.LENGTH_SHORT).show()
             }
     }
 
-    private fun saveUserInfo() {
-        val userId = auth.uid!!
+    private fun saveUserId() {
+        val currentUser = auth.currentUser!!
         val database = FirebaseFirestore.getInstance().collection(Constants.USERS)
-        val user = User(email, username)
 
-        database.document(userId)
-            .set(user)
+        database.document(currentUser.uid)
+            .set(HashMap<String, Any>())
             .addOnSuccessListener {
                 Toast.makeText(activity,"Account created successfully!", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.loginFragment)

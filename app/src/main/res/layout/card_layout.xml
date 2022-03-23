@@ -31,11 +31,11 @@
             android:id="@+id/pos_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/lora_italic_semibold"
+            android:fontFamily="@font/lora_italic_bold"
             android:gravity="center"
             android:text="@string/stairs"
             android:textColor="@color/white"
-            android:textSize="26sp" />
+            android:textSize="22sp" />
 
     </androidx.cardview.widget.CardView>
 
