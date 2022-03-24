@@ -2,7 +2,9 @@ package com.example.csapp.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,8 +12,8 @@ import com.example.csapp.Global.Companion.maps
 import com.example.csapp.Global.Companion.pos
 import com.example.csapp.Global.Companion.selectedPos
 import com.example.csapp.Global.Companion.selectedSmoke
-import com.example.csapp.activities.MainActivity
 import com.example.csapp.R
+import com.example.csapp.activities.MainActivity
 import com.example.csapp.adapters.UtilityAdapter
 import com.example.csapp.databinding.FragmentSmokeThrowBinding
 import com.example.csapp.models.Data
@@ -21,13 +23,25 @@ class SmokeThrowFragment : Fragment(R.layout.fragment_smoke_throw) {
 
     private val throwSpots = ArrayList<Data>()
 
+    private var _binding: FragmentSmokeThrowBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentSmokeThrowBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val binding = FragmentSmokeThrowBinding.bind(view)
-        binding.apply{
-            initData(this)
-            setRecyclerView(this)
+        initData()
+        setRecyclerView()
+
+        binding.apply {
             btnMaps.setOnClickListener {
                 startActivity(Intent(activity, MainActivity::class.java))
                 activity?.finish()
@@ -35,12 +49,17 @@ class SmokeThrowFragment : Fragment(R.layout.fragment_smoke_throw) {
         }
     }
 
-    private fun setRecyclerView(binding: FragmentSmokeThrowBinding){
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    private fun setRecyclerView() {
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(this@SmokeThrowFragment.activity)
             recyclerView.adapter =
                 context?.let {
-                    UtilityAdapter(it, throwSpots, object: UtilityAdapter.OnClickListener{
+                    UtilityAdapter(it, throwSpots, object : UtilityAdapter.OnClickListener {
                         override fun onItemClick(position: Int) {
                             findNavController().navigate(R.id.nav_tutorial)
                             selectedPos = position
@@ -53,17 +72,17 @@ class SmokeThrowFragment : Fragment(R.layout.fragment_smoke_throw) {
 
     }
 
-    private fun initData(binding: FragmentSmokeThrowBinding){
+    private fun initData() {
 
         val throwPosLayout = binding.throwPosLayout
 
         throwSpots.clear()
 
-        if(maps["mirage"] == true) {
+        if (maps["mirage"] == true) {
 
             throwPosLayout.setBackgroundResource(R.drawable.mirage_background_blur)
 
-            when(selectedSmoke){
+            when (selectedSmoke) {
                 0 -> {
                     throwSpots.add(
                         Data(
@@ -96,12 +115,12 @@ class SmokeThrowFragment : Fragment(R.layout.fragment_smoke_throw) {
             }
         }
 
-        if(maps["inferno"] == true) {
+        if (maps["inferno"] == true) {
 
             throwPosLayout.setBackgroundResource(R.drawable.inferno_background_blur)
 
-            when(selectedSmoke) {
-                0 ->{
+            when (selectedSmoke) {
+                0 -> {
                     throwSpots.add(
                         Data(
                             "Banana",
@@ -116,7 +135,7 @@ class SmokeThrowFragment : Fragment(R.layout.fragment_smoke_throw) {
                     )
                 }
 
-                1 ->{
+                1 -> {
                     throwSpots.add(
                         Data(
                             "Banana",

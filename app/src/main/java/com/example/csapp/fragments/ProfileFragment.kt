@@ -2,7 +2,9 @@ package com.example.csapp.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.csapp.R
 import com.example.csapp.activities.AuthenticationActivity
@@ -11,17 +13,27 @@ import com.google.firebase.auth.FirebaseAuth
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
-    private lateinit var auth : FirebaseAuth
+    private lateinit var auth: FirebaseAuth
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val binding = FragmentProfileBinding.bind(view)
         auth = FirebaseAuth.getInstance()
 
-        binding.apply {
-            getUserProfile(this)
+        getUserProfile()
 
+        binding.apply {
             btnLogout.setOnClickListener {
                 auth.signOut()
                 startActivity(Intent(activity, AuthenticationActivity::class.java))
@@ -30,11 +42,21 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
-    private fun getUserProfile(binding: FragmentProfileBinding) {
-        val currentUser = auth.currentUser!!
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    private fun getUserProfile() {
+        val currentUser = auth.currentUser
         binding.apply {
-            email.text = currentUser.email
-            username.text = currentUser.displayName
+            if (currentUser != null) {
+                email.text = currentUser.email
+                username.text = currentUser.displayName
+            } else {
+                email.text = ""
+                username.text = ""
+            }
         }
     }
 }

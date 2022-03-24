@@ -30,9 +30,9 @@ class UtilityAdapter(private val context:Context, private val lst:ArrayList<Data
         holder.apply {
             itemView.pos_name.text = item.name
             GlideLoader(context).setImageView(item.image, itemView.pos_image)
-        }
-        holder.itemView.setOnClickListener {
-            onClickListener.onItemClick(position)
+            itemView.setOnClickListener {
+                onClickListener.onItemClick(position)
+            }
         }
     }
 

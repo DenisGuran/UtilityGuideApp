@@ -2,7 +2,9 @@ package com.example.csapp.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.csapp.Global
@@ -10,8 +12,8 @@ import com.example.csapp.Global.Companion.land
 import com.example.csapp.Global.Companion.pos
 import com.example.csapp.Global.Companion.selectedPos
 import com.example.csapp.Global.Companion.selectedSmoke
-import com.example.csapp.activities.MainActivity
 import com.example.csapp.R
+import com.example.csapp.activities.MainActivity
 import com.example.csapp.adapters.TutorialAdapter
 import com.example.csapp.databinding.FragmentTutorialBinding
 import com.example.csapp.models.TutorialData
@@ -20,14 +22,25 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
 
     private val tutorialList = ArrayList<TutorialData>()
 
+    private var _binding: FragmentTutorialBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentTutorialBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val binding = FragmentTutorialBinding.bind(view)
+        initData()
+        setRecyclerView()
 
         binding.apply {
-            initData(this)
-            setRecyclerView(this)
             textview1.text = pos.plus(" to ").plus(land)
             btnMaps.setOnClickListener {
                 startActivity(Intent(activity, MainActivity::class.java))
@@ -36,15 +49,20 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
         }
     }
 
-    private fun setRecyclerView(binding: FragmentTutorialBinding) {
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    private fun setRecyclerView() {
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(this@TutorialFragment.activity)
-            recyclerView.adapter = context?.let { TutorialAdapter(it,tutorialList) }
+            recyclerView.adapter = context?.let { TutorialAdapter(it, tutorialList) }
             recyclerView.setHasFixedSize(true)
         }
     }
 
-    private fun initData(binding: FragmentTutorialBinding) {
+    private fun initData() {
 
         val tutorialLayout = binding.tutorialLayout
 
@@ -157,9 +175,7 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
                     }
                 }
             }
-        }
-
-        else if (Global.maps["inferno"] == true) {
+        } else if (Global.maps["inferno"] == true) {
 
             tutorialLayout.setBackgroundResource(R.drawable.inferno_background_blur)
 
@@ -256,7 +272,8 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
                             )
                         )
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_coffins_land,
                                 "Landed smoke"
                             )
@@ -267,19 +284,22 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
                 2 -> when (selectedPos) {
                     0 -> {
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.moto_pos0,
                                 "Position yourself here"
                             )
                         )
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.moto_lineup0,
                                 "Left click throw"
                             )
                         )
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.moto_smoke,
                                 "Landed smoke"
                             )
@@ -288,19 +308,22 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
 
                     1 -> {
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.moto_pos1,
                                 "Position yourself over here"
                             )
                         )
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.moto_lineup1,
                                 "Jumpthrow"
                             )
                         )
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.moto_smoke,
                                 "Landed smoke"
                             )
@@ -311,19 +334,22 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
                 3 -> when (selectedPos) {
                     0 -> {
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_coffin_banana_pos,
                                 "Position yourself like this"
                             )
                         )
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_coffin_banana_lineup,
                                 "Jumpthrow"
                             )
                         )
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_deep_banana_land,
                                 "Landed smoke"
                             )
@@ -332,19 +358,22 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
 
                     1 -> {
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_trash_banana_pos,
                                 "Get stuck between pillar and trash"
                             )
                         )
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_trash_banana_lineup,
                                 "Jumpthrow"
                             )
                         )
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_deep_banana_land,
                                 "Landed smoke"
                             )
@@ -355,19 +384,22 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
                 4 -> when (selectedPos) {
                     0 -> {
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_coffin_pool_pos,
                                 "Position yourself here"
                             )
                         )
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_coffin_pool_lineup,
                                 "Jumpthrow"
                             )
                         )
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_pool_land,
                                 "Landed smoke"
                             )
@@ -376,19 +408,22 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
 
                     1 -> {
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_2ndbox_pool_pos,
                                 "Position yourself like this"
                             )
                         )
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_2ndbox_pool_lineup,
                                 "Left click throw"
                             )
                         )
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_pool_land,
                                 "Landed smoke"
                             )
@@ -397,19 +432,22 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
 
                     2 -> {
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_triple_pool_pos,
                                 "Position yourself in this zone"
                             )
                         )
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_triple_pool,
                                 "Jumpthrow"
                             )
                         )
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_pool_land,
                                 "Landed smoke"
                             )
@@ -418,19 +456,22 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
 
                     3 -> {
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_construction_pos,
                                 "Position yourself here"
                             )
                         )
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_construction_pool,
                                 "Left click throw"
                             )
                         )
                         tutorialList.add(
-                            TutorialData(tutorialList.size + 1,
+                            TutorialData(
+                                tutorialList.size + 1,
                                 R.drawable.in_construction_land,
                                 "Landed smoke"
                             )

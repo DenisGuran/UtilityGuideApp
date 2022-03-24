@@ -3,7 +3,9 @@ package com.example.csapp.fragments
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -16,7 +18,18 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
 
-    private lateinit var auth : FirebaseAuth
+    private lateinit var auth: FirebaseAuth
+    private var _binding: FragmentRegisterBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     private var username = ""
     private var email = ""
@@ -26,48 +39,46 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val binding = FragmentRegisterBinding.bind(view)
-
         auth = FirebaseAuth.getInstance()
 
         binding.apply {
             btnRegister.setOnClickListener {
-                validateDataAndRegister(this)
+                validateDataAndRegister()
             }
         }
     }
 
-    private fun validateDataAndRegister(binding: FragmentRegisterBinding) {
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    private fun validateDataAndRegister() {
         binding.apply {
             username = inputUsername.text.toString().trim()
             email = inputEmail.text.toString().trim()
             password = inputPassword.text.toString().trim()
             confirmPassword = inputConfirmPassword.text.toString().trim()
 
-            if (TextUtils.isEmpty(username)){
+            if (TextUtils.isEmpty(username)) {
                 inputUsername.error = "Username is required"
                 inputUsername.requestFocus()
-            }
-            else if (TextUtils.isEmpty(email)){
+            } else if (TextUtils.isEmpty(email)) {
                 inputEmail.error = "Email is required"
                 inputEmail.requestFocus()
             }
-            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 inputEmail.error = "Invalid email format"
                 inputEmail.requestFocus()
-            }
-            else if (TextUtils.isEmpty(password)){
+            } else if (TextUtils.isEmpty(password)) {
                 inputPassword.error = "Password is required"
                 inputPassword.requestFocus()
-            }
-            else if (password.length < 6){
+            } else if (password.length < 6) {
                 inputPassword.error = "Password must have at least 6 characters"
                 inputPassword.requestFocus()
-            }
-            else if (password != confirmPassword){
+            } else if (password != confirmPassword) {
                 inputConfirmPassword.error = "Passwords do not match"
-            }
-            else{
+            } else {
                 register()
             }
         }
@@ -83,7 +94,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 saveUserId()
             }
             .addOnFailureListener {
-                Toast.makeText(activity,"Account already exists!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Account already exists!", Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -94,7 +105,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         database.document(currentUser.uid)
             .set(HashMap<String, Any>())
             .addOnSuccessListener {
-                Toast.makeText(activity,"Account created successfully!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Account created successfully!", Toast.LENGTH_SHORT).show()
                 findNavController().navigate(R.id.loginFragment)
             }
     }
