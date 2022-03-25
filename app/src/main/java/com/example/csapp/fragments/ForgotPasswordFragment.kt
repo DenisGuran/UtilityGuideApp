@@ -71,7 +71,8 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
                     "Check your email to reset the password",
                     Toast.LENGTH_SHORT
                 ).show()
-                findNavController().navigate(R.id.loginFragment)
+                val navLogin = ForgotPasswordFragmentDirections.actionForgotPasswordFragmentToLoginFragment()
+                findNavController().navigate(navLogin)
             }
             .addOnFailureListener {
                 Toast.makeText(activity, "Email is not registered", Toast.LENGTH_SHORT).show()

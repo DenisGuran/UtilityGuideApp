@@ -44,6 +44,18 @@
         <item name="android:layout_marginTop">16dp</item>
     </style>
 
+    <style name="TextView_Tutorial_TitleStyle">
+        <item name="android:textColor">@color/title_color</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/lora_italic_bold</item>
+        <item name="android:layout_marginTop">16dp</item>
+    </style>
+
+    <style name="HelperText_Design">
+        <item name="helperTextTextColor">@color/red</item>
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
 
 

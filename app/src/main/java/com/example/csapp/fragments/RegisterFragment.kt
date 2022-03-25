@@ -106,7 +106,8 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             .set(HashMap<String, Any>())
             .addOnSuccessListener {
                 Toast.makeText(activity, "Account created successfully!", Toast.LENGTH_SHORT).show()
-                findNavController().navigate(R.id.loginFragment)
+                val navLogin = RegisterFragmentDirections.actionRegisterFragmentToLoginFragment()
+                findNavController().navigate(navLogin)
             }
     }
 

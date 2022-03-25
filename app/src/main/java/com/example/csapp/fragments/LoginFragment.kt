@@ -92,11 +92,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
 
             btnCreateAccount.setOnClickListener {
-                findNavController().navigate(R.id.registerFragment)
+                val navRegister = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+                findNavController().navigate(navRegister)
             }
 
             btnForgotPassword.setOnClickListener {
-                findNavController().navigate(R.id.forgotPasswordFragment)
+                val navForgotPassword = LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment()
+                findNavController().navigate(navForgotPassword)
             }
         }
 
