@@ -1,18 +1,24 @@
 package com.example.csapp.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.csapp.Global
 import com.example.csapp.R
-import com.example.csapp.activities.NaviActivity
 import com.example.csapp.databinding.FragmentMapsBinding
+import com.example.csapp.utils.Constants
+import kotlinx.android.synthetic.main.activity_authentication.*
+import kotlin.collections.set
 
 class MapsFragment : Fragment(R.layout.fragment_maps) {
+
+    private var backPressedTime: Long = 0L
+    private lateinit var backPressedToast: Toast
 
     private var _binding: FragmentMapsBinding? = null
     private val binding get() = _binding!!
@@ -30,6 +36,12 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
         super.onViewCreated(view, savedInstanceState)
 
         initData()
+        doubleTapToExit()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setUpBottomNavBar()
     }
 
     override fun onDestroy() {
@@ -37,57 +49,77 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
         _binding = null
     }
 
+    private fun setUpBottomNavBar() {
+        if (requireActivity().bottom_nav.visibility == View.INVISIBLE) {
+            requireActivity().bottom_nav.visibility = View.VISIBLE
+        }
+        if (requireActivity().bottom_nav.menu.getItem(0).itemId == R.id.nav_utility_smoke) {
+            requireActivity().bottom_nav.menu.clear()
+            requireActivity().bottom_nav.inflateMenu(R.menu.home_menu)
+        }
+    }
+
+    private fun doubleTapToExit() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (backPressedTime + Constants.EXIT_TIME > System.currentTimeMillis()) {
+                        backPressedToast.cancel()
+                        requireActivity().finish()
+                        return
+                    } else {
+                        backPressedToast =
+                            Toast.makeText(activity, "Press back again to exit", Toast.LENGTH_SHORT)
+                        backPressedToast.show()
+                    }
+                    backPressedTime = System.currentTimeMillis()
+                }
+            })
+    }
+
     private fun initData() {
         binding.apply {
-            buttonProfile.setOnClickListener {
-                findNavController().navigate(R.id.profileFragment)
-            }
             cardMirage.setOnClickListener {
-                startActivity(Intent(activity, NaviActivity::class.java))
                 for (l in Global.maps)
                     l.setValue(false)
                 Global.maps["mirage"] = true
             }
 
             cardInferno.setOnClickListener {
-                startActivity(Intent(activity, NaviActivity::class.java))
-                activity?.finish()
+                val navUtilities = MapsFragmentDirections.actionGlobalNavUtility()
+                findNavController().navigate(navUtilities)
+                findNavController().setGraph(R.navigation.nav_utility)
                 for (l in Global.maps)
                     l.setValue(false)
                 Global.maps["inferno"] = true
             }
 
             cardDust2.setOnClickListener {
-                startActivity(Intent(activity, NaviActivity::class.java))
-                activity?.finish()
                 for (l in Global.maps)
                     l.setValue(false)
                 Global.maps["dust2"] = true
             }
 
             cardOverpass.setOnClickListener {
-                startActivity(Intent(activity, NaviActivity::class.java))
                 for (l in Global.maps)
                     l.setValue(false)
                 Global.maps["overpass"] = true
             }
 
             cardNuke.setOnClickListener {
-                startActivity(Intent(activity, NaviActivity::class.java))
                 for (l in Global.maps)
                     l.setValue(false)
                 Global.maps["nuke"] = true
             }
 
             cardVertigo.setOnClickListener {
-                startActivity(Intent(activity, NaviActivity::class.java))
                 for (l in Global.maps)
                     l.setValue(false)
                 Global.maps["vertigo"] = true
             }
 
             cardAncient.setOnClickListener {
-                startActivity(Intent(activity, NaviActivity::class.java))
                 for (l in Global.maps)
                     l.setValue(false)
                 Global.maps["ancient"] = true

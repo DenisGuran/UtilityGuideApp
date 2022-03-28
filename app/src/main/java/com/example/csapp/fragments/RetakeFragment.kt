@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.csapp.Global
 import com.example.csapp.R
 import com.example.csapp.databinding.FragmentRetakeBinding
@@ -28,11 +30,25 @@ class RetakeFragment : Fragment(R.layout.fragment_retake) {
         super.onViewCreated(view, savedInstanceState)
 
         initData()
+        onBackPressedGoToMaps()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun onBackPressedGoToMaps() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack()
+                    findNavController().setGraph(R.navigation.nav_graph)
+                    val navHome = MapsFragmentDirections.actionGlobalHome()
+                    findNavController().navigate(navHome)
+                }
+            })
     }
 
     private fun initData() {

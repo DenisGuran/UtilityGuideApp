@@ -1,13 +1,12 @@
 package com.example.csapp.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.csapp.R
-import com.example.csapp.activities.AuthenticationActivity
 import com.example.csapp.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -36,8 +35,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.apply {
             btnLogout.setOnClickListener {
                 auth.signOut()
-                startActivity(Intent(activity, AuthenticationActivity::class.java))
-                activity?.finish()
+                val navAuth = ProfileFragmentDirections.actionHomeToAuthentication()
+                findNavController().navigate(navAuth)
             }
         }
     }

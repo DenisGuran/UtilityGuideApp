@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_utility_smoke"
+    app:startDestination="@id/smokeLandFragment">
+
+    <fragment
+        android:id="@+id/smokeLandFragment"
+        android:name="com.example.csapp.fragments.SmokeLandFragment"
+        android:label="fragment_smoke_land"
+        tools:layout="@layout/fragment_smoke_land" >
+        <action
+            android:id="@+id/action_smokeLandFragment_to_smokeThrowFragment"
+            app:destination="@id/smokeThrowFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/smokeThrowFragment"
+        android:name="com.example.csapp.fragments.SmokeThrowFragment"
+        android:label="fragment_smoke_throw"
+        tools:layout="@layout/fragment_smoke_throw" >
+        <action
+            android:id="@+id/action_smokeThrowFragment_to_tutorialFragment"
+            app:destination="@id/tutorialFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tutorialFragment"
+        android:name="com.example.csapp.fragments.TutorialFragment"
+        android:label="fragment_tutorial"
+        tools:layout="@layout/fragment_tutorial" />
+</navigation>

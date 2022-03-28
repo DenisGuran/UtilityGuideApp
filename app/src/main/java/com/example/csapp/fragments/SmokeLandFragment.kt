@@ -1,10 +1,10 @@
 package com.example.csapp.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,11 +12,11 @@ import com.example.csapp.Global.Companion.land
 import com.example.csapp.Global.Companion.maps
 import com.example.csapp.Global.Companion.selectedSmoke
 import com.example.csapp.R
-import com.example.csapp.activities.MainActivity
 import com.example.csapp.adapters.UtilityAdapter
 import com.example.csapp.databinding.FragmentSmokeLandBinding
 import com.example.csapp.models.Data
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_authentication.*
 
 class SmokeLandFragment : Fragment(R.layout.fragment_smoke_land) {
 
@@ -41,14 +41,12 @@ class SmokeLandFragment : Fragment(R.layout.fragment_smoke_land) {
 
         initData()
         setRecyclerView()
+        onBackPressedGoToMaps()
+    }
 
-        binding.apply {
-            btnMaps.setOnClickListener {
-                startActivity(Intent(activity, MainActivity::class.java))
-                activity?.finish()
-            }
-        }
-        changeEventListener()
+    override fun onStart() {
+        super.onStart()
+        setUpBottomNavBar()
     }
 
     override fun onDestroy() {
@@ -56,8 +54,24 @@ class SmokeLandFragment : Fragment(R.layout.fragment_smoke_land) {
         _binding = null
     }
 
-    private fun changeEventListener() {
-//        database.collection(Constants.MAPS).
+    private fun setUpBottomNavBar() {
+        if (requireActivity().bottom_nav.menu.getItem(0).itemId == R.id.mapsFragment) {
+            requireActivity().bottom_nav.menu.clear()
+            requireActivity().bottom_nav.inflateMenu(R.menu.utility_menu)
+        }
+    }
+
+    private fun onBackPressedGoToMaps() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack()
+                    findNavController().setGraph(R.navigation.nav_graph)
+                    val navHome = MapsFragmentDirections.actionGlobalHome()
+                    findNavController().navigate(navHome)
+                }
+            })
     }
 
     private fun setRecyclerView() {
@@ -69,7 +83,8 @@ class SmokeLandFragment : Fragment(R.layout.fragment_smoke_land) {
                     landingSpots,
                     object : UtilityAdapter.OnClickListener {
                         override fun onItemClick(position: Int) {
-                            findNavController().navigate(R.id.nav_throw_pos)
+                            val navThrow = SmokeLandFragmentDirections.actionSmokeLandFragmentToSmokeThrowFragment()
+                            findNavController().navigate(navThrow)
                             selectedSmoke = position
                             land = landingSpots[position].name
                         }

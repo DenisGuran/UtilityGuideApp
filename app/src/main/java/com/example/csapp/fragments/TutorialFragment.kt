@@ -1,11 +1,11 @@
 package com.example.csapp.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.csapp.Global
 import com.example.csapp.Global.Companion.land
@@ -13,7 +13,6 @@ import com.example.csapp.Global.Companion.pos
 import com.example.csapp.Global.Companion.selectedPos
 import com.example.csapp.Global.Companion.selectedSmoke
 import com.example.csapp.R
-import com.example.csapp.activities.MainActivity
 import com.example.csapp.adapters.TutorialAdapter
 import com.example.csapp.databinding.FragmentTutorialBinding
 import com.example.csapp.models.TutorialData
@@ -43,8 +42,9 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
         binding.apply {
             textview1.text = pos.plus(" to ").plus(land)
             btnMaps.setOnClickListener {
-                startActivity(Intent(activity, MainActivity::class.java))
-                activity?.finish()
+                findNavController().setGraph(R.navigation.nav_graph)
+                val navHome = MapsFragmentDirections.actionGlobalHome()
+                findNavController().navigate(navHome)
             }
         }
     }

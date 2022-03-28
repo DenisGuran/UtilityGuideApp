@@ -9,12 +9,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CsApp">
         <activity
-            android:name=".activities.MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activities.NaviActivity"
-            android:exported="false"/>
-        <activity
             android:name=".activities.AuthenticationActivity"
             android:exported="true">
             <intent-filter>

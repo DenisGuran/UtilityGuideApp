@@ -15,9 +15,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
 
-    private lateinit var auth: FirebaseAuth
     private var email = ""
-
+    private lateinit var auth : FirebaseAuth
     private var _binding: FragmentForgotPasswordBinding? = null
     private val binding get() = _binding!!
 
@@ -51,13 +50,15 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
         binding.apply {
             email = inputEmail.text.toString().trim()
 
-            if (TextUtils.isEmpty(email)) {
+            if (TextUtils.isEmpty(email)){
                 inputEmail.error = "Email is required"
                 inputEmail.requestFocus()
-            } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            }
+            else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
                 inputEmail.error = "Please, provide a valid email"
                 inputEmail.requestFocus()
-            } else {
+            }
+            else{
                 resetPassword()
             }
         }
@@ -66,13 +67,8 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
     private fun resetPassword() {
         auth.sendPasswordResetEmail(email)
             .addOnSuccessListener {
-                Toast.makeText(
-                    activity,
-                    "Check your email to reset the password",
-                    Toast.LENGTH_SHORT
-                ).show()
-                val navLogin = ForgotPasswordFragmentDirections.actionForgotPasswordFragmentToLoginFragment()
-                findNavController().navigate(navLogin)
+                Toast.makeText(activity, "Check your email to reset the password", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.loginFragment)
             }
             .addOnFailureListener {
                 Toast.makeText(activity, "Email is not registered", Toast.LENGTH_SHORT).show()

@@ -50,7 +50,7 @@
         app:layout_constraintTop_toBottomOf="@+id/layoutPassword"
         app:passwordToggleEnabled="true">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputConfirmPassword"
             style="@style/EditText_AuthenticationStyle"
             android:layout_width="match_parent"
@@ -81,7 +81,7 @@
         app:layout_constraintTop_toBottomOf="@+id/inputEmail"
         app:passwordToggleEnabled="true">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputPassword"
             style="@style/EditText_AuthenticationStyle"
             android:layout_width="match_parent"

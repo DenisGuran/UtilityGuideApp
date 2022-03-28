@@ -1,6 +1,5 @@
 package com.example.csapp.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +12,6 @@ import com.example.csapp.Global.Companion.pos
 import com.example.csapp.Global.Companion.selectedPos
 import com.example.csapp.Global.Companion.selectedSmoke
 import com.example.csapp.R
-import com.example.csapp.activities.MainActivity
 import com.example.csapp.adapters.UtilityAdapter
 import com.example.csapp.databinding.FragmentSmokeThrowBinding
 import com.example.csapp.models.Data
@@ -43,8 +41,9 @@ class SmokeThrowFragment : Fragment(R.layout.fragment_smoke_throw) {
 
         binding.apply {
             btnMaps.setOnClickListener {
-                startActivity(Intent(activity, MainActivity::class.java))
-                activity?.finish()
+                findNavController().setGraph(R.navigation.nav_graph)
+                val navHome = MapsFragmentDirections.actionGlobalHome()
+                findNavController().navigate(navHome)
             }
         }
     }
@@ -61,7 +60,8 @@ class SmokeThrowFragment : Fragment(R.layout.fragment_smoke_throw) {
                 context?.let {
                     UtilityAdapter(it, throwSpots, object : UtilityAdapter.OnClickListener {
                         override fun onItemClick(position: Int) {
-                            findNavController().navigate(R.id.nav_tutorial)
+                            val navTutorial = SmokeThrowFragmentDirections.actionSmokeThrowFragmentToTutorialFragment()
+                            findNavController().navigate(navTutorial)
                             selectedPos = position
                             pos = throwSpots[position].name
                         }

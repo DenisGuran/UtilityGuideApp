@@ -8,7 +8,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:id="@+id/fragment_maps_layout"
-    tools:context=".activities.MainActivity">
+    tools:context=".fragments.MapsFragment">
 
     <TextView
         android:layout_width="wrap_content"
@@ -22,15 +22,10 @@
         android:textSize="32sp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/buttonProfile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Button" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="50dp"
         tools:ignore="UselessParent">
 
         <GridLayout

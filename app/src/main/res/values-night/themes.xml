@@ -16,7 +16,7 @@
     <!-- Bottom navigation font. -->
     <style name="BottomNavigationStyle"
         parent="Widget.Design.BottomNavigationView">
-        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="fontFamily">@font/lora_italic_bold</item>
     </style>
 
 </resources>

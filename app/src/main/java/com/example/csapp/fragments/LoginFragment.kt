@@ -1,7 +1,6 @@
 package com.example.csapp.fragments
 
 import android.app.Activity.RESULT_OK
-import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -15,7 +14,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.csapp.R
-import com.example.csapp.activities.MainActivity
 import com.example.csapp.databinding.FragmentLoginBinding
 import com.example.csapp.utils.Constants
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -79,7 +77,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         binding.apply {
             btnLogin.setOnClickListener {
-                validateDataAndLogin(this)
+                validateDataAndLogin()
             }
 
             btnGoogleSignIn.setOnClickListener {
@@ -87,8 +85,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
 
             btnContinue.setOnClickListener {
-                startActivity(Intent(activity, MainActivity::class.java))
-                requireActivity().finish()
+                val navMaps = LoginFragmentDirections.actionAuthenticationToHome()
+                findNavController().navigate(navMaps)
             }
 
             btnCreateAccount.setOnClickListener {
@@ -97,7 +95,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
 
             btnForgotPassword.setOnClickListener {
-                val navForgotPassword = LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment()
+                val navForgotPassword =
+                    LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment()
                 findNavController().navigate(navForgotPassword)
             }
         }
@@ -118,8 +117,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun updateUI(currentUser: FirebaseUser?) {
         if (currentUser != null) {
-            startActivity(Intent(activity, MainActivity::class.java))
-            requireActivity().finish()
+            val navMaps = LoginFragmentDirections.actionAuthenticationToHome()
+            findNavController().navigate(navMaps)
         }
     }
 
@@ -145,6 +144,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 }
             }
             .addOnFailureListener(requireActivity()) {
+                Toast.makeText(activity, "$it", Toast.LENGTH_LONG).show()
                 Log.w(TAG, "login with Google: failure", it)
             }
     }
@@ -168,7 +168,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             })
     }
 
-    private fun validateDataAndLogin(binding: FragmentLoginBinding) {
+    private fun validateDataAndLogin() {
         binding.apply {
             email = inputEmail.text.toString().trim()
             password = inputPassword.text.toString().trim()

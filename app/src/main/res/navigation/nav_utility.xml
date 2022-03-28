@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_utility"
+    app:startDestination="@id/nav_utility_smoke">
+
+    <include app:graph="@navigation/nav_utility_smoke" />
+    <fragment
+        android:id="@+id/flashFragment"
+        android:name="com.example.csapp.fragments.FlashFragment"
+        android:label="fragment_flash"
+        tools:layout="@layout/fragment_flash" />
+    <fragment
+        android:id="@+id/molotovFragment"
+        android:name="com.example.csapp.fragments.MolotovFragment"
+        android:label="fragment_molotov"
+        tools:layout="@layout/fragment_molotov" />
+    <fragment
+        android:id="@+id/retakeFragment"
+        android:name="com.example.csapp.fragments.RetakeFragment"
+        android:label="fragment_retake"
+        tools:layout="@layout/fragment_retake" />
+</navigation>

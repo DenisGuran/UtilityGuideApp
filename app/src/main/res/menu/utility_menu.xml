@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/nav_smoke"
+        android:id="@+id/nav_utility_smoke"
         android:title="@string/smokes"
         android:icon="@drawable/smoke"/>
 
     <item
-        android:id="@+id/nav_flash"
+        android:id="@+id/flashFragment"
         android:title="@string/flashes"
         android:icon="@drawable/flash"/>
 
     <item
-        android:id="@+id/nav_molotov"
+        android:id="@+id/molotovFragment"
         android:title="@string/molotovs"
         android:icon="@drawable/molotov"/>
 
     <item
-        android:id="@+id/nav_retake"
+        android:id="@+id/retakeFragment"
         android:title="@string/retake"
         android:icon="@drawable/retake" />
 

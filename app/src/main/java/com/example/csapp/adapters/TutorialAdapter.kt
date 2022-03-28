@@ -25,7 +25,7 @@ class TutorialAdapter(private val context: Context, private val tutorialList:Arr
         holder.apply {
             itemView.textview_above.text = tutorial.step.toString()
             itemView.textview_below.text = tutorial.details
-            GlideLoader(context).setZoomageView(tutorial.image, itemView.zoomView)
+            GlideLoader(context).loadZoomageView(tutorial.image, itemView.zoomView)
         }
     }
 
