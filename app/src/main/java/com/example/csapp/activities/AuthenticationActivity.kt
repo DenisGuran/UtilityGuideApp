@@ -7,10 +7,12 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.csapp.R
 import com.example.csapp.databinding.ActivityAuthenticationBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class AuthenticationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAuthenticationBinding
+    lateinit var bottomNav : BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +25,7 @@ class AuthenticationActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         binding.apply {
             bottomNav.setupWithNavController(navController)
+            this@AuthenticationActivity.bottomNav = bottomNav
             navController.addOnDestinationChangedListener { _, destination, _ ->
                 if (destination.id in listOf(
                         R.id.loginFragment,

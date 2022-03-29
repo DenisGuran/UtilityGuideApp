@@ -57,25 +57,22 @@ class SmokeThrowFragment : Fragment(R.layout.fragment_smoke_throw) {
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(this@SmokeThrowFragment.activity)
             recyclerView.adapter =
-                context?.let {
-                    UtilityAdapter(it, throwSpots, object : UtilityAdapter.OnClickListener {
-                        override fun onItemClick(position: Int) {
-                            val navTutorial = SmokeThrowFragmentDirections.actionSmokeThrowFragmentToTutorialFragment()
-                            findNavController().navigate(navTutorial)
-                            selectedPos = position
-                            pos = throwSpots[position].name
-                        }
-                    })
-                }
+                UtilityAdapter(throwSpots, object : UtilityAdapter.OnClickListener {
+                    override fun onItemClick(position: Int) {
+                        val navTutorial =
+                            SmokeThrowFragmentDirections.actionSmokeThrowFragmentToTutorialFragment()
+                        findNavController().navigate(navTutorial)
+                        selectedPos = position
+                        pos = throwSpots[position].name
+                    }
+                })
             recyclerView.setHasFixedSize(true)
         }
-
     }
 
     private fun initData() {
 
         val throwPosLayout = binding.throwPosLayout
-
         throwSpots.clear()
 
         if (maps["mirage"] == true) {

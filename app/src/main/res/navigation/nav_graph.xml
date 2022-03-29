@@ -72,7 +72,7 @@
         <action
             android:id="@+id/action_global_nav_utility"
             app:destination="@id/nav_utility"
-            app:popUpTo="@id/home"
+            app:popUpTo="@id/mapsFragment"
             app:popUpToInclusive="true" />
     </navigation>
     <include app:graph="@navigation/nav_utility" />

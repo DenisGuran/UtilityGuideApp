@@ -1,37 +1,39 @@
 package com.example.csapp.adapters
 
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.csapp.R
+import com.example.csapp.databinding.CardLayoutBinding
 import com.example.csapp.models.Data
 import com.example.csapp.utils.GlideLoader
-import kotlinx.android.synthetic.main.card_layout.view.*
 
-class UtilityAdapter(private val context:Context, private val lst:ArrayList<Data>, private val onClickListener: OnClickListener): RecyclerView.Adapter<UtilityAdapter.ViewHolder>(){
+class UtilityAdapter(
+    private val lst: ArrayList<Data>,
+    private val onClickListener: OnClickListener
+) : RecyclerView.Adapter<UtilityAdapter.ViewHolder>() {
 
-    interface OnClickListener{
+    interface OnClickListener {
         fun onItemClick(position: Int)
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+    inner class ViewHolder(val binding: CardLayoutBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UtilityAdapter.ViewHolder {
-        val view= LayoutInflater.from(parent.context.applicationContext)
-            .inflate(R.layout.card_layout ,parent,false)
-        return ViewHolder(view)
+        val binding = CardLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: UtilityAdapter.ViewHolder, position: Int) {
-        val item = lst[position]
         holder.apply {
-            itemView.pos_name.text = item.name
-            GlideLoader(context).loadImageView(item.image, itemView.pos_image)
-            itemView.setOnClickListener {
-                onClickListener.onItemClick(position)
+            lst[position].apply {
+                binding.apply {
+                    posName.text = name
+                    GlideLoader(itemView.context).loadImageView(image, posImage)
+                    itemView.setOnClickListener {
+                        onClickListener.onItemClick(position)
+                    }
+                }
             }
         }
     }

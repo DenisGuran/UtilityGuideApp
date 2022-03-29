@@ -28,6 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
     companion object {
+        private const val RC_SIGN_IN = 0
         private const val TAG = "GoogleActivity"
     }
 

@@ -6,10 +6,11 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.module.AppGlideModule
 import com.jsibbold.zoomage.ZoomageView
 
 @GlideModule
-class GlideLoader(val context: Context) {
+class GlideLoader(val context: Context) : AppGlideModule(){
 
     fun loadZoomageView(drawable: Int, zoomView: ZoomageView){
         Glide

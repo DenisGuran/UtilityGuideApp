@@ -10,9 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.csapp.Global
 import com.example.csapp.R
+import com.example.csapp.activities.AuthenticationActivity
 import com.example.csapp.databinding.FragmentMapsBinding
 import com.example.csapp.utils.Constants
-import kotlinx.android.synthetic.main.activity_authentication.*
 import kotlin.collections.set
 
 class MapsFragment : Fragment(R.layout.fragment_maps) {
@@ -50,12 +50,13 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
     }
 
     private fun setUpBottomNavBar() {
-        if (requireActivity().bottom_nav.visibility == View.INVISIBLE) {
-            requireActivity().bottom_nav.visibility = View.VISIBLE
+        val bottomNav = (requireActivity() as AuthenticationActivity).bottomNav
+        if (bottomNav.visibility == View.INVISIBLE) {
+            bottomNav.visibility = View.VISIBLE
         }
-        if (requireActivity().bottom_nav.menu.getItem(0).itemId == R.id.nav_utility_smoke) {
-            requireActivity().bottom_nav.menu.clear()
-            requireActivity().bottom_nav.inflateMenu(R.menu.home_menu)
+        if (bottomNav.menu.getItem(0).itemId == R.id.nav_utility_smoke) {
+            bottomNav.menu.clear()
+            bottomNav.inflateMenu(R.menu.home_menu)
         }
     }
 

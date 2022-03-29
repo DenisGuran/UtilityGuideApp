@@ -57,7 +57,7 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
     private fun setRecyclerView() {
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(this@TutorialFragment.activity)
-            recyclerView.adapter = context?.let { TutorialAdapter(it, tutorialList) }
+            recyclerView.adapter = TutorialAdapter(tutorialList)
             recyclerView.setHasFixedSize(true)
         }
     }

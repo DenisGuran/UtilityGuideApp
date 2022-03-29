@@ -12,11 +12,11 @@ import com.example.csapp.Global.Companion.land
 import com.example.csapp.Global.Companion.maps
 import com.example.csapp.Global.Companion.selectedSmoke
 import com.example.csapp.R
+import com.example.csapp.activities.AuthenticationActivity
 import com.example.csapp.adapters.UtilityAdapter
 import com.example.csapp.databinding.FragmentSmokeLandBinding
 import com.example.csapp.models.Data
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_authentication.*
 
 class SmokeLandFragment : Fragment(R.layout.fragment_smoke_land) {
 
@@ -55,9 +55,10 @@ class SmokeLandFragment : Fragment(R.layout.fragment_smoke_land) {
     }
 
     private fun setUpBottomNavBar() {
-        if (requireActivity().bottom_nav.menu.getItem(0).itemId == R.id.mapsFragment) {
-            requireActivity().bottom_nav.menu.clear()
-            requireActivity().bottom_nav.inflateMenu(R.menu.utility_menu)
+        val bottomNav = (requireActivity() as AuthenticationActivity).bottomNav
+        if (bottomNav.menu.getItem(0).itemId == R.id.mapsFragment) {
+            bottomNav.menu.clear()
+            bottomNav.inflateMenu(R.menu.utility_menu)
         }
     }
 
@@ -78,17 +79,15 @@ class SmokeLandFragment : Fragment(R.layout.fragment_smoke_land) {
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(this@SmokeLandFragment.activity)
             recyclerView.adapter =
-                UtilityAdapter(
-                    this@SmokeLandFragment.requireContext(),
-                    landingSpots,
-                    object : UtilityAdapter.OnClickListener {
-                        override fun onItemClick(position: Int) {
-                            val navThrow = SmokeLandFragmentDirections.actionSmokeLandFragmentToSmokeThrowFragment()
-                            findNavController().navigate(navThrow)
-                            selectedSmoke = position
-                            land = landingSpots[position].name
-                        }
-                    })
+                UtilityAdapter(landingSpots, object : UtilityAdapter.OnClickListener {
+                    override fun onItemClick(position: Int) {
+                        val navThrow =
+                            SmokeLandFragmentDirections.actionSmokeLandFragmentToSmokeThrowFragment()
+                        findNavController().navigate(navThrow)
+                        selectedSmoke = position
+                        land = landingSpots[position].name
+                    }
+                })
             recyclerView.setHasFixedSize(true)
         }
     }
