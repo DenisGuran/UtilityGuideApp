@@ -1,6 +1,6 @@
 package com.example.csapp.fragments
 
-import android.app.Activity.RESULT_OK
+import android.app.Activity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
@@ -28,7 +28,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
     companion object {
-        private const val RC_SIGN_IN = 0
+        private const val REQUEST_CODE_SIGN_IN = 7
         private const val TAG = "GoogleActivity"
     }
 
@@ -48,12 +48,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) {
-            if (it.resultCode == RESULT_OK) {
+            if(it.resultCode == Activity.RESULT_OK){
                 val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
                 try {
                     // Google Sign In was successful, authenticate with Firebase
                     val account = task.getResult(ApiException::class.java)!!
-                    Log.i(TAG, "firebaseAuthWithGoogle:" + account.id)
+                    Log.i(TAG, "Firebase authentication")
                     firebaseAuthWithGoogle(account.idToken!!)
                 } catch (e: ApiException) {
                     // Google Sign In failed, update UI appropriately
@@ -127,7 +127,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
             .addOnSuccessListener(requireActivity()) { it ->
-                Log.i(TAG, "login with Google: success")
+                Log.i(TAG, "Login with Google: success")
                 val currentUser = auth.currentUser!!
                 //if user is new, store id in database
                 if (it.additionalUserInfo!!.isNewUser) {
@@ -146,7 +146,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
             .addOnFailureListener(requireActivity()) {
                 Toast.makeText(activity, "$it", Toast.LENGTH_LONG).show()
-                Log.w(TAG, "login with Google: failure", it)
+                Log.w(TAG, "Login with Google: failure", it)
             }
     }
 
@@ -161,7 +161,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         return
                     } else {
                         backPressedToast =
-                            Toast.makeText(activity, "Press back again to exit", Toast.LENGTH_SHORT)
+                            Toast.makeText(activity, "Press back again to exit", Toast.LENGTH_LONG)
                         backPressedToast.show()
                     }
                     backPressedTime = System.currentTimeMillis()
@@ -209,7 +209,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this.requireActivity(), gso)
-        val signInIntent = googleSignInClient.signInIntent
+        val signInIntent = googleSignInClient.signInIntent.putExtra("REQUEST_CODE_SIGN_IN", REQUEST_CODE_SIGN_IN)
 
         googleLoginRequest.launch(signInIntent)
     }

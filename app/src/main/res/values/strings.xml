@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">CsApp</string>
-    <string name="storage_location">gs://utilityhub-db.appspot.com/</string>
+    <string name="app_name">UtilityHub</string>
     <string name="mirage">Mirage</string>
     <string name="inferno">Inferno</string>
     <string name="dust2">Dust2</string>

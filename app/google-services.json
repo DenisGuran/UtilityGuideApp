@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "259964324437-efdpovcoj5ap0ng8fog5prmovkbfv7tq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.csapp",
+            "certificate_hash": "7a7ec9fbab3c08af783c27e745aeda0687c80049"
+          }
+        },
+        {
           "client_id": "259964324437-omaholir1uvcod50pl29i07aa6881j8c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
