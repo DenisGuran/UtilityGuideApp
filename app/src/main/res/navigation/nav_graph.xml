@@ -10,7 +10,7 @@
         app:startDestination="@id/loginFragment">
         <fragment
             android:id="@+id/loginFragment"
-            android:name="com.example.csapp.fragments.LoginFragment"
+            android:name="com.utilityhub.csapp.fragments.LoginFragment"
             android:label="fragment_login"
             tools:layout="@layout/fragment_login">
             <action
@@ -22,7 +22,7 @@
         </fragment>
         <fragment
             android:id="@+id/forgotPasswordFragment"
-            android:name="com.example.csapp.fragments.ForgotPasswordFragment"
+            android:name="com.utilityhub.csapp.fragments.ForgotPasswordFragment"
             android:label="fragment_forgot_password"
             tools:layout="@layout/fragment_forgot_password">
             <action
@@ -33,7 +33,7 @@
         </fragment>
         <fragment
             android:id="@+id/registerFragment"
-            android:name="com.example.csapp.fragments.RegisterFragment"
+            android:name="com.utilityhub.csapp.fragments.RegisterFragment"
             android:label="fragment_register"
             tools:layout="@layout/fragment_register">
             <action
@@ -53,7 +53,7 @@
         app:startDestination="@id/mapsFragment">
         <fragment
             android:id="@+id/mapsFragment"
-            android:name="com.example.csapp.fragments.MapsFragment"
+            android:name="com.utilityhub.csapp.fragments.MapsFragment"
             android:label="MapsFragment">
             <action
                 android:id="@+id/action_mapsFragment_to_profileFragment"
@@ -61,7 +61,7 @@
         </fragment>
         <fragment
             android:id="@+id/profileFragment"
-            android:name="com.example.csapp.fragments.ProfileFragment"
+            android:name="com.utilityhub.csapp.fragments.ProfileFragment"
             android:label="fragment_profile"
             tools:layout="@layout/fragment_profile" />
         <action

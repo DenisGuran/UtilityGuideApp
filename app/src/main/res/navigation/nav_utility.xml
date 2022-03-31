@@ -8,17 +8,17 @@
     <include app:graph="@navigation/nav_utility_smoke" />
     <fragment
         android:id="@+id/flashFragment"
-        android:name="com.example.csapp.fragments.FlashFragment"
+        android:name="com.utilityhub.csapp.fragments.FlashFragment"
         android:label="fragment_flash"
         tools:layout="@layout/fragment_flash" />
     <fragment
         android:id="@+id/molotovFragment"
-        android:name="com.example.csapp.fragments.MolotovFragment"
+        android:name="com.utilityhub.csapp.fragments.MolotovFragment"
         android:label="fragment_molotov"
         tools:layout="@layout/fragment_molotov" />
     <fragment
         android:id="@+id/retakeFragment"
-        android:name="com.example.csapp.fragments.RetakeFragment"
+        android:name="com.utilityhub.csapp.fragments.RetakeFragment"
         android:label="fragment_retake"
         tools:layout="@layout/fragment_retake" />
 </navigation>

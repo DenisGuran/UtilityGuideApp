@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.csapp">
+    package="com.utilityhub.csapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <application
@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CsApp">
         <activity
-            android:name=".activities.AuthenticationActivity"
+            android:name="com.utilityhub.csapp.activities.AuthenticationActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

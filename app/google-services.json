@@ -8,26 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:259964324437:android:30ef9519a2fe10325e22dc",
+        "mobilesdk_app_id": "1:259964324437:android:3d9965e851f12e935e22dc",
         "android_client_info": {
-          "package_name": "com.example.csapp"
+          "package_name": "com.utilityhub.csapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "259964324437-efdpovcoj5ap0ng8fog5prmovkbfv7tq.apps.googleusercontent.com",
+          "client_id": "259964324437-ne3dqb64155kt4vh3s82a2qd2eftl01l.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.csapp",
+            "package_name": "com.utilityhub.csapp",
             "certificate_hash": "7a7ec9fbab3c08af783c27e745aeda0687c80049"
-          }
-        },
-        {
-          "client_id": "259964324437-omaholir1uvcod50pl29i07aa6881j8c.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.csapp",
-            "certificate_hash": "78e7d218c04e50391eb3615fa7387b4c59f77b93"
           }
         },
         {
