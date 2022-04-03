@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.utilityhub.csapp.Global
-import com.utilityhub.csapp.Global.Companion.land
-import com.utilityhub.csapp.Global.Companion.pos
 import com.utilityhub.csapp.Global.Companion.selectedPos
 import com.utilityhub.csapp.Global.Companion.selectedSmoke
 import com.utilityhub.csapp.R
@@ -24,12 +23,18 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
     private var _binding: FragmentTutorialBinding? = null
     private val binding get() = _binding!!
 
+    private val args: TutorialFragmentArgs by navArgs()
+    private lateinit var landingSpot: String
+    private lateinit var throwingPos: String
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentTutorialBinding.inflate(inflater, container, false)
+        landingSpot = args.landingSpot
+        throwingPos = args.throwingPos
         return binding.root
     }
 
@@ -40,7 +45,7 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
         setRecyclerView()
 
         binding.apply {
-            textview1.text = pos.plus(" to ").plus(land)
+            textview1.text = throwingPos.plus(" to ").plus(landingSpot)
             btnMaps.setOnClickListener {
                 findNavController().setGraph(R.navigation.nav_graph)
                 val navHome = MapsFragmentDirections.actionGlobalHome()

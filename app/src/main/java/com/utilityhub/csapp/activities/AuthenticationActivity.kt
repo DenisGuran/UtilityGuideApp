@@ -12,7 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class AuthenticationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAuthenticationBinding
-    lateinit var bottomNav : BottomNavigationView
+    lateinit var bottomNav: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,15 +27,9 @@ class AuthenticationActivity : AppCompatActivity() {
             bottomNav.setupWithNavController(navController)
             this@AuthenticationActivity.bottomNav = bottomNav
             navController.addOnDestinationChangedListener { _, destination, _ ->
-                if (destination.id in listOf(
-                        R.id.loginFragment,
-                        R.id.registerFragment,
-                        R.id.forgotPasswordFragment
-                    )
-                ) {
+                if (destination.id == R.id.loginFragment && bottomNav.visibility != View.GONE) {
                     bottomNav.visibility = View.GONE
-                }
-                if (destination.id == R.id.mapsFragment && bottomNav.visibility == View.GONE) {
+                }else if (destination.id == R.id.mapsFragment && bottomNav.visibility == View.GONE) {
                     bottomNav.visibility = View.INVISIBLE
                 }
             }

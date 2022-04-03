@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_smokeLandFragment_to_smokeThrowFragment"
             app:destination="@id/smokeThrowFragment" />
+        <argument
+            android:name="map"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/smokeThrowFragment"
@@ -22,10 +25,20 @@
         <action
             android:id="@+id/action_smokeThrowFragment_to_tutorialFragment"
             app:destination="@id/tutorialFragment" />
+        <argument
+            android:name="landingSpot"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/tutorialFragment"
         android:name="com.utilityhub.csapp.fragments.TutorialFragment"
         android:label="fragment_tutorial"
-        tools:layout="@layout/fragment_tutorial" />
+        tools:layout="@layout/fragment_tutorial" >
+        <argument
+            android:name="landingSpot"
+            app:argType="string" />
+        <argument
+            android:name="throwingPos"
+            app:argType="string" />
+    </fragment>
 </navigation>

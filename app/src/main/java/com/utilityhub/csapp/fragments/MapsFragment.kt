@@ -90,6 +90,7 @@ class MapsFragment : Fragment(R.layout.fragment_maps) {
             cardInferno.setOnClickListener {
                 val navUtilities = MapsFragmentDirections.actionGlobalNavUtility()
                 findNavController().navigate(navUtilities)
+                // TODO implement map name with safe args
                 findNavController().setGraph(R.navigation.nav_utility)
                 for (l in Global.maps)
                     l.setValue(false)

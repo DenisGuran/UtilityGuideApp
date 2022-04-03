@@ -37,16 +37,21 @@
         <item name="android:textColorHint">@color/input_text_color</item>
     </style>
 
-    <style name="TextView_Utility_TitleStyle">
+    <style name="EditText_UtilityStyle">
         <item name="android:textColor">@color/title_color</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textColorHint">@color/edit_text_line_color</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:backgroundTint">@color/edit_text_line_color</item>
         <item name="android:fontFamily">@font/lora_italic_bold</item>
+        <item name="android:inputType">text</item>
         <item name="android:layout_marginTop">16dp</item>
+        <item name="android:drawableStart">@drawable/ic_search</item>
+        <item name="android:drawablePadding">5dp</item>
     </style>
 
     <style name="TextView_Tutorial_TitleStyle">
         <item name="android:textColor">@color/title_color</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/lora_italic_bold</item>
         <item name="android:layout_marginTop">16dp</item>
     </style>
