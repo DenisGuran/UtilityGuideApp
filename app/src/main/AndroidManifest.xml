@@ -4,13 +4,14 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <application
+        android:name=".UtilityHubApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CsApp">
         <activity
-            android:name="com.utilityhub.csapp.activities.AuthenticationActivity"
+            android:name="com.utilityhub.csapp.ui.activities.MainActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>

@@ -7,27 +7,12 @@
     android:layout_height="match_parent"
     android:background="@drawable/mirage_background_blur"
     app:layoutDescription="@xml/fragment_tutorial_scene"
-    tools:context=".fragments.TutorialFragment">
-
-    <TextView
-        android:id="@+id/textview1"
-        style="@style/TextView_Tutorial_TitleStyle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
-        android:text="@string/lineup"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/btnShare"
-        app:layout_constraintStart_toEndOf="@+id/btnMaps"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".ui.fragments.TutorialFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_below="@+id/textview1"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
@@ -35,7 +20,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnFavorites" />
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnMaps"
@@ -53,8 +38,8 @@
         app:elevation="0dp"
         app:iconPadding="0dp"
         app:iconTint="@color/icon_color"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textview1" />
+        app:layout_constraintBottom_toBottomOf="@+id/btnFavorites"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnShare"
@@ -72,14 +57,15 @@
         app:elevation="0dp"
         app:iconPadding="0dp"
         app:iconTint="@color/icon_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textview1" />
+        app:layout_constraintBottom_toBottomOf="@+id/btnFavorites"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnFavorites"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:backgroundTint="@color/transparent"
         android:drawableTop="@drawable/ic_favorite"
         android:insetTop="0dp"
@@ -93,20 +79,74 @@
         app:iconTint="@color/icon_color"
         app:layout_constraintEnd_toStartOf="@+id/btnShare"
         app:layout_constraintStart_toEndOf="@+id/btnMaps"
-        app:layout_constraintTop_toBottomOf="@+id/tw_tick" />
+        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
 
-    <TextView
-        android:id="@+id/tw_tick"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
-        android:fontFamily="@font/lora_italic_semibold"
-        android:maxLines="1"
-        android:text="@string/tickrate"
-        android:textColor="@color/text_color"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/textview1"
-        app:layout_constraintStart_toStartOf="@+id/textview1"
-        app:layout_constraintTop_toBottomOf="@id/textview1" />
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.1"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.9"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintTop_toBottomOf="@id/btnFavorites" />
+
+    <TableLayout
+        android:id="@id/tableLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:shrinkColumns="0"
+        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+        app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/textview1"
+                style="@style/TextView_Tutorial_TitleStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@string/lineup"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/tw_tick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:ellipsize="none"
+                android:fontFamily="@font/lora_italic_bold"
+                android:gravity="center"
+                android:paddingHorizontal="1dp"
+                android:background="@color/black_transparent"
+                android:text="128/64"
+                android:textColor="#37FF00"
+                android:textSize="12sp" />
+        </TableRow>
+    </TableLayout>
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

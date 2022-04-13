@@ -9,64 +9,40 @@
         motion:duration="2000">
        <KeyFrameSet>
            <KeyAttribute
-               motion:motionTarget="@+id/textview1"
+               motion:motionTarget="@+id/tableLayout"
                motion:framePosition="100"
                android:alpha="0" />
            <KeyAttribute
-               motion:motionTarget="@+id/textview1"
+               motion:motionTarget="@+id/tableLayout"
                motion:framePosition="100"
                android:scaleX="0" />
            <KeyAttribute
-               motion:motionTarget="@+id/tw_tick"
+               motion:motionTarget="@+id/tableLayout"
                motion:framePosition="100"
-               android:alpha="0" />
-           <KeyAttribute
-               motion:motionTarget="@+id/tw_tick"
-               motion:framePosition="100"
-               android:scaleX="0" />
+               android:scaleY="0" />
        </KeyFrameSet>
-        <OnSwipe motion:touchAnchorId="@+id/recyclerView"
-            motion:maxVelocity="1" />
+        <OnSwipe motion:touchAnchorId="@+id/recyclerView" />
     </Transition>
 
-    <ConstraintSet android:id="@+id/start" />
+    <ConstraintSet android:id="@+id/start"></ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
-            android:id="@+id/textview1"
-            motion:layout_constraintEnd_toStartOf="@+id/btnShare"
-            motion:layout_constraintStart_toEndOf="@+id/btnMaps"
-            android:layout_width="wrap_content"
+            motion:layout_constraintEnd_toEndOf="@id/guidelineRight"
+            android:layout_width="0dp"
             android:layout_height="1dp"
             motion:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="0dp" />
-        <Constraint
-            android:id="@+id/tw_tick"
-            android:layout_width="1dp"
-            android:layout_height="1dp"
-            motion:layout_constraintTop_toBottomOf="@id/textview1"
-            motion:layout_constraintEnd_toEndOf="@+id/textview1"
-            motion:layout_constraintStart_toStartOf="@+id/textview1" />
+            motion:layout_constraintStart_toStartOf="@id/guidelineLeft"
+            android:layout_marginTop="0dp"
+            android:id="@+id/tableLayout" />
         <Constraint
             android:elevation="0dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            motion:layout_constraintTop_toTopOf="@+id/textview1"
-            motion:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/btnMaps"
-            android:layout_marginTop="16dp" />
-        <Constraint
-            android:layout_height="wrap_content"
             motion:layout_constraintEnd_toStartOf="@+id/btnShare"
             motion:layout_constraintStart_toEndOf="@+id/btnMaps"
-            motion:layout_constraintBottom_toBottomOf="@+id/btnMaps"
             android:layout_width="wrap_content"
-            android:id="@+id/btnFavorites" />
-        <Constraint
             android:layout_height="wrap_content"
-            motion:layout_constraintBottom_toTopOf="@+id/recyclerView"
-            motion:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="wrap_content"
-            android:id="@+id/btnShare" />
+            motion:layout_constraintTop_toBottomOf="@+id/tableLayout"
+            android:id="@+id/btnFavorites"
+            android:layout_marginTop="7dp" />
     </ConstraintSet>
 </MotionScene>

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/mirage_background_blur"
     android:id="@+id/flash_layout"
-    tools:context=".fragments.FlashFragment">
+    tools:context=".ui.fragments.FlashFragment">
 
     <TextView
         android:id="@+id/flash"

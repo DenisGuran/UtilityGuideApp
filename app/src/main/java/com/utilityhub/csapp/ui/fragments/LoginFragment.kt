@@ -1,0 +1,213 @@
+package com.utilityhub.csapp.ui.fragments
+
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.os.Bundle
+import android.text.TextUtils
+import android.util.Patterns
+import android.view.View
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.widget.ContentLoadingProgressBar
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.google.android.gms.auth.api.signin.GoogleSignIn.getSignedInAccountFromIntent
+import com.google.android.gms.common.api.ApiException
+import com.utilityhub.csapp.core.Constants
+import com.utilityhub.csapp.core.Constants.MAIN_INTENT
+import com.utilityhub.csapp.databinding.FragmentLoginBinding
+import com.utilityhub.csapp.domain.model.Response
+import com.utilityhub.csapp.ui.viewmodels.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import javax.inject.Inject
+import javax.inject.Named
+
+@AndroidEntryPoint
+@ExperimentalCoroutinesApi
+class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
+
+    @Named(MAIN_INTENT)
+    @Inject
+    lateinit var mainIntent: Intent
+
+    @Inject
+    lateinit var signInIntent: Intent
+    private lateinit var resultLauncher: ActivityResultLauncher<Intent>
+    private val viewModel by viewModels<LoginViewModel>()
+
+    private var backPressedTime: Long = 0L
+    private lateinit var backPressedToast: Toast
+    private lateinit var progressBar: ContentLoadingProgressBar
+
+    private var email = ""
+    private var password = ""
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initGoogleResultLauncher()
+        checkUserState()
+
+        binding.apply {
+            this@LoginFragment.progressBar = this.progressBar
+
+            btnLogin.setOnClickListener {
+                validateDataAndLogin()
+            }
+
+            btnGoogleSignIn.setOnClickListener {
+                launchGoogleSignInIntent()
+            }
+
+            btnContinue.setOnClickListener {
+                navigateToMaps()
+            }
+
+            btnCreateAccount.setOnClickListener {
+                navigateToRegister()
+            }
+
+            btnForgotPassword.setOnClickListener {
+                navigateToForgotPassword()
+            }
+        }
+
+        doubleTapToExit()
+    }
+
+    private fun launchGoogleSignInIntent() {
+        progressBar.show()
+        resultLauncher.launch(signInIntent)
+    }
+
+    private fun initGoogleResultLauncher() {
+        resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == RESULT_OK) {
+                    val task = getSignedInAccountFromIntent(result.data)
+                    try {
+                        val googleSignInAccount = task.getResult(ApiException::class.java)
+                        googleSignInAccount?.apply {
+                            idToken?.let { idToken ->
+                                firebaseSignInWithGoogle(idToken)
+                            }
+                        }
+                    } catch (e: ApiException) {
+                        print(e.message)
+                    }
+                } else {
+                    progressBar.hide()
+                }
+            }
+    }
+
+    private fun firebaseSignInWithGoogle(idToken: String) {
+        viewModel.firebaseSignInWithGoogle(idToken).observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Response.Success -> {
+                    val isNewUser = response.data
+                    if (isNewUser) {
+                        addUserToFirestore()
+                    } else {
+                        progressBar.hide()
+                    }
+                }
+                is Response.Failure -> {
+                    progressBar.hide()
+                    print(response.errorMessage)
+                }
+            }
+        }
+    }
+
+    private fun checkUserState() {
+        viewModel.getAuthState().observe(viewLifecycleOwner) { isLoggedIn ->
+            if(isLoggedIn)
+                navigateToMaps()
+        }
+    }
+
+    private fun addUserToFirestore() {
+        viewModel.addUserToFirestore().observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Response.Success -> progressBar.hide()
+                is Response.Failure -> {
+                    progressBar.hide()
+                    print(response.errorMessage)
+                }
+            }
+        }
+    }
+
+    private fun doubleTapToExit() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    if (backPressedTime + Constants.EXIT_TIME > System.currentTimeMillis()) {
+                        backPressedToast.cancel()
+                        requireActivity().finish()
+                        return
+                    } else {
+                        backPressedToast =
+                            Toast.makeText(activity, "Press back again to exit", Toast.LENGTH_LONG)
+                        backPressedToast.show()
+                    }
+                    backPressedTime = System.currentTimeMillis()
+                }
+            })
+    }
+
+    private fun validateDataAndLogin() {
+        binding.apply {
+            email = inputEmail.text.toString().trim()
+            password = inputPassword.text.toString().trim()
+
+            if (TextUtils.isEmpty(email)) {
+                inputEmail.error = "Email is required"
+                inputEmail.requestFocus()
+            } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                inputEmail.error = "Please, provide a valid email"
+                inputEmail.requestFocus()
+            } else if (TextUtils.isEmpty(password)) {
+                inputPassword.error = "Password is required"
+                inputPassword.requestFocus()
+            } else {
+                loginWithEmailAndPassword()
+            }
+        }
+    }
+
+    private fun loginWithEmailAndPassword() {
+        progressBar.show()
+        viewModel.firebaseSignInWithEmail(email, password).observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Response.Success -> progressBar.hide()
+                is Response.Failure -> {
+                    progressBar.hide()
+                    print(response.errorMessage)
+                }
+            }
+        }
+    }
+
+    private fun navigateToMaps() {
+        val navMaps = LoginFragmentDirections.actionAuthenticationToHome()
+        findNavController().navigate(navMaps)
+    }
+
+    private fun navigateToForgotPassword() {
+        val navForgotPassword =
+            LoginFragmentDirections.actionLoginFragmentToForgotPasswordFragment()
+        findNavController().navigate(navForgotPassword)
+    }
+
+    private fun navigateToRegister() {
+        val navRegister = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+        findNavController().navigate(navRegister)
+    }
+
+}

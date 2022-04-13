@@ -1,9 +1,10 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
-    id 'com.google.gms.google-services'
-    id 'androidx.navigation.safeargs.kotlin'
+    id "com.android.application"
+    id "kotlin-android"
+    id "kotlin-kapt"
+    id "com.google.gms.google-services"
+    id "androidx.navigation.safeargs.kotlin"
+    id "dagger.hilt.android.plugin"
 }
 
 android {
@@ -31,53 +32,50 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_1_8
+        freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
     }
     buildFeatures {
+        dataBinding = true
         viewBinding true
     }
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.2.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-
-    // Navigation
+    // Kotlin
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutines_version"
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    // AndroidX
+    implementation "androidx.core:core-ktx:$core_version"
+    implementation "androidx.appcompat:appcompat:$appcompat_version"
+    implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
+    implementation "androidx.recyclerview:recyclerview:$recycler_view_version"
+    implementation "androidx.cardview:cardview:$card_view_version"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$view_model_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$live_data_version"
+    implementation "androidx.lifecycle:lifecycle-extensions:$extensions_version"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-
-    implementation 'androidx.fragment:fragment-ktx:1.4.1'
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
-    implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.jsibbold:zoomage:1.3.1'
-
-    // Lifecycle
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
-
+    implementation "androidx.annotation:annotation:$annotation_version"
+    implementation "androidx.multidex:multidex:$multidex_version"
+    // Material
+    implementation "com.google.android.material:material:$material_version"
+    // Zoom view
+    implementation "com.jsibbold:zoomage:$zoomage_version"
     // Firebase
-    implementation 'com.firebaseui:firebase-ui-firestore:6.2.1'
-    implementation platform('com.google.firebase:firebase-bom:29.2.1')
+    implementation platform("com.google.firebase:firebase-bom:$firebase_bom_version")
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth-ktx'
     implementation 'com.google.firebase:firebase-database-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
-
     // Google
-    implementation 'com.google.android.gms:play-services-auth:20.1.0'
-
+    implementation "com.google.android.gms:play-services-auth:$play_services_auth_version"
     // Glide
-    implementation 'com.github.bumptech.glide:glide:4.13.0'
-    kapt 'com.github.bumptech.glide:compiler:4.13.0'
-
-    implementation 'androidx.annotation:annotation:1.3.0'
-    implementation 'androidx.multidex:multidex:2.0.1'
-
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
     // Testing
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

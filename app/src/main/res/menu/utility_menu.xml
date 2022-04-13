@@ -18,7 +18,7 @@
 
     <item
         android:id="@+id/retakeFragment"
-        android:title="@string/retake"
-        android:icon="@drawable/retake" />
+        android:title="@string/he_grenades"
+        android:icon="@drawable/hegrenade" />
 
 </menu>

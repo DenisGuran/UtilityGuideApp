@@ -10,7 +10,7 @@
         app:startDestination="@id/loginFragment">
         <fragment
             android:id="@+id/loginFragment"
-            android:name="com.utilityhub.csapp.fragments.LoginFragment"
+            android:name="com.utilityhub.csapp.ui.fragments.LoginFragment"
             android:label="fragment_login"
             tools:layout="@layout/fragment_login">
             <action
@@ -22,7 +22,7 @@
         </fragment>
         <fragment
             android:id="@+id/forgotPasswordFragment"
-            android:name="com.utilityhub.csapp.fragments.ForgotPasswordFragment"
+            android:name="com.utilityhub.csapp.ui.fragments.ForgotPasswordFragment"
             android:label="fragment_forgot_password"
             tools:layout="@layout/fragment_forgot_password">
             <action
@@ -33,7 +33,7 @@
         </fragment>
         <fragment
             android:id="@+id/registerFragment"
-            android:name="com.utilityhub.csapp.fragments.RegisterFragment"
+            android:name="com.utilityhub.csapp.ui.fragments.RegisterFragment"
             android:label="fragment_register"
             tools:layout="@layout/fragment_register">
             <action
@@ -53,7 +53,7 @@
         app:startDestination="@id/mapsFragment">
         <fragment
             android:id="@+id/mapsFragment"
-            android:name="com.utilityhub.csapp.fragments.MapsFragment"
+            android:name="com.utilityhub.csapp.ui.fragments.MapsFragment"
             android:label="MapsFragment">
             <action
                 android:id="@+id/action_mapsFragment_to_profileFragment"
@@ -61,7 +61,7 @@
         </fragment>
         <fragment
             android:id="@+id/profileFragment"
-            android:name="com.utilityhub.csapp.fragments.ProfileFragment"
+            android:name="com.utilityhub.csapp.ui.fragments.ProfileFragment"
             android:label="fragment_profile"
             tools:layout="@layout/fragment_profile" />
         <action
@@ -74,6 +74,11 @@
             app:destination="@id/nav_utility"
             app:popUpTo="@id/home"
             app:popUpToInclusive="true" />
+        <fragment
+            android:id="@+id/favoritesFragment"
+            android:name="com.utilityhub.csapp.ui.fragments.FavoritesFragment"
+            android:label="fragment_favorites"
+            tools:layout="@layout/fragment_favorites" />
     </navigation>
     <include app:graph="@navigation/nav_utility" />
     <action

@@ -6,13 +6,12 @@
     android:layout_height="match_parent"
     android:background="@drawable/mirage_background_blur"
     android:id="@+id/throw_pos_layout"
-    tools:context=".fragments.SmokeThrowFragment">
+    tools:context=".ui.fragments.SmokeThrowFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_below="@+id/inputSearch"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
@@ -21,18 +20,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputSearch" />
-
-    <EditText
-        android:id="@+id/inputSearch"
-        style="@style/EditText_UtilityStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/throw_pos"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:importantForAutofill="no" />
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnMaps"
@@ -50,6 +38,58 @@
         app:elevation="0dp"
         app:iconPadding="0dp"
         app:iconTint="@color/icon_color"
+        android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/inputSearch" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        style="@style/TextView_Authentication_TitleStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coffins"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText"
+        style="@style/EditText_UtilityStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/throw_pos"
+        android:importantForAutofill="no"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchCompat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:checked="true"
+        android:textOff="128"
+        android:textOn="64"
+        android:thumb="@drawable/custom_thumb_tickrate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:showText="true"
+        app:switchTextAppearance="@style/Tickrate_Text"
+        app:track="@null" />
+
+
+    <!--    <SearchView-->
+<!--        android:id="@+id/searchView"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:iconifiedByDefault="true"-->
+<!--        android:queryBackground="@null"-->
+<!--        android:searchIcon="@drawable/ic_search"-->
+<!--        android:queryHint="@string/throw_pos"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/textView8" />-->
+
 </androidx.constraintlayout.widget.ConstraintLayout>
