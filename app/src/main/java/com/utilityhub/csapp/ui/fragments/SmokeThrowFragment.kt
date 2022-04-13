@@ -73,7 +73,7 @@ class SmokeThrowFragment : BaseFragment<FragmentSmokeThrowBinding>(FragmentSmoke
                     val navTutorial =
                         SmokeThrowFragmentDirections.actionSmokeThrowFragmentToTutorialFragment(
                             landingSpot,
-                            throwingPos
+                            throwingPos!!
                         )
                     Global.selectedPos = position
                     findNavController().navigate(navTutorial)

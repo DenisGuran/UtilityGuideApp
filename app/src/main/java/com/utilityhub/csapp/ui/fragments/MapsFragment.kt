@@ -5,11 +5,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.utilityhub.csapp.R
 import com.utilityhub.csapp.core.Constants
 import com.utilityhub.csapp.core.Global
 import com.utilityhub.csapp.databinding.FragmentMapsBinding
+import com.utilityhub.csapp.domain.model.Map
 import com.utilityhub.csapp.ui.activities.MainActivity
+import com.utilityhub.csapp.ui.adapters.MapAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -22,12 +25,16 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
     private var backPressedTime: Long = 0L
     private lateinit var backPressedToast: Toast
 
+    private var maps = ArrayList<Map>()
+    private var adapter: MapAdapter? = null
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         findNavController().popBackStack(R.id.loginFragment, true)
 
         initData()
+        setRecyclerView()
         doubleTapToExit()
     }
 
@@ -68,53 +75,80 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
     }
 
     private fun initData() {
+
+        maps.clear()
+
+        maps.add(
+            Map(
+                "Mirage",
+                pin = R.drawable.mirage_pin,
+                background = R.drawable.mirage_background
+            )
+        )
+        maps.add(
+            Map(
+                "Inferno",
+                pin = R.drawable.inferno_pin,
+                background = R.drawable.inferno_background
+            )
+        )
+        maps.add(
+            Map(
+                "Dust2",
+                pin = R.drawable.dust2_pin,
+                background = R.drawable.dust2_background
+            )
+        )
+        maps.add(
+            Map(
+                "Vertigo",
+                pin = R.drawable.vertigo_pin,
+                background = R.drawable.vertigo_background
+            )
+        )
+
+        maps.add(
+            Map(
+                "Overpass",
+                pin = R.drawable.overpass_pin,
+                background = R.drawable.overpass_background
+            )
+        )
+        maps.add(
+            Map(
+                "Nuke",
+                pin = R.drawable.nuke_pin,
+                background = R.drawable.nuke_background
+            )
+        )
+        maps.add(
+            Map(
+                "Ancient",
+                pin = R.drawable.ancient_pin,
+                background = R.drawable.ancient_background
+            )
+        )
+    }
+
+    private fun setRecyclerView() {
+        adapter =
+            MapAdapter(maps, object : MapAdapter.OnClickListener {
+                override fun onItemClick(position: Int) {
+                    val selectedMap = maps[position]
+                    for (map in Global.maps) {
+                        map.setValue(false)
+                    }
+                    Global.maps[selectedMap.name!!.lowercase()] = true
+                    val navLand = MapsFragmentDirections.actionGlobalNavUtility()
+                    findNavController().navigate(navLand)
+                }
+            })
         binding.apply {
-            cardMirage.setOnClickListener {
-                for (l in Global.maps)
-                    l.setValue(false)
-                Global.maps["mirage"] = true
-            }
-
-            cardInferno.setOnClickListener {
-                val navUtilities = MapsFragmentDirections.actionGlobalNavUtility()
-                findNavController().navigate(navUtilities)
-                // TODO implement map name with safe args
-                findNavController().setGraph(R.navigation.nav_utility)
-                for (l in Global.maps)
-                    l.setValue(false)
-                Global.maps["inferno"] = true
-            }
-
-            cardDust2.setOnClickListener {
-                for (l in Global.maps)
-                    l.setValue(false)
-                Global.maps["dust2"] = true
-            }
-
-            cardOverpass.setOnClickListener {
-                for (l in Global.maps)
-                    l.setValue(false)
-                Global.maps["overpass"] = true
-            }
-
-            cardNuke.setOnClickListener {
-                for (l in Global.maps)
-                    l.setValue(false)
-                Global.maps["nuke"] = true
-            }
-
-            cardVertigo.setOnClickListener {
-                for (l in Global.maps)
-                    l.setValue(false)
-                Global.maps["vertigo"] = true
-            }
-
-            cardAncient.setOnClickListener {
-                for (l in Global.maps)
-                    l.setValue(false)
-                Global.maps["ancient"] = true
-            }
+            recyclerView.setHasFixedSize(true)
+            recyclerView.layoutManager = LinearLayoutManager(this@MapsFragment.activity)
+            recyclerView.adapter = adapter
         }
     }
+
 
 }

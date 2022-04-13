@@ -8,7 +8,7 @@ import com.utilityhub.csapp.domain.model.Tutorial
 import com.utilityhub.csapp.core.utils.GlideLoader
 
 class TutorialAdapter(
-    private val tutorialList: ArrayList<Tutorial>
+    private val tutorials: ArrayList<Tutorial>
 ) : RecyclerView.Adapter<TutorialAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: LayoutItemTutorialBinding) :
@@ -22,7 +22,7 @@ class TutorialAdapter(
 
     override fun onBindViewHolder(holder: TutorialAdapter.ViewHolder, position: Int) {
         holder.apply {
-            tutorialList[position].apply {
+            tutorials[position].apply {
                 binding.apply {
                     textviewAbove.text = step.toString()
                     textviewBelow.text = details
@@ -33,7 +33,7 @@ class TutorialAdapter(
     }
 
     override fun getItemCount(): Int {
-        return tutorialList.size
+        return tutorials.size
     }
 }
 

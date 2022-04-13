@@ -12,7 +12,7 @@
         android:layout_width="330dp"
         android:layout_height="100dp"
         app:cardBackgroundColor="@color/cardview_shadow_end_color"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="10dp"
         app:cardElevation="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

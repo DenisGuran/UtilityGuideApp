@@ -11,7 +11,7 @@ import com.utilityhub.csapp.databinding.LayoutCardUtilityBinding
 import com.utilityhub.csapp.domain.model.Utility
 
 class UtilityAdapter(
-    private val list: ArrayList<Utility>, private val onClickListener: OnClickListener
+    private val utilities: ArrayList<Utility>, private val onClickListener: OnClickListener
 ) : RecyclerView.Adapter<UtilityAdapter.UtilityHolder>(), Filterable {
 
     interface OnClickListener {
@@ -19,21 +19,22 @@ class UtilityAdapter(
     }
 
     inner class UtilityHolder(binding: LayoutCardUtilityBinding) :
-        RecyclerView.ViewHolder(binding.root){
-            val utilityName = binding.posName
-            val utilityImg = binding.posImage
-        }
+        RecyclerView.ViewHolder(binding.root) {
+        val utilityName = binding.posName
+        val utilityImg = binding.posImage
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): UtilityAdapter.UtilityHolder {
-        val binding = LayoutCardUtilityBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            LayoutCardUtilityBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return UtilityHolder(binding)
     }
 
     override fun onBindViewHolder(holder: UtilityHolder, position: Int) {
-        val model = list[position]
+        val model = utilities[position]
         holder.apply {
             utilityName.text = model.name
             model.img?.let { GlideLoader(itemView.context).loadImageView(it, utilityImg) }
@@ -42,13 +43,13 @@ class UtilityAdapter(
             }
         }
     }
-    
+
     override fun getItemCount(): Int {
-        return list.size
+        return utilities.size
     }
 
     override fun getFilter(): Filter {
-        return object : Filter(){
+        return object : Filter() {
             override fun performFiltering(p0: CharSequence?): FilterResults {
                 TODO("Not yet implemented")
             }

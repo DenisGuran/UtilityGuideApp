@@ -94,12 +94,12 @@ class SmokeLandFragment : BaseFragment<FragmentSmokeLandBinding>(FragmentSmokeLa
             UtilityAdapter(landingSpots, object : UtilityAdapter.OnClickListener {
                 override fun onItemClick(position: Int) {
                     val landingSpot = landingSpots[position].name
-                    val navTutorial =
+                    val navThrow =
                         SmokeLandFragmentDirections.actionSmokeLandFragmentToSmokeThrowFragment(
-                            landingSpot
+                            landingSpot!!
                         )
                     Global.selectedSmoke = position
-                    findNavController().navigate(navTutorial)
+                    findNavController().navigate(navThrow)
                 }
             })
         binding.apply {
