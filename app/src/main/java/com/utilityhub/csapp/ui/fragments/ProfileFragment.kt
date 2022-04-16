@@ -43,7 +43,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
     private fun getUserProfile() {
-        viewModel.getUserProfile().observe(viewLifecycleOwner){ response ->
+        viewModel.userProfile.observe(viewLifecycleOwner){ response ->
             when (response) {
                 is Response.Success -> {
                     val currentUser = response.data

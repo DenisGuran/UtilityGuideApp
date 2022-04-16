@@ -1,4 +1,6 @@
 package com.utilityhub.csapp.domain.use_case.utility
 
-class UtilityUseCases {
-}
+data class UtilityUseCases(
+    val getLandSpots: GetLandSpots,
+    val getThrowSpots: GetThrowSpots
+)

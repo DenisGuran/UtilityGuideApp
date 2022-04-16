@@ -11,11 +11,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import javax.inject.Singleton
 
 @Module
 @ExperimentalCoroutinesApi
 @InstallIn(SingletonComponent::class)
 object GoogleModule {
+    @Singleton
     @Provides
     fun provideGoogleSignInOptions(application: Application): GoogleSignInOptions {
         return GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -24,6 +26,7 @@ object GoogleModule {
             .build()
     }
 
+    @Singleton
     @Provides
     fun provideGoogleSignInClient(
         application: Application,
@@ -32,6 +35,7 @@ object GoogleModule {
         return GoogleSignIn.getClient(application, options)
     }
 
+    @Singleton
     @Provides
     fun provideSignInIntent(googleSignInClient: GoogleSignInClient): Intent {
         return googleSignInClient.signInIntent

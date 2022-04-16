@@ -1,9 +1,12 @@
 package com.utilityhub.csapp.ui.fragments
 
+import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.utilityhub.csapp.R
@@ -30,8 +33,6 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        findNavController().popBackStack(R.id.loginFragment, true)
 
         initData()
         setRecyclerView()
@@ -74,62 +75,6 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
             })
     }
 
-    private fun initData() {
-
-        maps.clear()
-
-        maps.add(
-            Map(
-                "Mirage",
-                pin = R.drawable.mirage_pin,
-                background = R.drawable.mirage_background
-            )
-        )
-        maps.add(
-            Map(
-                "Inferno",
-                pin = R.drawable.inferno_pin,
-                background = R.drawable.inferno_background
-            )
-        )
-        maps.add(
-            Map(
-                "Dust2",
-                pin = R.drawable.dust2_pin,
-                background = R.drawable.dust2_background
-            )
-        )
-        maps.add(
-            Map(
-                "Vertigo",
-                pin = R.drawable.vertigo_pin,
-                background = R.drawable.vertigo_background
-            )
-        )
-
-        maps.add(
-            Map(
-                "Overpass",
-                pin = R.drawable.overpass_pin,
-                background = R.drawable.overpass_background
-            )
-        )
-        maps.add(
-            Map(
-                "Nuke",
-                pin = R.drawable.nuke_pin,
-                background = R.drawable.nuke_background
-            )
-        )
-        maps.add(
-            Map(
-                "Ancient",
-                pin = R.drawable.ancient_pin,
-                background = R.drawable.ancient_background
-            )
-        )
-    }
-
     private fun setRecyclerView() {
         adapter =
             MapAdapter(maps, object : MapAdapter.OnClickListener {
@@ -141,6 +86,7 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
                     Global.maps[selectedMap.name!!.lowercase()] = true
                     val navLand = MapsFragmentDirections.actionGlobalNavUtility()
                     findNavController().navigate(navLand)
+                    findNavController().setGraph(R.navigation.nav_utility)
                 }
             })
         binding.apply {
@@ -150,5 +96,67 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
         }
     }
 
+    private fun getBitmap(drawable: Int) =
+        (ResourcesCompat.getDrawable(
+            this.resources,
+            drawable,
+            null
+        ) as VectorDrawable).toBitmap()
 
+
+    private fun initData() {
+
+        maps.clear()
+
+        maps.add(
+            Map(
+                "Mirage",
+                pin = getBitmap(R.drawable.mirage_pin),
+                background = R.drawable.mirage_background
+            )
+        )
+        maps.add(
+            Map(
+                "Inferno",
+                pin = getBitmap(R.drawable.mirage_pin),
+                background = R.drawable.inferno_background
+            )
+        )
+        maps.add(
+            Map(
+                "Dust2",
+                pin = getBitmap(R.drawable.dust2_pin),
+                background = R.drawable.dust2_background
+            )
+        )
+        maps.add(
+            Map(
+                "Vertigo",
+                pin = getBitmap(R.drawable.vertigo_pin),
+                background = R.drawable.vertigo_background
+            )
+        )
+
+        maps.add(
+            Map(
+                "Overpass",
+                pin = getBitmap(R.drawable.overpass_pin),
+                background = R.drawable.overpass_background
+            )
+        )
+        maps.add(
+            Map(
+                "Nuke",
+                pin = getBitmap(R.drawable.nuke_pin),
+                background = R.drawable.nuke_background
+            )
+        )
+        maps.add(
+            Map(
+                "Ancient",
+                pin = getBitmap(R.drawable.ancient_pin),
+                background = R.drawable.ancient_background
+            )
+        )
+    }
 }

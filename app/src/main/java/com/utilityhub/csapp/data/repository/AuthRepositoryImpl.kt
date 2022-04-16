@@ -11,7 +11,6 @@ import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.User
 import com.utilityhub.csapp.domain.repository.AuthRepository
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
@@ -26,7 +25,7 @@ class AuthRepositoryImpl @Inject constructor(
     @Named(USERS_REF) private val usersRef: CollectionReference
 ) : AuthRepository {
 
-    override suspend fun firebaseSignInWithGoogle(idToken: String): Flow<Response<Boolean>> = flow {
+    override suspend fun firebaseSignInWithGoogle(idToken: String) = flow {
         try {
             val credential = GoogleAuthProvider.getCredential(idToken, null)
             val authResult = auth.signInWithCredential(credential).await()
@@ -38,14 +37,14 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun addUserInDatabase(): Flow<Response<Void>> = flow {
+    override suspend fun addUserInDatabase() = flow {
         try {
             auth.currentUser?.apply {
                 usersRef.document(uid).set(
                     HashMap<String, Any>()
                 )
                     .await().also {
-                        emit(Response.Success(it))
+                        emit(Response.Success(true))
                     }
             }
         } catch (e: Exception) {
@@ -53,18 +52,18 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun signOut(): Flow<Response<Void>> = flow {
+    override suspend fun signOut() = flow {
         try {
             googleSignInClient.signOut().await().also {
                 auth.signOut()
-                emit(Response.Success(it))
+                emit(Response.Success(true))
             }
         } catch (e: Exception) {
             emit(Response.Failure(e.message ?: e.toString()))
         }
     }
 
-    override fun getUserAuthState(): Flow<Boolean> = callbackFlow {
+    override fun getUserAuthState() = callbackFlow {
         val authStateListener = FirebaseAuth.AuthStateListener { auth ->
             trySend(auth.currentUser != null)
         }
@@ -74,7 +73,7 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getUserProfile(): Flow<Response<User>> = flow {
+    override fun getUserProfile() = flow {
         try {
             auth.currentUser?.apply {
                 val user = User(email, displayName)
@@ -85,10 +84,10 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun sendPasswordResetEmail(email: String): Flow<Response<Void>> = flow {
+    override suspend fun sendPasswordResetEmail(email: String) = flow {
         try {
             auth.sendPasswordResetEmail(email).await().also {
-                emit(Response.Success(it))
+                emit(Response.Success(true))
             }
         } catch (e: Exception) {
             emit(Response.Failure(e.message ?: ERROR_MESSAGE))
@@ -98,7 +97,7 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun firebaseSignInWithEmailAndPassword(
         email: String,
         password: String
-    ): Flow<Response<Boolean>> = flow {
+    ) = flow {
         try {
             auth.signInWithEmailAndPassword(email, password).await().also {
                 emit(Response.Success(true))
@@ -108,14 +107,14 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun register(email: String, password: String, username: String): Flow<Response<Void>> =
+    override suspend fun register(email: String, password: String, username: String) =
         flow {
             try {
                 auth.createUserWithEmailAndPassword(email, password).await().also { authResult ->
                     authResult.user!!.updateProfile(userProfileChangeRequest {
                         displayName = username
                     }).await().also {
-                        emit(Response.Success(it))
+                        emit(Response.Success(true))
                     }
                 }
             } catch (e: Exception) {

@@ -1,6 +1,7 @@
 package com.utilityhub.csapp.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
 import com.utilityhub.csapp.domain.use_case.auth.AuthUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,9 +19,5 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun getUserProfile() = liveData(Dispatchers.IO) {
-        useCases.getUserProfile().collect{ response ->
-            emit(response)
-        }
-    }
+    val userProfile = useCases.getUserProfile().asLiveData(Dispatchers.IO)
 }

@@ -1,6 +1,7 @@
 package com.utilityhub.csapp.ui.adapters
 
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
