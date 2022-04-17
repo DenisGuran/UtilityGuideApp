@@ -3,9 +3,9 @@ package com.utilityhub.csapp.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.utilityhub.csapp.databinding.LayoutItemTutorialBinding
 import com.utilityhub.csapp.domain.model.Tutorial
-import com.utilityhub.csapp.core.utils.GlideLoader
 
 class TutorialAdapter(
     private val tutorials: ArrayList<Tutorial>
@@ -26,7 +26,9 @@ class TutorialAdapter(
                 binding.apply {
                     textviewAbove.text = step.toString()
                     textviewBelow.text = details
-                    GlideLoader(itemView.context).loadZoomageView(image, zoomView)
+                    zoomView.load(image){
+                        crossfade(true)
+                    }
                 }
             }
         }

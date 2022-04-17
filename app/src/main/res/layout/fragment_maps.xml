@@ -11,16 +11,12 @@
     tools:context=".ui.fragments.MapsFragment">
 
     <TextView
-        android:id="@+id/twAppTitle"
+        android:id="@+id/textView"
+        style="@style/TextView_Authentication_TitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="5dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/lora_italic_bold"
-        android:text="@string/appTitle"
-        android:textColor="@color/app_title_color"
-        android:textSize="32sp"
-        android:textStyle="bold"
+        android:text="@string/maps"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,13 +27,21 @@
         android:layout_height="0dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
         android:layout_marginBottom="50dp"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/twAppTitle" />
+        app:layout_constraintTop_toTopOf="@+id/glHorizontalTop" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glHorizontalTop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.1"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

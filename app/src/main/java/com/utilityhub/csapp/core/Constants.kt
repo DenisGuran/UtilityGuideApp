@@ -1,7 +1,5 @@
 package com.utilityhub.csapp.core
 
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-
 object Constants {
     const val USERS_REF : String = "Users"
     const val MAPS_REF : String = "Maps"

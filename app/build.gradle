@@ -73,9 +73,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx'
     // Google
     implementation "com.google.android.gms:play-services-auth:$play_services_auth_version"
-    // Glide
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-    kapt "com.github.bumptech.glide:compiler:$glide_version"
+    // Coil
+    implementation("io.coil-kt:coil:$coil_version")
     // Testing
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

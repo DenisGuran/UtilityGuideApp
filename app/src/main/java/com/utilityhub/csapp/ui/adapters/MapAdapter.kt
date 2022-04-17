@@ -3,7 +3,7 @@ package com.utilityhub.csapp.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.utilityhub.csapp.core.utils.GlideLoader
+import coil.load
 import com.utilityhub.csapp.databinding.LayoutCardMapBinding
 import com.utilityhub.csapp.domain.model.Map
 
@@ -35,8 +35,12 @@ class MapAdapter(
         val model = maps[position]
         holder.apply {
             mapName.text = model.name
-            model.pin?.let { GlideLoader(itemView.context).loadImageView(it, mapPin) }
-            model.background?.let { GlideLoader(itemView.context).loadImageView(it, mapBackground) }
+            model.pin?.let { mapPin.load(it){
+                crossfade(true)
+            } }
+            model.background?.let { mapBackground.load(it){
+                crossfade(true)
+            } }
             itemView.setOnClickListener {
                 onClickListener.onItemClick(position)
             }

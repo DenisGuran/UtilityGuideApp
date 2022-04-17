@@ -1,13 +1,12 @@
 package com.utilityhub.csapp.ui.adapters
 
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import com.utilityhub.csapp.core.utils.GlideLoader
+import coil.load
 import com.utilityhub.csapp.databinding.LayoutCardUtilityBinding
 import com.utilityhub.csapp.domain.model.Utility
 
@@ -38,7 +37,9 @@ class UtilityAdapter(
         val model = utilities[position]
         holder.apply {
             utilityName.text = model.name
-            model.img?.let { GlideLoader(itemView.context).loadImageView(it, utilityImg) }
+            model.img?.let { utilityImg.load(it){
+                crossfade(true)
+            } }
             itemView.setOnClickListener {
                 onClickListener.onItemClick(position)
             }

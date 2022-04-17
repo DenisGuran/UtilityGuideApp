@@ -9,60 +9,28 @@
     tools:context=".ui.fragments.FavoritesFragment">
 
     <TextView
-        android:id="@+id/twAppTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/lora_italic_bold"
-        android:text="@string/appTitle"
-        android:textColor="@color/app_title_color"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/textView"
         style="@style/TextView_Authentication_TitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/favorites"
-        app:layout_constraintBottom_toTopOf="@+id/pos_card"
-        app:layout_constraintEnd_toEndOf="@+id/twAppTitle"
-        app:layout_constraintStart_toStartOf="@+id/twAppTitle"
-        app:layout_constraintTop_toBottomOf="@+id/twAppTitle" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/pos_card"
-        android:layout_width="330dp"
-        android:layout_height="100dp"
-        app:cardBackgroundColor="@color/cardview_shadow_end_color"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="1dp"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/glHorizontalTop">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/pos_image"
-            android:layout_width="330dp"
-            android:layout_height="97dp"
-            android:contentDescription="@string/smokes"
-            android:scaleType="centerCrop"
-            android:src="@drawable/stairs_smoke" />
-
-        <TextView
-            android:id="@+id/pos_name"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/lora_italic_bold"
-            android:gravity="center"
-            android:text="@string/stairs"
-            android:textColor="@color/white"
-            android:textSize="22sp" />
-
-    </androidx.cardview.widget.CardView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/glHorizontalTop" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glHorizontalTop"
@@ -70,8 +38,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.15"
+        app:layout_constraintGuide_percent="0.1"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
