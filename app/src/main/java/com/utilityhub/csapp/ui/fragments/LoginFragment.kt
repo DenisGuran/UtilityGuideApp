@@ -15,19 +15,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn.getSignedInAccountFromIntent
 import com.google.android.gms.common.api.ApiException
-import com.utilityhub.csapp.R
 import com.utilityhub.csapp.core.Constants
 import com.utilityhub.csapp.core.Constants.MAIN_INTENT
 import com.utilityhub.csapp.databinding.FragmentLoginBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.ui.viewmodels.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 import javax.inject.Named
 
 @AndroidEntryPoint
-@ExperimentalCoroutinesApi
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
     @Named(MAIN_INTENT)

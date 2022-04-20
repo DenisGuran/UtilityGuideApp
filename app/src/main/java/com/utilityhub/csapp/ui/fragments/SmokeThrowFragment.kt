@@ -15,10 +15,8 @@ import com.utilityhub.csapp.domain.model.UtilityThrow
 import com.utilityhub.csapp.ui.adapters.UtilityAdapter
 import com.utilityhub.csapp.ui.viewmodels.ThrowViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
-@ExperimentalCoroutinesApi
 class SmokeThrowFragment :
     BaseFragment<FragmentSmokeThrowBinding>(FragmentSmokeThrowBinding::inflate),
     UtilityAdapter.OnUtilityClickListener {

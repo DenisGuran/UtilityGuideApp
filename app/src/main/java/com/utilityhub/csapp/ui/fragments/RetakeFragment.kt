@@ -8,10 +8,8 @@ import com.utilityhub.csapp.R
 import com.utilityhub.csapp.core.Global
 import com.utilityhub.csapp.databinding.FragmentRetakeBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
-@ExperimentalCoroutinesApi
 class RetakeFragment : BaseFragment<FragmentRetakeBinding>(FragmentRetakeBinding::inflate) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

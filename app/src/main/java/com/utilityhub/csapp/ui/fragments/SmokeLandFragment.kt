@@ -16,11 +16,8 @@ import com.utilityhub.csapp.ui.activities.MainActivity
 import com.utilityhub.csapp.ui.adapters.UtilityAdapter
 import com.utilityhub.csapp.ui.viewmodels.LandViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.InternalCoroutinesApi
 
 @AndroidEntryPoint
-@ExperimentalCoroutinesApi
 class SmokeLandFragment :
     BaseFragment<FragmentSmokeLandBinding>(FragmentSmokeLandBinding::inflate),
     UtilityAdapter.OnUtilityClickListener {
@@ -47,7 +44,6 @@ class SmokeLandFragment :
         setUpBottomNavBar()
     }
 
-    @OptIn(InternalCoroutinesApi::class)
     private fun setUpBottomNavBar() {
         val bottomNav = (requireActivity() as MainActivity).bottomNav
         if (bottomNav.menu.getItem(0).itemId == R.id.mapsFragment) {

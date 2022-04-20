@@ -17,11 +17,8 @@ import com.utilityhub.csapp.domain.model.Map
 import com.utilityhub.csapp.ui.activities.MainActivity
 import com.utilityhub.csapp.ui.adapters.MapAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.InternalCoroutinesApi
 
 @AndroidEntryPoint
-@ExperimentalCoroutinesApi
 class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::inflate),
     MapAdapter.OnMapClickListener {
 
@@ -44,7 +41,6 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
         setUpBottomNavBar()
     }
 
-    @OptIn(InternalCoroutinesApi::class)
     private fun setUpBottomNavBar() {
         val bottomNav = (requireActivity() as MainActivity).bottomNav
         if (bottomNav.visibility == View.INVISIBLE) {

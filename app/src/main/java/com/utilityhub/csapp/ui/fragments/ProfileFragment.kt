@@ -8,10 +8,8 @@ import com.utilityhub.csapp.databinding.FragmentProfileBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.ui.viewmodels.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
-@ExperimentalCoroutinesApi
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
     private val viewModel by viewModels<ProfileViewModel>()

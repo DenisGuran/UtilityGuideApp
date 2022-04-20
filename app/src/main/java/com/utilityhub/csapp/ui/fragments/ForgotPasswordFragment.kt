@@ -10,10 +10,8 @@ import com.utilityhub.csapp.databinding.FragmentForgotPasswordBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.ui.viewmodels.ForgotPasswordViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
-@ExperimentalCoroutinesApi
 class ForgotPasswordFragment : BaseFragment<FragmentForgotPasswordBinding>(FragmentForgotPasswordBinding::inflate) {
 
     private var email = ""

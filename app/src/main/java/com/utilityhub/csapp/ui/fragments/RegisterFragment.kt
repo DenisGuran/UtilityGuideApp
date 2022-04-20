@@ -11,10 +11,8 @@ import com.utilityhub.csapp.databinding.FragmentRegisterBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.ui.viewmodels.RegisterViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
-@ExperimentalCoroutinesApi
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterBinding::inflate) {
 
     private var username = ""

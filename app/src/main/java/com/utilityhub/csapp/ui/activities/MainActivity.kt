@@ -9,12 +9,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.utilityhub.csapp.R
 import com.utilityhub.csapp.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.InternalCoroutinesApi
 
 @AndroidEntryPoint
-@InternalCoroutinesApi
-@ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
