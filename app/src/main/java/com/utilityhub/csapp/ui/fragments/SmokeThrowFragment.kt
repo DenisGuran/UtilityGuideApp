@@ -1,19 +1,17 @@
 package com.utilityhub.csapp.ui.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.utilityhub.csapp.R
 import com.utilityhub.csapp.core.Constants
-import com.utilityhub.csapp.core.Global
 import com.utilityhub.csapp.databinding.FragmentSmokeThrowBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.Utility
+import com.utilityhub.csapp.domain.model.UtilityThrow
 import com.utilityhub.csapp.ui.adapters.UtilityAdapter
 import com.utilityhub.csapp.ui.viewmodels.ThrowViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,65 +19,86 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
-class SmokeThrowFragment : BaseFragment<FragmentSmokeThrowBinding>(FragmentSmokeThrowBinding::inflate) {
+class SmokeThrowFragment :
+    BaseFragment<FragmentSmokeThrowBinding>(FragmentSmokeThrowBinding::inflate),
+    UtilityAdapter.OnUtilityClickListener {
 
-    private var throwSpots = ArrayList<Utility>()
-    private var adapter: UtilityAdapter? = null
+    private var throwSpots = ArrayList<UtilityThrow>()
+    private var throwingSpots = ArrayList<Utility>()
+    private var adapter = UtilityAdapter(this)
+
     private val viewModel by viewModels<ThrowViewModel>()
-
     private val args: SmokeThrowFragmentArgs by navArgs()
+
+    private lateinit var map: String
     private lateinit var landingSpot: String
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        landingSpot = args.landingSpot
+
+        getNavArgs()
         getThrowingSpots()
-        setRecyclerView()
-        binding.apply {
-            btnMaps.setOnClickListener {
-                findNavController().setGraph(R.navigation.nav_graph)
-                val navHome = MapsFragmentDirections.actionGlobalHome()
-                findNavController().navigate(navHome)
-            }
+        setAdapter()
+
+        binding.btnMaps.setOnClickListener {
+            navigateToMaps()
         }
+
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun getThrowingSpots() {
-        viewModel.getThrowingSpots(map = Constants.MIRAGE, utility = Constants.SMOKES, landingSpot = landingSpot).observe(viewLifecycleOwner){ response ->
-            when(response){
+        viewModel.getThrowingSpots(
+            map = map,
+            utility = Constants.SMOKES_REF,
+            landingSpot = landingSpot
+        ).observe(viewLifecycleOwner) { response ->
+            when (response) {
                 is Response.Success -> {
-                    Log.i("LIST SUCCESS", response.data.toString())
-                    if(throwSpots.isNotEmpty()){
+                    if (throwSpots.isNotEmpty()) {
                         throwSpots.clear()
                     }
                     throwSpots.addAll(response.data)
-                    adapter?.notifyDataSetChanged()
+                    if (throwingSpots.isNotEmpty()) {
+                        throwingSpots.clear()
+                    }
+                    throwingSpots.addAll(throwSpots.map {
+                        Utility(
+                            name = it.name,
+                            img = it.img
+                        )
+                    } as ArrayList<Utility>)
+
+                    adapter.submitList(throwingSpots)
                 }
                 is Response.Failure -> Log.w("LIST ERROR", response.errorMessage)
             }
         }
     }
 
-    private fun setRecyclerView() {
-        adapter =
-            UtilityAdapter(throwSpots, object : UtilityAdapter.OnClickListener {
-                override fun onItemClick(position: Int) {
-                    val throwingPos = throwSpots[position].name
-                    val navTutorial =
-                        SmokeThrowFragmentDirections.actionSmokeThrowFragmentToTutorialFragment(
-                            landingSpot,
-                            throwingPos!!
-                        )
-                    Global.selectedPos = position
-                    findNavController().navigate(navTutorial)
-                }
-            })
-        binding.apply {
-            recyclerView.adapter = adapter
-            recyclerView.layoutManager = LinearLayoutManager(this@SmokeThrowFragment.context)
-            recyclerView.setHasFixedSize(true)
-        }
+    private fun getNavArgs(){
+        landingSpot = args.landingSpot
+        map = args.map
+    }
+
+    private fun setAdapter() {
+        binding.recyclerView.adapter = adapter
+    }
+
+    private fun navigateToMaps() {
+        findNavController().setGraph(R.navigation.nav_graph)
+        val navHome = MapsFragmentDirections.actionGlobalHome()
+        findNavController().navigate(navHome)
+    }
+
+    override fun onUtilityClick(position: Int) {
+        val throwSpot = throwSpots[position]
+        val navTutorial =
+            SmokeThrowFragmentDirections.actionSmokeThrowFragmentToTutorialFragment(
+                landingSpot = landingSpot,
+                throwingSpot = throwSpot,
+                map = map
+            )
+        findNavController().navigate(navTutorial)
     }
 
 //    private fun initData() {

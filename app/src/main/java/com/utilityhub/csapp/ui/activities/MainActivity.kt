@@ -26,10 +26,9 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController = navHostFragment.navController
         binding.apply {
+            val navHostFragment = navHostFragment.getFragment<NavHostFragment>()
+            val navController = navHostFragment.navController
             bottomNav.setupWithNavController(navController)
             this@MainActivity.bottomNav = bottomNav
             navController.addOnDestinationChangedListener { _, destination, _ ->

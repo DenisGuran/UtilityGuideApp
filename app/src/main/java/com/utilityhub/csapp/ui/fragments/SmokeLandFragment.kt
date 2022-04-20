@@ -1,17 +1,14 @@
 package com.utilityhub.csapp.ui.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.firestore.ListenerRegistration
+import androidx.navigation.fragment.navArgs
 import com.utilityhub.csapp.R
 import com.utilityhub.csapp.core.Constants
-import com.utilityhub.csapp.core.Global
 import com.utilityhub.csapp.databinding.FragmentSmokeLandBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.Utility
@@ -24,30 +21,30 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
-class SmokeLandFragment : BaseFragment<FragmentSmokeLandBinding>(FragmentSmokeLandBinding::inflate) {
+class SmokeLandFragment :
+    BaseFragment<FragmentSmokeLandBinding>(FragmentSmokeLandBinding::inflate),
+    UtilityAdapter.OnUtilityClickListener {
 
     private val viewModel by viewModels<LandViewModel>()
+    private val args: SmokeLandFragmentArgs by navArgs()
+
+    private lateinit var map: String
 
     private var landingSpots = ArrayList<Utility>()
-    private var adapter: UtilityAdapter? = null
-    private var firestoreListener: ListenerRegistration? = null
+    private var adapter = UtilityAdapter(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        getNavArgs()
         getLandingSpots()
-        setRecyclerView()
+        setAdapter()
         onBackPressedGoToMaps()
     }
 
     override fun onStart() {
         super.onStart()
         setUpBottomNavBar()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        firestoreListener?.remove()
     }
 
     @OptIn(InternalCoroutinesApi::class)
@@ -72,41 +69,38 @@ class SmokeLandFragment : BaseFragment<FragmentSmokeLandBinding>(FragmentSmokeLa
             })
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    private fun getLandingSpots(){
-        viewModel.getLandingSpots(map = Constants.MIRAGE, utility = Constants.SMOKES).observe(viewLifecycleOwner){ response ->
-            when(response){
-                is Response.Success -> {
-                    Log.i("LIST SUCCESS", response.data.toString())
-                    if(landingSpots.isNotEmpty()){
-                        landingSpots.clear()
-                    }
-                    landingSpots.addAll(response.data)
-                    adapter?.notifyDataSetChanged()
-                }
-                is Response.Failure -> Log.w("LIST ERROR", response.errorMessage)
-            }
-        }
+    private fun getNavArgs(){
+        map = args.map
     }
 
-    private fun setRecyclerView() {
-        adapter =
-            UtilityAdapter(landingSpots, object : UtilityAdapter.OnClickListener {
-                override fun onItemClick(position: Int) {
-                    val landingSpot = landingSpots[position].name
-                    val navThrow =
-                        SmokeLandFragmentDirections.actionSmokeLandFragmentToSmokeThrowFragment(
-                            landingSpot!!
-                        )
-                    Global.selectedSmoke = position
-                    findNavController().navigate(navThrow)
+    private fun getLandingSpots() {
+        viewModel.getLandingSpots(map = map, utility = Constants.SMOKES_REF)
+            .observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Response.Success -> {
+                        if (landingSpots.isNotEmpty()) {
+                            landingSpots.clear()
+                        }
+                        landingSpots.addAll(response.data)
+                        adapter.submitList(landingSpots)
+                    }
+                    is Response.Failure -> Log.w("LIST ERROR", response.errorMessage)
                 }
-            })
-        binding.apply {
-            recyclerView.setHasFixedSize(true)
-            recyclerView.layoutManager = LinearLayoutManager(this@SmokeLandFragment.activity)
-            recyclerView.adapter = adapter
-        }
+            }
+    }
+
+    private fun setAdapter() {
+        binding.recyclerView.adapter = adapter
+    }
+
+    override fun onUtilityClick(position: Int) {
+        val landingSpot = landingSpots[position].name!!
+        val navThrow =
+            SmokeLandFragmentDirections.actionSmokeLandFragmentToSmokeThrowFragment(
+                landingSpot = landingSpot,
+                map = map
+            )
+        findNavController().navigate(navThrow)
     }
 
 //    private fun initData() {

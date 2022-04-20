@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_margin="3dp"
     android:background="@drawable/tutorial_layout_bg">
 
     <TextView
@@ -24,7 +23,7 @@
 
     <com.jsibbold.zoomage.ZoomageView
         android:id="@+id/zoomView"
-        android:layout_width="395dp"
+        android:layout_width="380dp"
         android:layout_height="230dp"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop"

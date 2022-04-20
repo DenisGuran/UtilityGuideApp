@@ -7,11 +7,11 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.utilityhub.csapp.R
 import com.utilityhub.csapp.core.Constants
-import com.utilityhub.csapp.core.Global
+import com.utilityhub.csapp.core.Constants.MAP
 import com.utilityhub.csapp.databinding.FragmentMapsBinding
 import com.utilityhub.csapp.domain.model.Map
 import com.utilityhub.csapp.ui.activities.MainActivity
@@ -19,23 +19,23 @@ import com.utilityhub.csapp.ui.adapters.MapAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlin.collections.set
 
 @AndroidEntryPoint
 @ExperimentalCoroutinesApi
-class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::inflate) {
+class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::inflate),
+    MapAdapter.OnMapClickListener {
 
     private var backPressedTime: Long = 0L
     private lateinit var backPressedToast: Toast
 
     private var maps = ArrayList<Map>()
-    private var adapter: MapAdapter? = null
+    private var adapter = MapAdapter(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initData()
-        setRecyclerView()
+        setAdapter()
         doubleTapToExit()
     }
 
@@ -75,28 +75,11 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
             })
     }
 
-    private fun setRecyclerView() {
-        adapter =
-            MapAdapter(maps, object : MapAdapter.OnClickListener {
-                override fun onItemClick(position: Int) {
-                    val selectedMap = maps[position]
-                    for (map in Global.maps) {
-                        map.setValue(false)
-                    }
-                    Global.maps[selectedMap.name!!.lowercase()] = true
-                    val navLand = MapsFragmentDirections.actionGlobalNavUtility()
-                    findNavController().navigate(navLand)
-                    findNavController().setGraph(R.navigation.nav_utility)
-                }
-            })
-        binding.apply {
-            recyclerView.setHasFixedSize(true)
-            recyclerView.layoutManager = LinearLayoutManager(this@MapsFragment.activity)
-            recyclerView.adapter = adapter
-        }
+    private fun setAdapter() {
+        binding.recyclerView.adapter = adapter
     }
 
-    private fun getBitmap(drawable: Int) =
+    private fun getPinBitmap(drawable: Int) =
         (ResourcesCompat.getDrawable(
             this.resources,
             drawable,
@@ -104,59 +87,52 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
         ) as VectorDrawable).toBitmap()
 
 
+    override fun onMapClick(position: Int) {
+        val selectedMapName = maps[position].name
+        val navLand = MapsFragmentDirections.actionGlobalNavUtility()
+        findNavController().navigate(navLand)
+        findNavController().setGraph(R.navigation.nav_utility, bundleOf(MAP to selectedMapName))
+    }
+
     private fun initData() {
 
-        maps.clear()
-
-        maps.add(
+        maps = arrayListOf(
             Map(
                 "Mirage",
-                pin = getBitmap(R.drawable.mirage_pin),
+                pin = getPinBitmap(R.drawable.mirage_pin),
                 background = R.drawable.mirage_background
-            )
-        )
-        maps.add(
+            ),
             Map(
                 "Inferno",
-                pin = getBitmap(R.drawable.mirage_pin),
+                pin = getPinBitmap(R.drawable.mirage_pin),
                 background = R.drawable.inferno_background
-            )
-        )
-        maps.add(
+            ),
             Map(
                 "Dust2",
-                pin = getBitmap(R.drawable.dust2_pin),
+                pin = getPinBitmap(R.drawable.dust2_pin),
                 background = R.drawable.dust2_background
-            )
-        )
-        maps.add(
+            ),
             Map(
                 "Vertigo",
-                pin = getBitmap(R.drawable.vertigo_pin),
+                pin = getPinBitmap(R.drawable.vertigo_pin),
                 background = R.drawable.vertigo_background
-            )
-        )
-
-        maps.add(
+            ),
             Map(
                 "Overpass",
-                pin = getBitmap(R.drawable.overpass_pin),
+                pin = getPinBitmap(R.drawable.overpass_pin),
                 background = R.drawable.overpass_background
-            )
-        )
-        maps.add(
+            ),
             Map(
                 "Nuke",
-                pin = getBitmap(R.drawable.nuke_pin),
+                pin = getPinBitmap(R.drawable.nuke_pin),
                 background = R.drawable.nuke_background
-            )
-        )
-        maps.add(
+            ),
             Map(
                 "Ancient",
-                pin = getBitmap(R.drawable.ancient_pin),
+                pin = getPinBitmap(R.drawable.ancient_pin),
                 background = R.drawable.ancient_background
             )
         )
+        adapter.submitList(maps)
     }
 }

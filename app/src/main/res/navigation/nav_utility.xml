@@ -22,6 +22,9 @@
         tools:layout="@layout/fragment_retake" />
     <navigation android:id="@+id/nav_utility_smoke"
         app:startDestination="@id/smokeLandFragment">
+        <argument
+            android:name="map"
+            app:argType="string" />
         <fragment
             android:id="@+id/smokeThrowFragment"
             android:name="com.utilityhub.csapp.ui.fragments.SmokeThrowFragment"
@@ -33,6 +36,9 @@
             <argument
                 android:name="landingSpot"
                 app:argType="string" />
+            <argument
+                android:name="map"
+                app:argType="string" />
         </fragment>
         <fragment
             android:id="@+id/tutorialFragment"
@@ -43,7 +49,10 @@
                 android:name="landingSpot"
                 app:argType="string" />
             <argument
-                android:name="throwingPos"
+                android:name="throwingSpot"
+                app:argType="com.utilityhub.csapp.domain.model.UtilityThrow" />
+            <argument
+                android:name="map"
                 app:argType="string" />
         </fragment>
         <fragment

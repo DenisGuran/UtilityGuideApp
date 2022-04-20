@@ -1,68 +1,56 @@
 package com.utilityhub.csapp.ui.adapters
 
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.utilityhub.csapp.databinding.LayoutCardUtilityBinding
+import com.utilityhub.csapp.databinding.LayoutUtilityBinding
 import com.utilityhub.csapp.domain.model.Utility
 
 class UtilityAdapter(
-    private val utilities: ArrayList<Utility>, private val onClickListener: OnClickListener
-) : RecyclerView.Adapter<UtilityAdapter.UtilityHolder>(), Filterable {
-
-    interface OnClickListener {
-        fun onItemClick(position: Int)
-    }
-
-    inner class UtilityHolder(binding: LayoutCardUtilityBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        val utilityName = binding.posName
-        val utilityImg = binding.posImage
-    }
+    private val onUtilityClickListener: OnUtilityClickListener
+) : ListAdapter<Utility, UtilityAdapter.UtilityViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): UtilityAdapter.UtilityHolder {
+    ): UtilityAdapter.UtilityViewHolder {
         val binding =
-            LayoutCardUtilityBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return UtilityHolder(binding)
+            LayoutUtilityBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return UtilityViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: UtilityHolder, position: Int) {
-        val model = utilities[position]
-        holder.apply {
-            utilityName.text = model.name
-            model.img?.let { utilityImg.load(it){
+    override fun onBindViewHolder(holder: UtilityViewHolder, position: Int) {
+        val utility = currentList[position]
+        holder.binding.apply {
+            posName.text = utility.name
+            posImage.load(utility.img) {
                 crossfade(true)
-            } }
-            itemView.setOnClickListener {
-                onClickListener.onItemClick(position)
+            }
+            posCard.setOnClickListener {
+                onUtilityClickListener.onUtilityClick(position)
             }
         }
     }
 
-    override fun getItemCount(): Int {
-        return utilities.size
+    override fun getItemCount() = currentList.size
+
+    private class DiffCallback : DiffUtil.ItemCallback<Utility>() {
+        override fun areItemsTheSame(oldItem: Utility, newItem: Utility) =
+            oldItem.name == newItem.name
+
+        override fun areContentsTheSame(oldItem: Utility, newItem: Utility) =
+            oldItem == newItem
+
     }
 
-    override fun getFilter(): Filter {
-        return object : Filter() {
-            override fun performFiltering(p0: CharSequence?): FilterResults {
-                TODO("Not yet implemented")
-            }
+    inner class UtilityViewHolder(val binding: LayoutUtilityBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
-            override fun publishResults(p0: CharSequence?, p1: FilterResults?) {
-                TODO("Not yet implemented")
-            }
-
-        }
+    interface OnUtilityClickListener {
+        fun onUtilityClick(position: Int)
     }
 
 }
-
-
