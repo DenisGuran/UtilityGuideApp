@@ -23,18 +23,7 @@ class MapAdapter(private val onMapClickListener: OnMapClickListener) :
 
     override fun onBindViewHolder(holder: MapViewHolder, position: Int) {
         val map = currentList[position]
-        holder.binding.apply {
-            tvMapName.text = map.name
-            ivBackground.load(map.background) {
-                crossfade(enable = true)
-            }
-            ivPin.load(map.pin) {
-                crossfade(enable = true)
-            }
-            mapCard.setOnClickListener {
-                onMapClickListener.onMapClick(position)
-            }
-        }
+        holder.bind(map)
     }
 
     override fun getItemCount() = currentList.size
@@ -48,7 +37,31 @@ class MapAdapter(private val onMapClickListener: OnMapClickListener) :
 
     }
 
-    inner class MapViewHolder(val binding: LayoutMapBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class MapViewHolder(val binding: LayoutMapBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.apply {
+                mapCard.setOnClickListener {
+                    val position = bindingAdapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        onMapClickListener.onMapClick(position)
+                    }
+                }
+            }
+        }
+
+        fun bind(map: Map) {
+            binding.apply {
+                tvMapName.text = map.name
+                ivBackground.load(map.background) {
+                    crossfade(enable = true)
+                }
+                ivPin.load(map.pin) {
+                    crossfade(enable = true)
+                }
+            }
+        }
+    }
 
     interface OnMapClickListener {
         fun onMapClick(position: Int)

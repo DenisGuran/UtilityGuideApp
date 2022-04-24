@@ -13,11 +13,12 @@ class ProfileViewModel @Inject constructor(
     private val useCases: AuthUseCases
 ): ViewModel(){
 
+    val userProfile = useCases.getUserProfile().asLiveData(Dispatchers.IO)
+
     fun signOut() = liveData(Dispatchers.IO){
         useCases.signOut().collect { response ->
             emit(response)
         }
     }
 
-    val userProfile = useCases.getUserProfile().asLiveData(Dispatchers.IO)
 }

@@ -22,15 +22,7 @@ class TutorialAdapter : ListAdapter<Tutorial, TutorialAdapter.TutorialViewHolder
 
     override fun onBindViewHolder(holder: TutorialAdapter.TutorialViewHolder, position: Int) {
         val tutorial = currentList[position]
-        holder.binding.apply {
-            (position + 1).toString().also { textviewAbove.text = it }
-            tutorial.apply {
-                textviewBelow.text = details
-                zoomView.load(img) {
-                    crossfade(true)
-                }
-            }
-        }
+        holder.bind(tutorial)
     }
 
     override fun getItemCount() = currentList.size
@@ -44,6 +36,18 @@ class TutorialAdapter : ListAdapter<Tutorial, TutorialAdapter.TutorialViewHolder
 
     }
 
-    inner class TutorialViewHolder(val binding: LayoutTutorialBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    inner class TutorialViewHolder(private val binding: LayoutTutorialBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(tutorial: Tutorial) {
+            binding.apply {
+                (bindingAdapterPosition + 1).toString().also { textviewAbove.text = it }
+                tutorial.apply {
+                    textviewBelow.text = details
+                    zoomView.load(img) {
+                        crossfade(true)
+                    }
+                }
+            }
+        }
+    }
 }

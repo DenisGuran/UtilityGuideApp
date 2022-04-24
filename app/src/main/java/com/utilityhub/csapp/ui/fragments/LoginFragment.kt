@@ -16,23 +16,18 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.api.signin.GoogleSignIn.getSignedInAccountFromIntent
 import com.google.android.gms.common.api.ApiException
 import com.utilityhub.csapp.core.Constants
-import com.utilityhub.csapp.core.Constants.MAIN_INTENT
 import com.utilityhub.csapp.databinding.FragmentLoginBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.ui.viewmodels.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-import javax.inject.Named
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
-    @Named(MAIN_INTENT)
-    @Inject
-    lateinit var mainIntent: Intent
-
     @Inject
     lateinit var signInIntent: Intent
+
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private val viewModel by viewModels<LoginViewModel>()
 

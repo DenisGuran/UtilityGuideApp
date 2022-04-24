@@ -24,15 +24,7 @@ class UtilityAdapter(
 
     override fun onBindViewHolder(holder: UtilityViewHolder, position: Int) {
         val utility = currentList[position]
-        holder.binding.apply {
-            posName.text = utility.name
-            posImage.load(utility.img) {
-                crossfade(true)
-            }
-            posCard.setOnClickListener {
-                onUtilityClickListener.onUtilityClick(position)
-            }
-        }
+        holder.bind(utility)
     }
 
     override fun getItemCount() = currentList.size
@@ -47,7 +39,25 @@ class UtilityAdapter(
     }
 
     inner class UtilityViewHolder(val binding: LayoutUtilityBinding) :
-        RecyclerView.ViewHolder(binding.root)
+        RecyclerView.ViewHolder(binding.root) {
+        init {
+            binding.posCard.setOnClickListener {
+                val position = bindingAdapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    onUtilityClickListener.onUtilityClick(position)
+                }
+            }
+        }
+
+        fun bind(utility: Utility) {
+            binding.apply {
+                posName.text = utility.name
+                posImage.load(utility.img) {
+                    crossfade(true)
+                }
+            }
+        }
+    }
 
     interface OnUtilityClickListener {
         fun onUtilityClick(position: Int)

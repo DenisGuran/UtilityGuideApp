@@ -11,9 +11,11 @@ import javax.inject.Inject
 class ForgotPasswordViewModel @Inject constructor(
     private val useCases: AuthUseCases
 ) : ViewModel() {
+
     fun resetPassword(email: String) = liveData(Dispatchers.IO) {
         useCases.resetPassword(email).collect { response ->
             emit(response)
         }
     }
+
 }
