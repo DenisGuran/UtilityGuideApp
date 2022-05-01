@@ -66,4 +66,13 @@ object AppModule {
         getLandSpots = GetLandSpots(repository),
         getThrowSpots = GetThrowSpots(repository)
     )
+
+    @Singleton
+    @Provides
+    fun provideValidationUseCases() = ValidationUseCases(
+        validateEmail = ValidateEmail(),
+        validateConfirmedPassword = ValidateConfirmedPassword(),
+        validatePassword = ValidatePassword(),
+        validateUsername = ValidateUsername()
+    )
 }

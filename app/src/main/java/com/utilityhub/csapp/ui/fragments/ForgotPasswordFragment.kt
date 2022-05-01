@@ -1,8 +1,6 @@
 package com.utilityhub.csapp.ui.fragments
 
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Patterns
 import android.view.View
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.viewModels
@@ -12,7 +10,8 @@ import com.utilityhub.csapp.ui.viewmodels.ForgotPasswordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ForgotPasswordFragment : BaseFragment<FragmentForgotPasswordBinding>(FragmentForgotPasswordBinding::inflate) {
+class ForgotPasswordFragment :
+    BaseFragment<FragmentForgotPasswordBinding>(FragmentForgotPasswordBinding::inflate) {
 
     private var email = ""
 
@@ -27,26 +26,19 @@ class ForgotPasswordFragment : BaseFragment<FragmentForgotPasswordBinding>(Fragm
             this@ForgotPasswordFragment.progressBar = this.progressBar
 
             btnResetPassword.setOnClickListener {
-                validateDataAndReset()
+                validateEmailAndReset()
             }
         }
     }
 
-    private fun validateDataAndReset() {
+    private fun validateEmailAndReset() {
         binding.apply {
-            email = inputEmail.text.toString().trim()
+            email = inputEmail.text.toString()
 
-            if (TextUtils.isEmpty(email)){
-                inputEmail.error = "Email is required"
-                inputEmail.requestFocus()
-            }
-            else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                inputEmail.error = "Please, provide a valid email"
-                inputEmail.requestFocus()
-            }
-            else{
-                inputEmail.text = null
-                inputEmail.clearFocus()
+            val result = viewModel.validateEmail(email = email)
+            layoutEmail.helperText = result.emailError
+
+            if (result.hasNoError) {
                 resetPassword()
             }
         }
@@ -54,8 +46,8 @@ class ForgotPasswordFragment : BaseFragment<FragmentForgotPasswordBinding>(Fragm
 
     private fun resetPassword() {
         progressBar.show()
-        viewModel.resetPassword(email).observe(viewLifecycleOwner){ response ->
-            when(response){
+        viewModel.resetPassword(email).observe(viewLifecycleOwner) { response ->
+            when (response) {
                 is Response.Success -> progressBar.hide()
                 is Response.Failure -> {
                     progressBar.hide()

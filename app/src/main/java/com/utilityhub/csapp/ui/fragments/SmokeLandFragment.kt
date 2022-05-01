@@ -62,10 +62,11 @@ class SmokeLandFragment :
                     val navHome = MapsFragmentDirections.actionGlobalHome()
                     findNavController().navigate(navHome)
                 }
-            })
+            }
+        )
     }
 
-    private fun getNavArgs(){
+    private fun getNavArgs() {
         map = args.map
     }
 

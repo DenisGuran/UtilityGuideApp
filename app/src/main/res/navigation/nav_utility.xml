@@ -20,7 +20,8 @@
         android:name="com.utilityhub.csapp.ui.fragments.RetakeFragment"
         android:label="fragment_retake"
         tools:layout="@layout/fragment_retake" />
-    <navigation android:id="@+id/nav_utility_smoke"
+    <navigation
+        android:id="@+id/nav_utility_smoke"
         app:startDestination="@id/smokeLandFragment">
         <argument
             android:name="map"

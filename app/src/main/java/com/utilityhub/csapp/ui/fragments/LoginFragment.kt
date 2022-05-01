@@ -3,8 +3,6 @@ package com.utilityhub.csapp.ui.fragments
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -35,14 +33,14 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private lateinit var backPressedToast: Toast
     private lateinit var progressBar: ContentLoadingProgressBar
 
-    private var email = ""
-    private var password = ""
+    private var email: String = ""
+    private var password: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        checkUserState()
         super.onViewCreated(view, savedInstanceState)
 
         initGoogleResultLauncher()
-        checkUserState()
 
         binding.apply {
             this@LoginFragment.progressBar = this.progressBar
@@ -117,8 +115,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     }
 
     private fun checkUserState() {
-        viewModel.authState.observe(viewLifecycleOwner){ isLoggedIn ->
-            if(isLoggedIn)
+        viewModel.authState.observe(viewLifecycleOwner) { isLoggedIn ->
+            if (isLoggedIn)
                 navigateToMaps()
         }
     }
@@ -156,19 +154,17 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
     private fun validateDataAndLogin() {
         binding.apply {
-            email = inputEmail.text.toString().trim()
-            password = inputPassword.text.toString().trim()
+            email = inputEmail.text.toString()
+            password = inputPassword.text.toString()
 
-            if (TextUtils.isEmpty(email)) {
-                inputEmail.error = "Email is required"
-                inputEmail.requestFocus()
-            } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                inputEmail.error = "Please, provide a valid email"
-                inputEmail.requestFocus()
-            } else if (TextUtils.isEmpty(password)) {
-                inputPassword.error = "Password is required"
-                inputPassword.requestFocus()
-            } else {
+            val result = viewModel.validateLoginForm(
+                email = email,
+                password = password
+            )
+
+            layoutEmail.helperText = result.emailError
+            layoutPassword.helperText = result.passwordError
+            if (result.hasNoError) {
                 loginWithEmailAndPassword()
             }
         }

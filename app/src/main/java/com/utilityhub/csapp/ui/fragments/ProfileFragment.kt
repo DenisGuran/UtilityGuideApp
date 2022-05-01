@@ -26,14 +26,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         }
     }
 
-    private fun navigateToAuth(){
+    private fun navigateToAuth() {
         val navAuth = ProfileFragmentDirections.actionHomeToAuthentication()
         findNavController().navigate(navAuth)
     }
 
     private fun signOut() {
-        viewModel.signOut().observe(viewLifecycleOwner){ response ->
-            when(response){
+        viewModel.signOut().observe(viewLifecycleOwner) { response ->
+            when (response) {
                 is Response.Success -> navigateToAuth()
                 is Response.Failure -> print(response.errorMessage)
             }
@@ -41,7 +41,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     }
 
     private fun getUserProfile() {
-        viewModel.userProfile.observe(viewLifecycleOwner){ response ->
+        viewModel.userProfile.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Response.Success -> {
                     val currentUser = response.data

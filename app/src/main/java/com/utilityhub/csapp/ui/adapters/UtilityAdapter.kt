@@ -38,7 +38,7 @@ class UtilityAdapter(
 
     }
 
-    inner class UtilityViewHolder(val binding: LayoutUtilityBinding) :
+    inner class UtilityViewHolder(private val binding: LayoutUtilityBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.posCard.setOnClickListener {

@@ -37,7 +37,7 @@ class MapAdapter(private val onMapClickListener: OnMapClickListener) :
 
     }
 
-    inner class MapViewHolder(val binding: LayoutMapBinding) :
+    inner class MapViewHolder(private val binding: LayoutMapBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.apply {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/main_bg"
     tools:context=".ui.fragments.RegisterFragment">
 
@@ -24,16 +24,13 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutEmail"
+        style="@style/TextInputLayout_AuthenticationStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:boxBackgroundMode="none"
-        app:boxStrokeWidthFocused="0dp"
-        app:boxStrokeWidth="0dp"
-        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="@+id/layoutUsername"
         app:layout_constraintStart_toStartOf="@+id/layoutUsername"
         app:layout_constraintTop_toBottomOf="@+id/layoutUsername">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputEmail"
             style="@style/EditText_AuthenticationStyle"
@@ -47,13 +44,9 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutConfirmPassword"
+        style="@style/TextInputLayout_AuthenticationStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:boxBackgroundMode="none"
-        app:boxStrokeWidthFocused="0dp"
-        app:boxStrokeWidth="0dp"
-        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="@+id/layoutPassword"
         app:layout_constraintStart_toStartOf="@+id/layoutPassword"
         app:layout_constraintTop_toBottomOf="@+id/layoutPassword"
@@ -68,22 +61,15 @@
             android:fontFamily="sans-serif"
             android:hint="@string/confirm_password"
             android:importantForAutofill="no"
-            android:inputType="textPassword"
-            app:layout_constraintEnd_toEndOf="@+id/layoutPassword"
-            app:layout_constraintStart_toStartOf="@+id/layoutPassword"
-            app:layout_constraintTop_toBottomOf="@+id/layoutPassword" />
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutPassword"
+        style="@style/TextInputLayout_AuthenticationStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:boxBackgroundMode="none"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="@+id/layoutEmail"
         app:layout_constraintStart_toStartOf="@+id/layoutEmail"
         app:layout_constraintTop_toBottomOf="@+id/layoutEmail"
@@ -102,15 +88,14 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutUsername"
+        style="@style/TextInputLayout_AuthenticationStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:boxBackgroundMode="none"
-        app:boxStrokeWidthFocused="0dp"
-        app:boxStrokeWidth="0dp"
-        app:hintEnabled="false"
+        android:layout_marginTop="0dp"
         app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/glHorizontalTop2">
+        app:layout_constraintTop_toBottomOf="@+id/glHorizontalTop">
+
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputUsername"
             style="@style/EditText_AuthenticationStyle"
@@ -119,10 +104,7 @@
             android:drawableStart="@drawable/custom_person_icon"
             android:hint="@string/username"
             android:importantForAutofill="no"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
-            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintTop_toTopOf="@+id/glHorizontalTop" />
+            android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -130,7 +112,7 @@
         style="@style/MaterialButton_AuthenticationStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/register"
         app:backgroundTint="@color/teal_200"
         app:layout_constraintEnd_toEndOf="@+id/layoutConfirmPassword"
@@ -142,8 +124,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.85"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.85"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -151,8 +133,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.15"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="0.15"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -170,7 +152,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.3"
+        app:layout_constraintGuide_percent="0.27"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -179,7 +161,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.75"
+        app:layout_constraintGuide_percent="0.85"
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
@@ -208,11 +190,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
+            android:fontFamily="@font/lora_italic_bold"
             android:text="@string/login"
             android:textAllCaps="false"
             android:textColor="@color/button_text_color"
-            android:fontFamily="@font/lora_italic_bold"
-            android:textStyle="bold"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/twAlreadyHaveAcc" />
@@ -225,14 +207,15 @@
         android:src="@drawable/ic_person"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="@+id/textView2" />
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/textView2"
         style="@style/TextView_Authentication_TitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create an account"
+        android:text="@string/create_account"
         app:layout_constraintBottom_toTopOf="@+id/glHorizontalTop"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
@@ -240,7 +223,7 @@
 
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/progress_bar"
-        style="?android:attr/progressBarStyle"
+        style="?android:attr/progressBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:indeterminate="true"

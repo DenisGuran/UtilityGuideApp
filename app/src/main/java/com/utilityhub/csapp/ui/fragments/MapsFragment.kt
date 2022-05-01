@@ -82,7 +82,6 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
             null
         ) as VectorDrawable).toBitmap()
 
-
     override fun onMapClick(position: Int) {
         val selectedMapName = maps[position].name
         val navLand = MapsFragmentDirections.actionGlobalNavUtility()

@@ -139,11 +139,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
+                android:background="@color/black_transparent"
                 android:ellipsize="none"
                 android:fontFamily="@font/lora_italic_bold"
                 android:gravity="center"
                 android:paddingHorizontal="1dp"
-                android:background="@color/black_transparent"
                 android:text="128/64"
                 android:textColor="#37FF00"
                 android:textSize="12sp" />

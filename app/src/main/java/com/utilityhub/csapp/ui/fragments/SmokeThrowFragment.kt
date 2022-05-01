@@ -73,7 +73,7 @@ class SmokeThrowFragment :
         }
     }
 
-    private fun getNavArgs(){
+    private fun getNavArgs() {
         landingSpot = args.landingSpot
         map = args.map
     }
@@ -89,11 +89,11 @@ class SmokeThrowFragment :
     }
 
     override fun onUtilityClick(position: Int) {
-        val throwSpot = throwSpots[position]
+        val throwingSpot = throwSpots[position]
         val navTutorial =
             SmokeThrowFragmentDirections.actionSmokeThrowFragmentToTutorialFragment(
                 landingSpot = landingSpot,
-                throwingSpot = throwSpot,
+                throwingSpot = throwingSpot,
                 map = map
             )
         findNavController().navigate(navTutorial)

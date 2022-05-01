@@ -2,6 +2,7 @@ package com.utilityhub.csapp.ui.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.lifecycle.viewModelScope
 import com.utilityhub.csapp.domain.use_case.utility.UtilityUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -13,6 +14,7 @@ class ThrowViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun getThrowingSpots(map: String, utility: String, landingSpot: String) =
-        useCases.getThrowSpots(map, utility, landingSpot).asLiveData(Dispatchers.IO)
+        useCases.getThrowSpots(map, utility, landingSpot)
+            .asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
 
 }

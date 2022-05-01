@@ -34,7 +34,7 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
 
     }
 
-    private fun getNavArgs(){
+    private fun getNavArgs() {
         landingSpot = args.landingSpot
         throwingSpot = args.throwingSpot
         tutorial = throwingSpot.tutorial as ArrayList<Tutorial>
@@ -42,12 +42,16 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
         map = args.map
     }
 
-    private fun setTutorialName(){
+    private fun setTutorialName() {
         binding.textview1.text = throwingSpot.name.plus(" to ").plus(landingSpot)
     }
 
     private fun setAdapter() {
         binding.recyclerView.adapter = adapter
+    }
+
+    private fun setLayoutBackground() {
+        //TODO : switch case with map name -> set background accordingly
     }
 
     private fun navigateToMaps() {

@@ -65,5 +65,6 @@
     <string name="already_have_an_account">Already have an account?</string>
     <string name="favorites">Favorites</string>
     <string name="he_grenades">HEs</string>
+    <string name="password_reset_link">Enter the email of your registered account, where you will receive a password reset link</string>
 
 </resources>
