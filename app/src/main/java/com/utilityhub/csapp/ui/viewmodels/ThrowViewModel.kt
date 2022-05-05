@@ -10,11 +10,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ThrowViewModel @Inject constructor(
-    private val useCases: UtilityUseCases
+    private val utilityUseCases: UtilityUseCases
 ) : ViewModel() {
 
     fun getThrowingSpots(map: String, utility: String, landingSpot: String) =
-        useCases.getThrowSpots(map, utility, landingSpot)
+        utilityUseCases.getThrowSpots(map, utility, landingSpot)
             .asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
 
 }

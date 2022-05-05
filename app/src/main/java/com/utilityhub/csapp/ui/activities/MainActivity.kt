@@ -25,8 +25,10 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             val navHostFragment = navHostFragment.getFragment<NavHostFragment>()
             val navController = navHostFragment.navController
+
             bottomNav.setupWithNavController(navController)
             this@MainActivity.bottomNav = bottomNav
+
             navController.addOnDestinationChangedListener { _, destination, _ ->
                 if (destination.id == R.id.loginFragment && bottomNav.visibility != View.GONE) {
                     bottomNav.visibility = View.GONE

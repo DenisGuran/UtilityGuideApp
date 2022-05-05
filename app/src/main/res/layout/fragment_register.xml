@@ -114,7 +114,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/register"
-        app:backgroundTint="@color/teal_200"
         app:layout_constraintEnd_toEndOf="@+id/layoutConfirmPassword"
         app:layout_constraintStart_toStartOf="@+id/layoutConfirmPassword"
         app:layout_constraintTop_toBottomOf="@+id/layoutConfirmPassword" />
@@ -147,15 +146,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glHorizontalTop2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.27"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glHorizontalBottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -178,7 +168,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/lora_italic_semibold"
             android:text="@string/already_have_an_account"
-            android:textColor="@color/button_text_color"
+            android:textColor="@color/text_color"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnLogin"
@@ -193,7 +183,7 @@
             android:fontFamily="@font/lora_italic_bold"
             android:text="@string/login"
             android:textAllCaps="false"
-            android:textColor="@color/button_text_color"
+            android:textColor="@color/yellow"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

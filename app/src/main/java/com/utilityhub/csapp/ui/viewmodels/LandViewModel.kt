@@ -10,11 +10,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LandViewModel @Inject constructor(
-    private val useCases: UtilityUseCases
+    private val utilityUseCases: UtilityUseCases
 ) : ViewModel() {
 
     fun getLandingSpots(map: String, utility: String) =
-        useCases.getLandSpots(map, utility)
+        utilityUseCases.getLandSpots(map, utility)
             .asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
 
 }

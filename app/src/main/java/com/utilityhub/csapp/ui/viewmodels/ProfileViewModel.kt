@@ -11,14 +11,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
-    private val useCases: AuthUseCases
+    private val authUseCases: AuthUseCases
 ) : ViewModel() {
 
     val userProfile =
-        useCases.getUserProfile().asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
+        authUseCases.getUserProfile().asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
 
     fun signOut() = liveData(Dispatchers.IO + viewModelScope.coroutineContext) {
-        useCases.signOut().collect { response ->
+        authUseCases.signOut().collect { response ->
             emit(response)
         }
     }
