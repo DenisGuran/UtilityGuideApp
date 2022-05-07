@@ -1,7 +1,7 @@
 package com.utilityhub.csapp.domain.use_case.auth
 
-import org.junit.Assert.*
-
+import com.utilityhub.csapp.R
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 
@@ -19,6 +19,7 @@ class ValidatePasswordTest {
         val response = validatePassword("1234")
 
         assertEquals(response.isValid, false)
+        assertEquals(response.errorMessage!!.resId, R.string.min_length_password_error)
     }
 
     @Test
@@ -26,6 +27,7 @@ class ValidatePasswordTest {
         val response = validatePassword("")
 
         assertEquals(response.isValid, false)
+        assertEquals(response.errorMessage!!.resId, R.string.required)
     }
 
     @Test
@@ -33,5 +35,6 @@ class ValidatePasswordTest {
         val response = validatePassword("123456")
 
         assertEquals(response.isValid, true)
+        assertEquals(response.errorMessage!!.resId, R.string.null_string)
     }
 }

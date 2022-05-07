@@ -153,6 +153,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     }
 
     private fun validateDataAndLogin() {
+        val context = requireContext()
         binding.apply {
             email = inputEmail.text.toString()
             password = inputPassword.text.toString()
@@ -162,8 +163,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 password = password
             )
 
-            layoutEmail.helperText = result.emailError
-            layoutPassword.helperText = result.passwordError
+            layoutEmail.helperText = result.emailError?.asString(context)
+            layoutPassword.helperText = result.passwordError?.asString(context)
             if (result.hasNoError) {
                 loginWithEmailAndPassword()
             }

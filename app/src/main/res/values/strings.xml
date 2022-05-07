@@ -31,26 +31,26 @@
     <string name="lineup">Smoke lineup</string>
 
     <!-- Profile-->
-    <string name="welcome">"Welcome!"</string>
+    <string name="welcome">Welcome!</string>
 
     <!-- Authentication -->
     <string name="login">Login</string>
     <string name="register">Register</string>
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
+    <string name="required">Required</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be at least 6 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="username">"Username"</string>
-    <string name="email">"Email"</string>
+    <string name="invalid_confirm_password">Passwords do not match</string>
+    <string name="invalid_email">Please, provide a valid email</string>
+    <string name="min_length_password_error">Password must have at least %d characters</string>
+    <string name="login_failed">Login failed</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
     <string name="password">"Password"</string>
-    <string name="forgot_password">"Forgot password?"</string>
-    <string name="create_account">"Create account"</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="create_account">Create account</string>
     <string name="confirm_password">Confirm password</string>
     <string name="logout">Logout</string>
-    <string name="continue_without_account">Continue without account</string>
+    <string name="continue_without_account">Continue as Guest</string>
     <string name="reset_password">Reset password</string>
     <string name="sign_in_with_google">Sign in With Google</string>
     <string name="enter_your_email">Enter your email</string>
@@ -62,9 +62,13 @@
     <string name="share">Share</string>
     <string name="profile">Profile</string>
     <string name="tickrate">Tick rate</string>
+    <string name="tickrate_128">128</string>
+    <string name="tickrate_64">64</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="favorites">Favorites</string>
     <string name="he_grenades">HEs</string>
     <string name="password_reset_link">Enter the email of your registered account, where you will receive a password reset link</string>
+
+    <string name="null_string">""</string>
 
 </resources>

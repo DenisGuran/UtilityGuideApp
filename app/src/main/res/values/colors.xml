@@ -5,7 +5,9 @@
     <color name="purple_700">#FF0000</color>
     <color name="red">#FF0000</color>
     <color name="yellow">#FFEB3B</color>
-    <color name="teal_200">#03BADA</color>
+    <color name="dark_yellow">#FFC107</color>
+    <color name="orange">#FF9800</color>
+    <color name="teal_200">#00FFCC</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="black_transparent">#25000000</color>
@@ -17,5 +19,6 @@
     <color name="app_title_color">#FFFFFF</color>
     <color name="icon_color">#FFFFFF</color>
     <color name="input_text_color">#FFFFFF</color>
-    <color name="button_text_color">@color/black</color>
+    <color name="auth_button_text_color">@color/black</color>
+    <color name="auth_button_background_color">@color/dark_yellow</color>
 </resources>

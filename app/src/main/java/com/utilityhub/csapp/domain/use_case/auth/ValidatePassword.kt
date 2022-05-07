@@ -1,6 +1,8 @@
 package com.utilityhub.csapp.domain.use_case.auth
 
+import com.utilityhub.csapp.R
 import com.utilityhub.csapp.core.Constants.MIN_PASSWORD_LENGTH
+import com.utilityhub.csapp.core.UiText
 import com.utilityhub.csapp.domain.model.ValidationResponse
 
 class ValidatePassword {
@@ -9,13 +11,16 @@ class ValidatePassword {
         if (password.isBlank()) {
             return ValidationResponse(
                 isValid = false,
-                errorMessage = "The password is required"
+                errorMessage = UiText.StringResource(R.string.required)
             )
         }
         if (password.length < MIN_PASSWORD_LENGTH) {
             return ValidationResponse(
                 isValid = false,
-                errorMessage = "The password must have at least 6 characters"
+                errorMessage = UiText.StringResource(
+                    R.string.min_length_password_error,
+                    MIN_PASSWORD_LENGTH
+                )
             )
         }
         return ValidationResponse(

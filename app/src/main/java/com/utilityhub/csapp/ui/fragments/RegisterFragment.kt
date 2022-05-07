@@ -38,6 +38,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
     }
 
     private fun validateDataAndRegister() {
+        val context = requireContext()
         binding.apply {
             username = inputUsername.text.toString()
             email = inputEmail.text.toString()
@@ -51,10 +52,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                 confirmedPassword = confirmedPassword
             )
 
-            layoutUsername.helperText = result.usernameError
-            layoutEmail.helperText = result.emailError
-            layoutPassword.helperText = result.passwordError
-            layoutConfirmPassword.helperText = result.confirmedPasswordError
+            layoutEmail.helperText = result.emailError?.asString(context)
+            layoutPassword.helperText = result.passwordError?.asString(context)
+            layoutUsername.helperText = result.usernameError?.asString(context)
+            layoutConfirmPassword.helperText =
+                result.confirmedPasswordError?.asString(context)
             if (result.hasNoError) {
                 register()
             }

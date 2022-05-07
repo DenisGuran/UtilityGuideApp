@@ -32,11 +32,12 @@ class ForgotPasswordFragment :
     }
 
     private fun validateEmailAndReset() {
+        val context = requireContext()
         binding.apply {
             email = inputEmail.text.toString()
 
             val result = viewModel.validateEmail(email = email)
-            layoutEmail.helperText = result.emailError
+            layoutEmail.helperText = result.emailError?.asString(context)
 
             if (result.hasNoError) {
                 resetPassword()
