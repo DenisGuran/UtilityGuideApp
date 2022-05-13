@@ -5,6 +5,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.CollectionReference
+import com.utilityhub.csapp.core.Constants
 import com.utilityhub.csapp.core.Constants.ERROR_MESSAGE
 import com.utilityhub.csapp.core.Constants.USERS_REF
 import com.utilityhub.csapp.domain.model.Response
@@ -41,7 +42,9 @@ class AuthRepositoryImpl @Inject constructor(
         try {
             auth.currentUser?.apply {
                 usersRef.document(uid).set(
-                    HashMap<String, Any>()
+                    hashMapOf(
+                        Constants.FAVORITES_REF to HashMap<String, String>()
+                    )
                 )
                     .await().also {
                         emit(Response.Success(true))

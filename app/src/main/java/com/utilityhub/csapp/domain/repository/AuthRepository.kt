@@ -8,7 +8,10 @@ interface AuthRepository {
 
     suspend fun firebaseSignInWithGoogle(idToken: String): Flow<Response<Boolean>>
 
-    suspend fun firebaseSignInWithEmailAndPassword(email: String, password: String): Flow<Response<Boolean>>
+    suspend fun firebaseSignInWithEmailAndPassword(
+        email: String,
+        password: String
+    ): Flow<Response<Boolean>>
 
     suspend fun addUserInDatabase(): Flow<Response<Boolean>>
 

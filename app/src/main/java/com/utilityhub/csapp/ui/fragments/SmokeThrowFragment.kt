@@ -68,7 +68,7 @@ class SmokeThrowFragment :
 
                     adapter.submitList(throwingSpots)
                 }
-                is Response.Failure -> Log.w("LIST ERROR", response.errorMessage)
+                is Response.Failure -> Log.w("getThrowingSpots", response.errorMessage)
             }
         }
     }

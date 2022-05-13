@@ -7,6 +7,7 @@ object Constants {
     const val MAPS_REF : String = "Maps"
     const val SMOKES_REF : String = "Smokes"
     const val THROW_REF : String = "Throw"
+    const val FAVORITES_REF : String = "Favorites"
 
     // Utility variables
     const val MAP : String = "map"

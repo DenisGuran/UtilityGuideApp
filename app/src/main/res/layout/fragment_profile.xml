@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/logout"
-        app:backgroundTint="@color/teal_200"
+        app:backgroundTint="@color/auth_button_background_color"
         app:layout_constraintEnd_toEndOf="@+id/twAppTitle"
         app:layout_constraintStart_toStartOf="@+id/twAppTitle"
         app:layout_constraintTop_toBottomOf="@+id/glHorizontalBottom" />
@@ -119,15 +119,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintGuide_percent="0.75"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView4"
-        style="@style/TextView_Tutorial_TitleStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Preferences >"
-        app:layout_constraintBottom_toTopOf="@+id/glHorizontalMid"
-        app:layout_constraintStart_toStartOf="@+id/guidelineLeft" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

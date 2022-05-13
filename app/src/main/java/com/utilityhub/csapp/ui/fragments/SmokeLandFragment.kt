@@ -81,7 +81,7 @@ class SmokeLandFragment :
                         landingSpots.addAll(response.data)
                         adapter.submitList(landingSpots)
                     }
-                    is Response.Failure -> Log.w("LIST ERROR", response.errorMessage)
+                    is Response.Failure -> Log.w("getLandingSpots", response.errorMessage)
                 }
             }
     }

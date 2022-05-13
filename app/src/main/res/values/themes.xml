@@ -77,7 +77,7 @@
     </style>
 
     <style name="Tickrate_Text">
-        <item name="android:textColor">@color/yellow</item>
+        <item name="android:textColor">#6AFF00</item>
         <item name="android:textSize">12sp</item>
     </style>
 

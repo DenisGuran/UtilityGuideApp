@@ -12,9 +12,7 @@ import com.utilityhub.csapp.data.repository.UtilityRepositoryImpl
 import com.utilityhub.csapp.domain.repository.AuthRepository
 import com.utilityhub.csapp.domain.repository.UtilityRepository
 import com.utilityhub.csapp.domain.use_case.auth.*
-import com.utilityhub.csapp.domain.use_case.utility.GetLandSpots
-import com.utilityhub.csapp.domain.use_case.utility.GetThrowSpots
-import com.utilityhub.csapp.domain.use_case.utility.UtilityUseCases
+import com.utilityhub.csapp.domain.use_case.utility.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,8 +42,10 @@ object AppModule {
     @Singleton
     @Provides
     fun provideUtilityRepository(
-        @Named(MAPS_REF) mapsRef: CollectionReference
-    ): UtilityRepository = UtilityRepositoryImpl(mapsRef)
+        @Named(MAPS_REF) mapsRef: CollectionReference,
+        @Named(USERS_REF) usersRef: CollectionReference,
+        auth: FirebaseAuth
+    ): UtilityRepository = UtilityRepositoryImpl(mapsRef, usersRef, auth)
 
     @Singleton
     @Provides
@@ -64,7 +64,9 @@ object AppModule {
     @Provides
     fun provideUtilityUseCases(repository: UtilityRepository) = UtilityUseCases(
         getLandSpots = GetLandSpots(repository),
-        getThrowSpots = GetThrowSpots(repository)
+        getThrowSpots = GetThrowSpots(repository),
+        addFavorite = AddFavorite(repository),
+        getFavorites = GetFavorites(repository)
     )
 
     @Singleton

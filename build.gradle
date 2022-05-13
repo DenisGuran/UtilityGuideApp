@@ -15,7 +15,7 @@ buildscript {
         live_data_version = "2.4.1"
         extensions_version = "2.2.0"
         nav_version = "2.4.2"
-        material_version = "1.5.0"
+        material_version = "1.6.0"
         play_services_auth_version = "20.2.0"
         firebase_bom_version = "29.3.0"
         coil_version = "2.0.0-rc03"

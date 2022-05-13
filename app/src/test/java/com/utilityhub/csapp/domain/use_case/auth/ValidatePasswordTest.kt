@@ -16,7 +16,7 @@ class ValidatePasswordTest {
 
     @Test
     fun `Password has less than 6 chars, returns error`() {
-        val response = validatePassword("1234")
+        val response = validatePassword("12345")
 
         assertEquals(response.isValid, false)
         assertEquals(response.errorMessage!!.resId, R.string.min_length_password_error)

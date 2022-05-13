@@ -1,20 +1,26 @@
 package com.utilityhub.csapp.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.utilityhub.csapp.R
+import com.utilityhub.csapp.core.Constants
 import com.utilityhub.csapp.databinding.FragmentTutorialBinding
+import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.Tutorial
 import com.utilityhub.csapp.domain.model.UtilityThrow
 import com.utilityhub.csapp.ui.adapters.TutorialAdapter
+import com.utilityhub.csapp.ui.viewmodels.TutorialViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialBinding::inflate) {
 
     private val args: TutorialFragmentArgs by navArgs()
+    private val viewModel by viewModels<TutorialViewModel>()
     private lateinit var map: String
     private lateinit var landingSpot: String
     private lateinit var throwingSpot: UtilityThrow
@@ -28,8 +34,18 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
         setAdapter()
         setTutorialName()
 
-        binding.btnMaps.setOnClickListener {
-            navigateToMaps()
+        binding.apply {
+            btnMaps.setOnClickListener {
+                navigateToMaps()
+            }
+            btnFavorites.setOnClickListener {
+                addToFavorites(
+                    map = map,
+                    utility = Constants.SMOKES_REF,
+                    landingSpot = landingSpot,
+                    throwingSpot = throwingSpot.name!!
+                )
+            }
         }
 
     }
@@ -52,6 +68,21 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
 
     private fun setLayoutBackground() {
         //TODO : switch case with map name -> set background accordingly
+    }
+
+    private fun addToFavorites(
+        map: String,
+        utility: String,
+        landingSpot: String,
+        throwingSpot: String
+    ) {
+        viewModel.addTutorialToFavorites(map, utility, landingSpot, throwingSpot)
+            .observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Response.Success -> Log.i("addToFavorites", "SUCCESS")
+                    is Response.Failure -> Log.i("addToFavorites", response.errorMessage)
+                }
+            }
     }
 
     private fun navigateToMaps() {

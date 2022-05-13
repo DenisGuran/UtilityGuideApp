@@ -68,6 +68,7 @@
     <string name="favorites">Favorites</string>
     <string name="he_grenades">HEs</string>
     <string name="password_reset_link">Enter the email of your registered account, where you will receive a password reset link</string>
+    <string name="double_tap_to_exit">Press back again to exit</string>
 
     <string name="null_string">""</string>
 

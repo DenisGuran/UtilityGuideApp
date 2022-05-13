@@ -9,6 +9,19 @@ interface UtilityRepository {
 
     fun getLandingSpots(map: String, utility: String): Flow<Response<ArrayList<Utility>>>
 
-    fun getThrowingSpots(map: String, utility: String, landingSpot: String): Flow<Response<ArrayList<UtilityThrow>>>
+    fun getThrowingSpots(
+        map: String,
+        utility: String,
+        landingSpot: String
+    ): Flow<Response<ArrayList<UtilityThrow>>>
+
+    fun getFavorites(): Flow<Response<Any?>>
+
+    fun addToFavorites(
+        map: String,
+        utility: String,
+        landingSpot: String,
+        throwingSpot: String
+    ): Flow<Response<Boolean>>
 
 }
