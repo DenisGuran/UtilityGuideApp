@@ -1,4 +1,4 @@
-package com.utilityhub.csapp.ui.fragments
+package com.utilityhub.csapp.ui.auth.login
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -16,7 +16,7 @@ import com.google.android.gms.common.api.ApiException
 import com.utilityhub.csapp.core.Constants
 import com.utilityhub.csapp.databinding.FragmentLoginBinding
 import com.utilityhub.csapp.domain.model.Response
-import com.utilityhub.csapp.ui.viewmodels.LoginViewModel
+import com.utilityhub.csapp.ui.core.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 

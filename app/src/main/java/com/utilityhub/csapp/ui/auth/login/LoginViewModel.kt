@@ -1,6 +1,7 @@
-package com.utilityhub.csapp.ui.viewmodels
+package com.utilityhub.csapp.ui.auth.login
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.utilityhub.csapp.domain.model.AuthFormState
@@ -11,14 +12,24 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(
+class LoginViewModel @Inject constructor(
     private val authUseCases: AuthUseCases,
     private val validationUseCases: ValidationUseCases
 ) : ViewModel() {
 
-    fun createAccount(email: String, password: String, username: String) =
+    val authState =
+        authUseCases.getAuthState().asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
+
+    fun firebaseSignInWithEmail(email: String, password: String) =
         liveData(Dispatchers.IO + viewModelScope.coroutineContext) {
-            authUseCases.register(email, password, username).collect { response ->
+            authUseCases.signInWithEmail(email, password).collect { response ->
+                emit(response)
+            }
+        }
+
+    fun firebaseSignInWithGoogle(idToken: String) =
+        liveData(Dispatchers.IO + viewModelScope.coroutineContext) {
+            authUseCases.signInWithGoogle(idToken).collect { response ->
                 emit(response)
             }
         }
@@ -29,32 +40,20 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
-    fun validateRegistrationForm(
-        username: String,
-        email: String,
-        password: String,
-        confirmedPassword: String
-    ): AuthFormState {
-        val usernameResponse = validationUseCases.validateUsername(username = username)
+    fun validateLoginForm(email: String, password: String): AuthFormState {
         val emailResponse = validationUseCases.validateEmail(email = email)
         val passwordResponse = validationUseCases.validatePassword(password = password)
-        val confirmedPasswordResponse = validationUseCases.validateConfirmedPassword(
-            password = password,
-            confirmedPassword = confirmedPassword
-        )
+
         val hasError = listOf(
-            usernameResponse,
             emailResponse,
-            passwordResponse,
-            confirmedPasswordResponse
+            passwordResponse
         ).any { !it.isValid }
 
         return AuthFormState(
             hasNoError = !hasError,
-            usernameError = usernameResponse.errorMessage,
             emailError = emailResponse.errorMessage,
-            passwordError = passwordResponse.errorMessage,
-            confirmedPasswordError = confirmedPasswordResponse.errorMessage
+            passwordError = passwordResponse.errorMessage
         )
     }
+
 }

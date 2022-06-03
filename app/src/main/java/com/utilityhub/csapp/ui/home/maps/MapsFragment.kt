@@ -1,4 +1,4 @@
-package com.utilityhub.csapp.ui.fragments
+package com.utilityhub.csapp.ui.home.maps
 
 import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
@@ -14,8 +14,9 @@ import com.utilityhub.csapp.core.Constants
 import com.utilityhub.csapp.core.Constants.MAP
 import com.utilityhub.csapp.databinding.FragmentMapsBinding
 import com.utilityhub.csapp.domain.model.Map
-import com.utilityhub.csapp.ui.activities.MainActivity
+import com.utilityhub.csapp.ui.core.MainActivity
 import com.utilityhub.csapp.ui.adapters.MapAdapter
+import com.utilityhub.csapp.ui.core.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

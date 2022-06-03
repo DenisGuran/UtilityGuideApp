@@ -10,7 +10,7 @@ class ValidateConfirmedPassword {
         if (password != confirmedPassword) {
             return ValidationResponse(
                 isValid = false,
-                errorMessage = UiText.StringResource(R.string.invalid_confirm_password)
+                errorMessage = UiText.StringResource(R.string.invalid_confirm_password_error)
             )
         }
         return ValidationResponse(

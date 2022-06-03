@@ -39,8 +39,8 @@
     <string name="required">Required</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="invalid_confirm_password">Passwords do not match</string>
-    <string name="invalid_email">Please, provide a valid email</string>
+    <string name="invalid_confirm_password_error">Passwords do not match</string>
+    <string name="invalid_email_error">Please, provide a valid email</string>
     <string name="min_length_password_error">Password must have at least %d characters</string>
     <string name="login_failed">Login failed</string>
     <string name="username">Username</string>

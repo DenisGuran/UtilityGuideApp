@@ -1,4 +1,4 @@
-package com.utilityhub.csapp.ui.fragments
+package com.utilityhub.csapp.ui.home.maps.landing
 
 import android.os.Bundle
 import android.util.Log
@@ -12,9 +12,10 @@ import com.utilityhub.csapp.core.Constants
 import com.utilityhub.csapp.databinding.FragmentSmokeLandBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.Utility
-import com.utilityhub.csapp.ui.activities.MainActivity
+import com.utilityhub.csapp.ui.core.MainActivity
 import com.utilityhub.csapp.ui.adapters.UtilityAdapter
-import com.utilityhub.csapp.ui.viewmodels.LandViewModel
+import com.utilityhub.csapp.ui.core.BaseFragment
+import com.utilityhub.csapp.ui.home.maps.MapsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

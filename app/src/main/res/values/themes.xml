@@ -46,7 +46,7 @@
         <item name="hintEnabled">false</item>
         <item name="errorEnabled">true</item>
         <item name="android:layout_marginTop">4dp</item>
-        <item name="helperTextTextColor">@color/red</item>
+        <item name="helperTextTextColor">@color/helper_text_color</item>
     </style>
 
     <style name="EditText_UtilityStyle">

@@ -1,4 +1,4 @@
-package com.utilityhub.csapp.ui.fragments
+package com.utilityhub.csapp.ui.home.maps.landing.throwing
 
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +13,8 @@ import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.Utility
 import com.utilityhub.csapp.domain.model.UtilityThrow
 import com.utilityhub.csapp.ui.adapters.UtilityAdapter
-import com.utilityhub.csapp.ui.viewmodels.ThrowViewModel
+import com.utilityhub.csapp.ui.core.BaseFragment
+import com.utilityhub.csapp.ui.home.maps.MapsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

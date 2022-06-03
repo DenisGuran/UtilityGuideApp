@@ -1,4 +1,4 @@
-package com.utilityhub.csapp.ui.viewmodels
+package com.utilityhub.csapp.ui.home.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData

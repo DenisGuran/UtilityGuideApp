@@ -1,4 +1,4 @@
-package com.utilityhub.csapp.ui.activities
+package com.utilityhub.csapp.ui.core
 
 import android.os.Bundle
 import android.view.View

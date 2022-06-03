@@ -1,4 +1,4 @@
-package com.utilityhub.csapp.ui.viewmodels
+package com.utilityhub.csapp.ui.auth.forgot_password
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData

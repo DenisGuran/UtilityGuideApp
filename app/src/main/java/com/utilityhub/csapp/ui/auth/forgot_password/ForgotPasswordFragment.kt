@@ -1,4 +1,4 @@
-package com.utilityhub.csapp.ui.fragments
+package com.utilityhub.csapp.ui.auth.forgot_password
 
 import android.os.Bundle
 import android.view.View
@@ -6,7 +6,7 @@ import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.viewModels
 import com.utilityhub.csapp.databinding.FragmentForgotPasswordBinding
 import com.utilityhub.csapp.domain.model.Response
-import com.utilityhub.csapp.ui.viewmodels.ForgotPasswordViewModel
+import com.utilityhub.csapp.ui.core.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -1,4 +1,4 @@
-package com.utilityhub.csapp.ui.fragments
+package com.utilityhub.csapp.ui.auth.register
 
 import android.os.Bundle
 import android.view.View
@@ -7,7 +7,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.utilityhub.csapp.databinding.FragmentRegisterBinding
 import com.utilityhub.csapp.domain.model.Response
-import com.utilityhub.csapp.ui.viewmodels.RegisterViewModel
+import com.utilityhub.csapp.ui.core.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

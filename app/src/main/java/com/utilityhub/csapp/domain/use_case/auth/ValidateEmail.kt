@@ -17,7 +17,7 @@ class ValidateEmail {
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             return ValidationResponse(
                 isValid = false,
-                errorMessage = UiText.StringResource(R.string.invalid_email)
+                errorMessage = UiText.StringResource(R.string.invalid_email_error)
             )
         }
         return ValidationResponse(

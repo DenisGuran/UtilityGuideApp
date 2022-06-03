@@ -2,7 +2,7 @@ package com.utilityhub.csapp.data.repository
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.FieldValue
 import com.utilityhub.csapp.core.Constants
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.Utility
@@ -58,31 +58,49 @@ class UtilityRepositoryImpl(
         }
     }
 
-    override fun addToFavorites(
+    override fun addFavorite(
         map: String,
         utility: String,
         landingSpot: String,
         throwingSpot: String
     ) = flow {
         try {
-            val favoriteRef = mapsRef
+            val favoriteRefPath = mapsRef
                 .document(map)
                 .collection(utility)
                 .document(landingSpot)
                 .collection(Constants.THROW_REF)
-                .document(throwingSpot)
-            val favoriteTutorial = hashMapOf(
-                Constants.FAVORITES_REF to listOf(
-                    favoriteRef
-                )
-            )
+                .document(throwingSpot).path
             val currentUserRef = usersRef.document(auth.currentUser!!.uid)
-            currentUserRef.set(favoriteTutorial, SetOptions.merge()).await().also {
+            currentUserRef.update(Constants.FAVORITES_REF, FieldValue.arrayUnion(favoriteRefPath)).await().also {
                 emit(Response.Success(true))
             }
         } catch (e: Exception) {
             emit(Response.Failure(e.message ?: Constants.ERROR_MESSAGE))
         }
     }
+
+    override fun deleteFavorite(
+        map: String,
+        utility: String,
+        landingSpot: String,
+        throwingSpot: String
+    ) = flow {
+        try {
+            val favoriteRefPath = mapsRef
+                .document(map)
+                .collection(utility)
+                .document(landingSpot)
+                .collection(Constants.THROW_REF)
+                .document(throwingSpot).path
+            val currentUserRef = usersRef.document(auth.currentUser!!.uid)
+            currentUserRef.update(Constants.FAVORITES_REF, FieldValue.arrayRemove(favoriteRefPath)).await().also {
+                emit(Response.Success(true))
+            }
+        } catch (e: Exception) {
+            emit(Response.Failure(e.message ?: Constants.ERROR_MESSAGE))
+        }
+    }
+
 
 }

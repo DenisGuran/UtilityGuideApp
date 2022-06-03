@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/mirage_background_blur"
-    tools:context=".ui.fragments.SmokeLandFragment">
+    tools:context=".ui.home.maps.landing.SmokeLandFragment">
 
     <EditText
         android:id="@+id/editText"

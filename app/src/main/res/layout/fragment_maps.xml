@@ -8,7 +8,7 @@
     android:background="@drawable/main_bg"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".ui.fragments.MapsFragment">
+    tools:context=".ui.home.maps.MapsFragment">
 
     <TextView
         android:id="@+id/textView"

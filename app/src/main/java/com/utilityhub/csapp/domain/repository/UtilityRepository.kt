@@ -17,7 +17,14 @@ interface UtilityRepository {
 
     fun getFavorites(): Flow<Response<Any?>>
 
-    fun addToFavorites(
+    fun addFavorite(
+        map: String,
+        utility: String,
+        landingSpot: String,
+        throwingSpot: String
+    ): Flow<Response<Boolean>>
+
+    fun deleteFavorite(
         map: String,
         utility: String,
         landingSpot: String,

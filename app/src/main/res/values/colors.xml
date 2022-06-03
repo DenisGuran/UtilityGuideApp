@@ -20,5 +20,6 @@
     <color name="icon_color">#FFFFFF</color>
     <color name="input_text_color">#FFFFFF</color>
     <color name="auth_button_text_color">@color/black</color>
+    <color name="helper_text_color">#FF00AA</color>
     <color name="auth_button_background_color">@color/dark_yellow</color>
 </resources>

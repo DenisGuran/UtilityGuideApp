@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/flashFragment"
-        android:name="com.utilityhub.csapp.ui.fragments.FlashFragment"
+        android:name="com.utilityhub.csapp.ui.home.maps.landing.FlashFragment"
         android:label="fragment_flash"
         tools:layout="@layout/fragment_flash" />
     <fragment
         android:id="@+id/molotovFragment"
-        android:name="com.utilityhub.csapp.ui.fragments.MolotovFragment"
+        android:name="com.utilityhub.csapp.ui.home.maps.landing.MolotovFragment"
         android:label="fragment_molotov"
         tools:layout="@layout/fragment_molotov" />
     <fragment
         android:id="@+id/retakeFragment"
-        android:name="com.utilityhub.csapp.ui.fragments.RetakeFragment"
+        android:name="com.utilityhub.csapp.ui.home.maps.landing.RetakeFragment"
         android:label="fragment_retake"
         tools:layout="@layout/fragment_retake" />
     <navigation
@@ -28,7 +28,7 @@
             app:argType="string" />
         <fragment
             android:id="@+id/smokeThrowFragment"
-            android:name="com.utilityhub.csapp.ui.fragments.SmokeThrowFragment"
+            android:name="com.utilityhub.csapp.ui.home.maps.landing.throwing.SmokeThrowFragment"
             android:label="fragment_smoke_throw"
             tools:layout="@layout/fragment_smoke_throw">
             <action
@@ -43,7 +43,7 @@
         </fragment>
         <fragment
             android:id="@+id/tutorialFragment"
-            android:name="com.utilityhub.csapp.ui.fragments.TutorialFragment"
+            android:name="com.utilityhub.csapp.ui.home.maps.landing.throwing.tutorial.TutorialFragment"
             android:label="fragment_tutorial"
             tools:layout="@layout/fragment_tutorial">
             <argument
@@ -58,7 +58,7 @@
         </fragment>
         <fragment
             android:id="@+id/smokeLandFragment"
-            android:name="com.utilityhub.csapp.ui.fragments.SmokeLandFragment"
+            android:name="com.utilityhub.csapp.ui.home.maps.landing.SmokeLandFragment"
             android:label="fragment_smoke_land"
             tools:layout="@layout/fragment_smoke_land">
             <action
