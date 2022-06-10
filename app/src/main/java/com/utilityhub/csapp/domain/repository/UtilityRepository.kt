@@ -15,7 +15,7 @@ interface UtilityRepository {
         landingSpot: String
     ): Flow<Response<ArrayList<UtilityThrow>>>
 
-    fun getFavorites(): Flow<Response<Any?>>
+    fun getFavorites(): Flow<Response<ArrayList<*>>>
 
     fun addFavorite(
         map: String,
