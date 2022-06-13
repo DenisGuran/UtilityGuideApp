@@ -1,4 +1,4 @@
-package com.utilityhub.csapp.ui.home.maps.landing.throwing
+package com.utilityhub.csapp.ui.utility.throwing
 
 import android.os.Bundle
 import android.util.Log

@@ -1,18 +1,19 @@
-package com.utilityhub.csapp.ui.home.maps.landing
+package com.utilityhub.csapp.ui.utility.landing
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.utilityhub.csapp.R
 import com.utilityhub.csapp.core.Global
-import com.utilityhub.csapp.databinding.FragmentMolotovBinding
+import com.utilityhub.csapp.databinding.FragmentRetakeBinding
 import com.utilityhub.csapp.ui.core.BaseFragment
 import com.utilityhub.csapp.ui.home.maps.MapsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MolotovFragment : BaseFragment<FragmentMolotovBinding>(FragmentMolotovBinding::inflate) {
+class RetakeFragment : BaseFragment<FragmentRetakeBinding>(FragmentRetakeBinding::inflate) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,36 +37,36 @@ class MolotovFragment : BaseFragment<FragmentMolotovBinding>(FragmentMolotovBind
 
     private fun initData() {
 
-        val molotovLayout = binding.molotovLayout
+        val retakeLayout = binding.retakeLayout
 
         if (Global.maps["mirage"] == true) {
 
-            molotovLayout.setBackgroundResource(R.drawable.mirage_background_blur)
+            retakeLayout.setBackgroundResource(R.drawable.mirage_background_blur)
         }
 
         if (Global.maps["inferno"] == true) {
 
-            molotovLayout.setBackgroundResource(R.drawable.inferno_background_blur)
+            retakeLayout.setBackgroundResource(R.drawable.inferno_background_blur)
         }
 
         if (Global.maps["dust2"] == true) {
-            molotovLayout.setBackgroundResource(R.drawable.dust2_background_blur)
+            retakeLayout.setBackgroundResource(R.drawable.dust2_background_blur)
         }
 
         if (Global.maps["overpass"] == true) {
-            molotovLayout.setBackgroundResource(R.drawable.overpass_background_blur)
+            retakeLayout.setBackgroundResource(R.drawable.overpass_background_blur)
         }
 
         if (Global.maps["nuke"] == true) {
-            molotovLayout.setBackgroundResource(R.drawable.nuke_background_blur)
+            retakeLayout.setBackgroundResource(R.drawable.nuke_background_blur)
         }
 
         if (Global.maps["vertigo"] == true) {
-            molotovLayout.setBackgroundResource(R.drawable.vertigo_background_blur)
+            retakeLayout.setBackgroundResource(R.drawable.vertigo_background_blur)
         }
 
         if (Global.maps["ancient"] == true) {
-            molotovLayout.setBackgroundResource(R.drawable.ancient_background_blur)
+            retakeLayout.setBackgroundResource(R.drawable.ancient_background_blur)
         }
 
     }

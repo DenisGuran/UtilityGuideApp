@@ -7,7 +7,7 @@
         android:title="@string/smokes" />
 
     <item
-        android:id="@+id/flashFragment"
+        android:id="@+id/nav_utility_flash"
         android:icon="@drawable/flash"
         android:title="@string/flashes" />
 

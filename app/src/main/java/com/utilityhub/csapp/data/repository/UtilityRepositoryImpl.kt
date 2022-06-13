@@ -29,8 +29,8 @@ class UtilityRepositoryImpl(
             .collection(utility)
         val snapshotListener = landingSpotsRef.addSnapshotListener { snapshot, e ->
             val response = if (snapshot != null) {
-                val landingSpots = snapshot.documents.mapNotNull { snapShot ->
-                    snapShot.toObject(Utility::class.java)
+                val landingSpots = snapshot.documentChanges.mapNotNull { snapShot ->
+                    snapShot.document.toObject(Utility::class.java)
                 }.toCollection(ArrayList())
                 Response.Success(landingSpots)
             } else {
@@ -43,27 +43,28 @@ class UtilityRepositoryImpl(
         }
     }
 
-    override fun getThrowingSpots(map: String, utility: String, landingSpot: String) = callbackFlow {
-        val throwingSpotsRef = mapsRef
-            .document(map)
-            .collection(utility)
-            .document(landingSpot)
-            .collection(Constants.THROW_REF)
-        val snapshotListener = throwingSpotsRef.addSnapshotListener { snapshot, e ->
-            val response = if (snapshot != null) {
-                val throwingSpots = snapshot.documents.mapNotNull { snapShot ->
-                    snapShot.toObject(UtilityThrow::class.java)
-                }.toCollection(ArrayList())
-                Response.Success(throwingSpots)
-            } else {
-                Response.Failure(e?.message ?: e.toString())
+    override fun getThrowingSpots(map: String, utility: String, landingSpot: String) =
+        callbackFlow {
+            val throwingSpotsRef = mapsRef
+                .document(map)
+                .collection(utility)
+                .document(landingSpot)
+                .collection(Constants.THROW_REF)
+            val snapshotListener = throwingSpotsRef.addSnapshotListener { snapshot, e ->
+                val response = if (snapshot != null) {
+                    val throwingSpots = snapshot.documentChanges.mapNotNull { snapShot ->
+                        snapShot.document.toObject(UtilityThrow::class.java)
+                    }.toCollection(ArrayList())
+                    Response.Success(throwingSpots)
+                } else {
+                    Response.Failure(e?.message ?: e.toString())
+                }
+                trySend(response).isSuccess
             }
-            trySend(response).isSuccess
+            awaitClose {
+                snapshotListener.remove()
+            }
         }
-        awaitClose {
-            snapshotListener.remove()
-        }
-    }
 
     override fun getFavorites() = flow {
         try {

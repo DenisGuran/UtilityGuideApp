@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/mirage_background_blur"
     app:layoutDescription="@xml/fragment_tutorial_scene"
-    tools:context=".ui.home.maps.landing.throwing.tutorial.TutorialFragment">
+    tools:context=".ui.utility.tutorial.TutorialFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

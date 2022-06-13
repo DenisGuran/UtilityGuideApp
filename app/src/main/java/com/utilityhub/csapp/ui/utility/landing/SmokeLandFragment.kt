@@ -1,8 +1,10 @@
-package com.utilityhub.csapp.ui.home.maps.landing
+package com.utilityhub.csapp.ui.utility.landing
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -27,6 +29,7 @@ class SmokeLandFragment :
     private val args: SmokeLandFragmentArgs by navArgs()
 
     private lateinit var map: String
+    private var utility = Constants.SMOKES_REF
 
     private var landingSpots = ArrayList<Utility>()
     private var adapter = UtilityAdapter(this)
@@ -38,11 +41,13 @@ class SmokeLandFragment :
         getLandingSpots()
         setAdapter()
         onBackPressedGoToMaps()
+
     }
 
     override fun onStart() {
         super.onStart()
         setUpBottomNavBar()
+
     }
 
     private fun setUpBottomNavBar() {
@@ -50,6 +55,29 @@ class SmokeLandFragment :
         if (bottomNav.menu.getItem(0).itemId == R.id.mapsFragment) {
             bottomNav.menu.clear()
             bottomNav.inflateMenu(R.menu.utility_menu)
+        }
+
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.nav_utility_smoke -> {
+                utility = Constants.SMOKES_REF
+                true
+            }
+            R.id.flashFragment -> {
+                utility = "Flashes"
+                true
+            }
+            R.id.molotovFragment -> {
+                utility = "Molotovs"
+                true
+            }
+            R.id.retakeFragment -> {
+                utility = "He grenades"
+                true
+            }
+            else -> true
         }
     }
 
@@ -72,7 +100,7 @@ class SmokeLandFragment :
     }
 
     private fun getLandingSpots() {
-        viewModel.getLandingSpots(map = map, utility = Constants.SMOKES_REF)
+        viewModel.getLandingSpots(map = map, utility = utility)
             .observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Response.Success -> {

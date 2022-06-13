@@ -1,4 +1,4 @@
-package com.utilityhub.csapp.ui.home.maps.landing.throwing.tutorial
+package com.utilityhub.csapp.ui.utility.tutorial
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData

@@ -12,7 +12,5 @@ class Global {
             "vertigo" to false,
             "ancient" to false
         )
-        var selectedSmoke = Int.MIN_VALUE
-        var selectedPos = Int.MIN_VALUE
     }
 }

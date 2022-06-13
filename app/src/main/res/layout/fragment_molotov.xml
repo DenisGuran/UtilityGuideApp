@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/mirage_background_blur"
-    tools:context=".ui.home.maps.landing.MolotovFragment">
+    tools:context=".ui.utility.landing.MolotovFragment">
 
     <TextView
         android:id="@+id/molotov"

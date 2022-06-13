@@ -1,4 +1,4 @@
-package com.utilityhub.csapp.ui.home.maps.landing.throwing
+package com.utilityhub.csapp.ui.utility.landing
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
@@ -9,12 +9,12 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 @HiltViewModel
-class ThrowViewModel @Inject constructor(
+class LandViewModel @Inject constructor(
     private val utilityUseCases: UtilityUseCases
 ) : ViewModel() {
 
-    fun getThrowingSpots(map: String, utility: String, landingSpot: String) =
-        utilityUseCases.getThrowSpots(map, utility, landingSpot)
+    fun getLandingSpots(map: String, utility: String) =
+        utilityUseCases.getLandSpots(map, utility)
             .asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
 
 }

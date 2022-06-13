@@ -178,7 +178,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 is Response.Success -> progressBar.hide()
                 is Response.Failure -> {
                     progressBar.hide()
-                    print(response.errorMessage)
+                    Toast.makeText(requireContext(), "Invalid credentials. Please try again.", Toast.LENGTH_LONG).show()
                 }
             }
         }
