@@ -1,13 +1,11 @@
 package com.utilityhub.csapp.data.repository
 
+import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue
 import com.utilityhub.csapp.core.Constants
-import com.utilityhub.csapp.domain.model.Favorite
-import com.utilityhub.csapp.domain.model.Response
-import com.utilityhub.csapp.domain.model.Utility
-import com.utilityhub.csapp.domain.model.UtilityThrow
+import com.utilityhub.csapp.domain.model.*
 import com.utilityhub.csapp.domain.repository.UtilityRepository
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.callbackFlow
@@ -23,14 +21,14 @@ class UtilityRepositoryImpl(
     private val auth: FirebaseAuth
 ) : UtilityRepository {
 
-    override fun getLandingSpots(map: String, utility: String) = callbackFlow {
+    override fun getLandingSpots(map: String, utilityType: String) = callbackFlow {
         val landingSpotsRef = mapsRef
             .document(map)
-            .collection(utility)
+            .collection(utilityType)
         val snapshotListener = landingSpotsRef.addSnapshotListener { snapshot, e ->
             val response = if (snapshot != null) {
-                val landingSpots = snapshot.documentChanges.mapNotNull { snapShot ->
-                    snapShot.document.toObject(Utility::class.java)
+                val landingSpots = snapshot.documents.mapNotNull { snapShot ->
+                    snapShot.toObject(Utility::class.java)
                 }.toCollection(ArrayList())
                 Response.Success(landingSpots)
             } else {
@@ -43,17 +41,17 @@ class UtilityRepositoryImpl(
         }
     }
 
-    override fun getThrowingSpots(map: String, utility: String, landingSpot: String) =
+    override fun getThrowingSpots(map: String, utilityType: String, landingSpot: String) =
         callbackFlow {
             val throwingSpotsRef = mapsRef
                 .document(map)
-                .collection(utility)
+                .collection(utilityType)
                 .document(landingSpot)
                 .collection(Constants.THROW_REF)
             val snapshotListener = throwingSpotsRef.addSnapshotListener { snapshot, e ->
                 val response = if (snapshot != null) {
-                    val throwingSpots = snapshot.documentChanges.mapNotNull { snapShot ->
-                        snapShot.document.toObject(UtilityThrow::class.java)
+                    val throwingSpots = snapshot.documents.mapNotNull { snapShot ->
+                        snapShot.toObject(UtilityThrow::class.java)
                     }.toCollection(ArrayList())
                     Response.Success(throwingSpots)
                 } else {
@@ -80,14 +78,14 @@ class UtilityRepositoryImpl(
 
     override fun addFavorite(
         map: String,
-        utility: String,
+        utilityType: String,
         landingSpot: String,
         throwingSpot: String
     ) = flow {
         try {
             val favoriteRef = Favorite(
                 map = map,
-                utility = utility,
+                utilityType = utilityType,
                 landing = landingSpot,
                 throwing = throwingSpot
             )
@@ -103,14 +101,14 @@ class UtilityRepositoryImpl(
 
     override fun deleteFavorite(
         map: String,
-        utility: String,
+        utilityType: String,
         landingSpot: String,
         throwingSpot: String
     ) = flow {
         try {
             val favoriteRef = Favorite(
                 map = map,
-                utility = utility,
+                utilityType = utilityType,
                 landing = landingSpot,
                 throwing = throwingSpot
             )
@@ -119,6 +117,21 @@ class UtilityRepositoryImpl(
                 .await().also {
                     emit(Response.Success(true))
                 }
+        } catch (e: Exception) {
+            emit(Response.Failure(e.message ?: Constants.ERROR_MESSAGE))
+        }
+    }
+
+    override fun shareTutorial(tutorial: MutableList<Tutorial>) = flow {
+        try {
+            val imageUris = arrayListOf<Uri>()
+            val tutorialSteps = arrayListOf<String>()
+            tutorial.forEach { step ->
+                val imageUri = Uri.parse(step.img)
+                imageUris.add(imageUri)
+                tutorialSteps.add(step.details!!)
+            }
+            emit(Response.Success(tutorialSteps))
         } catch (e: Exception) {
             emit(Response.Failure(e.message ?: Constants.ERROR_MESSAGE))
         }

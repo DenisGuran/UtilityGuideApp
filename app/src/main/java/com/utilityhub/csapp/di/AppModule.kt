@@ -66,7 +66,8 @@ object AppModule {
         getLandSpots = GetLandSpots(repository),
         getThrowSpots = GetThrowSpots(repository),
         addFavorite = AddFavorite(repository),
-        getFavorites = GetFavorites(repository)
+        getFavorites = GetFavorites(repository),
+        shareTutorial = ShareTutorial(repository)
     )
 
     @Singleton

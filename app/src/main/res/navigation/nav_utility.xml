@@ -5,6 +5,10 @@
     android:id="@+id/nav_utility"
     app:startDestination="@id/nav_utility_smoke">
 
+    <argument
+        android:name="map"
+        app:argType="string" />
+
     <fragment
         android:id="@+id/molotovFragment"
         android:name="com.utilityhub.csapp.ui.utility.landing.MolotovFragment"
@@ -35,6 +39,9 @@
             <argument
                 android:name="map"
                 app:argType="string" />
+            <argument
+                android:name="utilityType"
+                app:argType="string" />
         </fragment>
         <fragment
             android:id="@+id/tutorialFragment"
@@ -49,6 +56,9 @@
                 app:argType="com.utilityhub.csapp.domain.model.UtilityThrow" />
             <argument
                 android:name="map"
+                app:argType="string" />
+            <argument
+                android:name="utilityType"
                 app:argType="string" />
         </fragment>
         <fragment
@@ -66,11 +76,18 @@
     </navigation>
     <navigation android:id="@+id/nav_utility_flash"
         app:startDestination="@id/flashFragment">
+        <argument
+            android:name="map"
+            app:argType="string" />
         <fragment
             android:id="@+id/flashFragment"
             android:name="com.utilityhub.csapp.ui.utility.landing.FlashFragment"
             android:label="fragment_flash"
-            tools:layout="@layout/fragment_flash" />
+            tools:layout="@layout/fragment_flash" >
+            <argument
+                android:name="map"
+                app:argType="string" />
+        </fragment>
         <fragment
             android:id="@+id/tutorialFragment2"
             android:name="com.utilityhub.csapp.ui.utility.tutorial.TutorialFragment"

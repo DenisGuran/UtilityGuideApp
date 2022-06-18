@@ -18,5 +18,9 @@ object Constants {
     // Authentication
     const val MIN_PASSWORD_LENGTH = 6
 
+    const val SHARE_TUTORIAL_TEXT = "Checkout other tutorials on UtilityHub!"
+
+    const val CACHE_DIRECTORY = "images/"
+
     const val ERROR_MESSAGE = "Unexpected error!"
 }

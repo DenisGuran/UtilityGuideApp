@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.utilityhub.csapp.R
-import com.utilityhub.csapp.core.Global
 import com.utilityhub.csapp.databinding.FragmentFlashBinding
 import com.utilityhub.csapp.ui.core.BaseFragment
 import com.utilityhub.csapp.ui.home.maps.MapsFragmentDirections
@@ -14,10 +14,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FlashFragment : BaseFragment<FragmentFlashBinding>(FragmentFlashBinding::inflate) {
 
+    private val args: FlashFragmentArgs by navArgs()
+
+    private lateinit var map: String
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initData()
+        map = args.map
         onBackPressedGoToMaps()
     }
 
@@ -32,14 +36,6 @@ class FlashFragment : BaseFragment<FragmentFlashBinding>(FragmentFlashBinding::i
                     findNavController().navigate(navHome)
                 }
             })
-    }
-
-    private fun initData() {
-
-        val flashLayout = binding.flashLayout
-
-
-
     }
 
 }

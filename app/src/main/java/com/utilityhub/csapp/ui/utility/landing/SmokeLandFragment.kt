@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -14,9 +14,9 @@ import com.utilityhub.csapp.core.Constants
 import com.utilityhub.csapp.databinding.FragmentSmokeLandBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.Utility
-import com.utilityhub.csapp.ui.core.MainActivity
 import com.utilityhub.csapp.ui.adapters.UtilityAdapter
 import com.utilityhub.csapp.ui.core.BaseFragment
+import com.utilityhub.csapp.ui.core.MainActivity
 import com.utilityhub.csapp.ui.home.maps.MapsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,7 +29,7 @@ class SmokeLandFragment :
     private val args: SmokeLandFragmentArgs by navArgs()
 
     private lateinit var map: String
-    private var utility = Constants.SMOKES_REF
+    private var utilityType = Constants.SMOKES_REF
 
     private var landingSpots = ArrayList<Utility>()
     private var adapter = UtilityAdapter(this)
@@ -42,6 +42,23 @@ class SmokeLandFragment :
         setAdapter()
         onBackPressedGoToMaps()
 
+        binding.apply {
+            searchView.apply {
+                setOnQueryTextListener(object : OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        clearFocus()
+                        return true
+                    }
+
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        newText?.let {
+                            adapter.filter.filter(it)
+                        }
+                        return true
+                    }
+                })
+            }
+        }
     }
 
     override fun onStart() {
@@ -60,21 +77,21 @@ class SmokeLandFragment :
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
+        return when (item.itemId) {
             R.id.nav_utility_smoke -> {
-                utility = Constants.SMOKES_REF
+                utilityType = Constants.SMOKES_REF
                 true
             }
             R.id.flashFragment -> {
-                utility = "Flashes"
+                utilityType = "Flashes"
                 true
             }
             R.id.molotovFragment -> {
-                utility = "Molotovs"
+                utilityType = "Molotovs"
                 true
             }
             R.id.retakeFragment -> {
-                utility = "He grenades"
+                utilityType = "He grenades"
                 true
             }
             else -> true
@@ -100,7 +117,7 @@ class SmokeLandFragment :
     }
 
     private fun getLandingSpots() {
-        viewModel.getLandingSpots(map = map, utility = utility)
+        viewModel.getLandingSpots(map = map, utilityType = utilityType)
             .observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Response.Success -> {
@@ -108,7 +125,7 @@ class SmokeLandFragment :
                             landingSpots.clear()
                         }
                         landingSpots.addAll(response.data)
-                        adapter.submitList(landingSpots)
+                        adapter.setData(landingSpots)
                     }
                     is Response.Failure -> Log.w("getLandingSpots", response.errorMessage)
                 }
@@ -119,111 +136,15 @@ class SmokeLandFragment :
         binding.recyclerView.adapter = adapter
     }
 
-    override fun onUtilityClick(position: Int) {
-        val landingSpot = landingSpots[position].name!!
+    override fun onUtilityClick(utility: Utility) {
+        val landingSpot = utility.name!!
         val navThrow =
             SmokeLandFragmentDirections.actionSmokeLandFragmentToSmokeThrowFragment(
-                landingSpot = landingSpot,
-                map = map
+                map = map,
+                utilityType = utilityType,
+                landingSpot = landingSpot
             )
         findNavController().navigate(navThrow)
     }
-
-//    private fun initData() {
-//
-//        val smokeLayout = binding.smokeLayout
-//        landingSpots.clear()
-//
-//        if (maps["mirage"] == true) {
-//
-//            smokeLayout.setBackgroundResource(R.drawable.mirage_background_blur)
-//        }
-//
-//        if (maps["inferno"] == true) {
-//
-//            smokeLayout.setBackgroundResource(R.drawable.inferno_background_blur)
-//
-//            landingSpots.add(
-//                Utility(
-//                    "CT Spawn",
-//                    R.drawable.in_ct_smoke
-//                )
-//            )
-//            landingSpots.add(
-//                Utility(
-//                    "Coffins",
-//                    R.drawable.in_coffins_land
-//                )
-//            )
-//            landingSpots.add(
-//                Utility(
-//                    "Moto",
-//                    R.drawable.moto_smoke
-//                )
-//            )
-//            landingSpots.add(
-//                Utility(
-//                    "Deep banana",
-//                    R.drawable.in_deep_banana_land
-//                )
-//            )
-//            landingSpots.add(
-//                Utility(
-//                    "Pool",
-//                    R.drawable.in_pool_land
-//                )
-//            )
-//        }
-//
-//        if (maps["dust2"] == true) {
-//            smokeLayout.setBackgroundResource(R.drawable.dust2_background_blur)
-//            landingSpots.add(
-//                Utility(
-//                    "Coming Soon",
-//                    R.drawable.dust2_background
-//                )
-//            )
-//        }
-//
-//        if (maps["overpass"] == true) {
-//            smokeLayout.setBackgroundResource(R.drawable.overpass_background_blur)
-//            landingSpots.add(
-//                Utility(
-//                    "Coming Soon",
-//                    R.drawable.overpass_background
-//                )
-//            )
-//        }
-//
-//        if (maps["nuke"] == true) {
-//            smokeLayout.setBackgroundResource(R.drawable.nuke_background_blur)
-//            landingSpots.add(
-//                Utility(
-//                    "Coming Soon",
-//                    R.drawable.nuke_background
-//                )
-//            )
-//        }
-//
-//        if (maps["vertigo"] == true) {
-//            smokeLayout.setBackgroundResource(R.drawable.vertigo_background_blur)
-//            landingSpots.add(
-//                Utility(
-//                    "Coming Soon",
-//                    R.drawable.vertigo_background
-//                )
-//            )
-//        }
-//
-//        if (maps["ancient"] == true) {
-//            smokeLayout.setBackgroundResource(R.drawable.ancient_background_blur)
-//            landingSpots.add(
-//                Utility(
-//                    "Coming Soon",
-//                    R.drawable.ancient_background
-//                )
-//            )
-//        }
-//    }
 
 }

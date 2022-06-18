@@ -15,11 +15,11 @@ class TutorialViewModel @Inject constructor(
 
     fun addTutorialToFavorites(
         map: String,
-        utility: String,
+        utilityType: String,
         landingSpot: String,
         throwingSpot: String
     ) = liveData(Dispatchers.IO + viewModelScope.coroutineContext) {
-        utilityUseCases.addFavorite(map, utility, landingSpot, throwingSpot).collect {
+        utilityUseCases.addFavorite(map, utilityType, landingSpot, throwingSpot).collect {
             emit(it)
         }
     }

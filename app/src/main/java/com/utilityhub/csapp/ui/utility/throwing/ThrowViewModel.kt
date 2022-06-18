@@ -13,8 +13,8 @@ class ThrowViewModel @Inject constructor(
     private val utilityUseCases: UtilityUseCases
 ) : ViewModel() {
 
-    fun getThrowingSpots(map: String, utility: String, landingSpot: String) =
-        utilityUseCases.getThrowSpots(map, utility, landingSpot)
+    fun getThrowingSpots(map: String, utilityType: String, landingSpot: String) =
+        utilityUseCases.getThrowSpots(map, utilityType, landingSpot)
             .asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
 
 }

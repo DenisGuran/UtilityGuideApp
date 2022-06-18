@@ -1,13 +1,14 @@
 package com.utilityhub.csapp.ui.utility.throwing
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.utilityhub.csapp.R
-import com.utilityhub.csapp.core.Constants
 import com.utilityhub.csapp.databinding.FragmentSmokeThrowBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.Utility
@@ -23,7 +24,7 @@ class SmokeThrowFragment :
     UtilityAdapter.OnUtilityClickListener {
 
     private var throwSpots = ArrayList<UtilityThrow>()
-    private var throwingSpots = ArrayList<Utility>()
+    private var throwSpotsWithoutTutorial = ArrayList<Utility>()
     private var adapter = UtilityAdapter(this)
 
     private val viewModel by viewModels<ThrowViewModel>()
@@ -31,7 +32,11 @@ class SmokeThrowFragment :
 
     private lateinit var map: String
     private lateinit var landingSpot: String
+    private lateinit var utilityType: String
+    private var isTickrateTouched = false
+    private var tickrate = "128"
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -39,8 +44,40 @@ class SmokeThrowFragment :
         getThrowingSpots()
         setAdapter()
 
-        binding.btnMaps.setOnClickListener {
-            navigateToMaps()
+        binding.apply {
+            btnMaps.setOnClickListener {
+                navigateToMaps()
+            }
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    searchView.clearFocus()
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    newText?.let {
+                        adapter.filter.filter(it)
+                    }
+                    return true
+                }
+            })
+            switchCompat.apply {
+                setOnTouchListener { _, _ ->
+                    isTickrateTouched = true
+                    false
+                }
+
+                setOnCheckedChangeListener { _, isChecked ->
+                    if (isTickrateTouched) {
+                        isTickrateTouched = false
+                        tickrate = if (isChecked) {
+                            switchCompat.textOn.toString()
+                        } else {
+                            switchCompat.textOff.toString()
+                        }
+                    }
+                }
+            }
         }
 
     }
@@ -48,7 +85,7 @@ class SmokeThrowFragment :
     private fun getThrowingSpots() {
         viewModel.getThrowingSpots(
             map = map,
-            utility = Constants.SMOKES_REF,
+            utilityType = utilityType,
             landingSpot = landingSpot
         ).observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -57,17 +94,17 @@ class SmokeThrowFragment :
                         throwSpots.clear()
                     }
                     throwSpots.addAll(response.data)
-                    if (throwingSpots.isNotEmpty()) {
-                        throwingSpots.clear()
+                    if (throwSpotsWithoutTutorial.isNotEmpty()) {
+                        throwSpotsWithoutTutorial.clear()
                     }
-                    throwingSpots.addAll(throwSpots.map {
+                    throwSpotsWithoutTutorial.addAll(throwSpots.map {
                         Utility(
                             name = it.name,
                             img = it.img
                         )
                     } as ArrayList<Utility>)
 
-                    adapter.submitList(throwingSpots)
+                    adapter.setData(throwSpotsWithoutTutorial)
                 }
                 is Response.Failure -> Log.w("getThrowingSpots", response.errorMessage)
             }
@@ -77,6 +114,7 @@ class SmokeThrowFragment :
     private fun getNavArgs() {
         landingSpot = args.landingSpot
         map = args.map
+        utilityType = args.utilityType
     }
 
     private fun setAdapter() {
@@ -89,153 +127,16 @@ class SmokeThrowFragment :
         findNavController().navigate(navHome)
     }
 
-    override fun onUtilityClick(position: Int) {
-        val throwingSpot = throwSpots[position]
+    override fun onUtilityClick(utility: Utility) {
+        val throwingSpot = throwSpots[throwSpotsWithoutTutorial.indexOf(utility)]
         val navTutorial =
             SmokeThrowFragmentDirections.actionSmokeThrowFragmentToTutorialFragment(
+                map = map,
+                utilityType = utilityType,
                 landingSpot = landingSpot,
-                throwingSpot = throwingSpot,
-                map = map
+                throwingSpot = throwingSpot
             )
         findNavController().navigate(navTutorial)
     }
-
-//    private fun initData() {
-//
-//        val throwPosLayout = binding.throwPosLayout
-//        throwSpots.clear()
-//
-//        if (maps["mirage"] == true) {
-//
-//            throwPosLayout.setBackgroundResource(R.drawable.mirage_background_blur)
-//
-//            when (selectedSmoke) {
-//                0 -> {
-//                    throwSpots.add(
-//                        Utility(
-//                            "T Stairs",
-//                            R.drawable.stairs_spawn0
-//                        )
-//                    )
-//                    throwSpots.add(
-//                        Utility(
-//                            "T Spawn",
-//                            R.drawable.stairs_spawn1
-//                        )
-//                    )
-//                }
-//
-//                1 -> {
-//                    throwSpots.add(
-//                        Utility(
-//                            "T Roof",
-//                            R.drawable.abench_spawn0
-//                        )
-//                    )
-//                    throwSpots.add(
-//                        Utility(
-//                            "Underground",
-//                            R.drawable.abench_spawn1
-//                        )
-//                    )
-//                }
-//            }
-//        }
-//
-//        if (maps["inferno"] == true) {
-//
-//            throwPosLayout.setBackgroundResource(R.drawable.inferno_background_blur)
-//
-//            when (selectedSmoke) {
-//                0 -> {
-//                    throwSpots.add(
-//                        Utility(
-//                            "Banana",
-//                            R.drawable.in_ct_spawn0
-//                        )
-//                    )
-//                    throwSpots.add(
-//                        Utility(
-//                            "Barrels",
-//                            R.drawable.in_barrels
-//                        )
-//                    )
-//                }
-//
-//                1 -> {
-//                    throwSpots.add(
-//                        Utility(
-//                            "Banana",
-//                            R.drawable.in_coffins_spawn0
-//                        )
-//                    )
-//                    throwSpots.add(
-//                        Utility(
-//                            "Banana Fast Land",
-//                            R.drawable.in_coffins_spawn1
-//                        )
-//                    )
-//                }
-//
-//                2 -> {
-//                    throwSpots.add(
-//                        Utility(
-//                            "Mid",
-//                            R.drawable.moto_spawn0
-//                        )
-//                    )
-//                    throwSpots.add(
-//                        Utility(
-//                            "Underpass",
-//                            R.drawable.moto_spawn1
-//                        )
-//                    )
-//                }
-//                3 -> {
-//                    throwSpots.add(
-//                        Utility(
-//                            "Coffins",
-//                            R.drawable.in_coffins
-//                        )
-//                    )
-//                    throwSpots.add(
-//                        Utility(
-//                            "Ruins entrance",
-//                            R.drawable.in_tree_bench
-//                        )
-//                    )
-//                }
-//
-//                4 -> {
-//                    throwSpots.add(
-//                        Utility(
-//                            "Coffins",
-//                            R.drawable.in_coffins
-//                        )
-//                    )
-//                    throwSpots.add(
-//                        Utility(
-//                            "Second box",
-//                            R.drawable.in_2nd_box
-//                        )
-//                    )
-//                    throwSpots.add(
-//                        Utility(
-//                            "Triple",
-//                            R.drawable.in_triple
-//                        )
-//                    )
-//                    throwSpots.add(
-//                        Utility(
-//                            "Construction",
-//                            R.drawable.in_construction
-//                        )
-//                    )
-//                }
-//            }
-//
-//        }
-//
-//    }
 
 }

@@ -21,7 +21,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnMaps"
@@ -48,22 +48,21 @@
         style="@style/TextView_Authentication_TitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mirage"
+        android:text="@string/land"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editText"
-        style="@style/EditText_UtilityStyle"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/throw_pos"
-        android:importantForAutofill="no"
-        android:minHeight="48dp"
+        android:layout_marginTop="16dp"
+        android:theme="@style/SearchViewStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:queryHint="@string/throw_pos" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switchCompat"
@@ -79,18 +78,5 @@
         app:showText="true"
         app:switchTextAppearance="@style/Tickrate_Text"
         app:track="@null" />
-
-
-    <!--    <SearchView-->
-    <!--        android:id="@+id/searchView"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:iconifiedByDefault="true"-->
-    <!--        android:queryBackground="@null"-->
-    <!--        android:searchIcon="@drawable/ic_search"-->
-    <!--        android:queryHint="@string/throw_pos"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/textView8" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
