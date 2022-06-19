@@ -74,29 +74,50 @@
                 app:argType="string" />
         </fragment>
     </navigation>
-    <navigation android:id="@+id/nav_utility_flash"
+    <navigation
+        android:id="@+id/nav_utility_flash"
         app:startDestination="@id/flashFragment">
-        <argument
-            android:name="map"
-            app:argType="string" />
         <fragment
             android:id="@+id/flashFragment"
             android:name="com.utilityhub.csapp.ui.utility.landing.FlashFragment"
             android:label="fragment_flash"
             tools:layout="@layout/fragment_flash" >
-            <argument
-                android:name="map"
-                app:argType="string" />
+            <action
+                android:id="@+id/action_flashFragment_to_smokeThrowFragment2"
+                app:destination="@id/smokeThrowFragment2" />
         </fragment>
         <fragment
             android:id="@+id/tutorialFragment2"
             android:name="com.utilityhub.csapp.ui.utility.tutorial.TutorialFragment"
             android:label="fragment_tutorial"
-            tools:layout="@layout/fragment_tutorial" />
+            tools:layout="@layout/fragment_tutorial">
+            <argument
+                android:name="landingSpot"
+                app:argType="string" />
+            <argument
+                android:name="throwingSpot"
+                app:argType="com.utilityhub.csapp.domain.model.UtilityThrow" />
+            <argument
+                android:name="map"
+                app:argType="string" />
+            <argument
+                android:name="utilityType"
+                app:argType="string" />
+        </fragment>
         <fragment
             android:id="@+id/smokeThrowFragment2"
             android:name="com.utilityhub.csapp.ui.utility.throwing.SmokeThrowFragment"
             android:label="fragment_smoke_throw"
-            tools:layout="@layout/fragment_smoke_throw" />
+            tools:layout="@layout/fragment_smoke_throw">
+            <argument
+                android:name="landingSpot"
+                app:argType="string" />
+            <argument
+                android:name="map"
+                app:argType="string" />
+            <argument
+                android:name="utilityType"
+                app:argType="string" />
+        </fragment>
     </navigation>
 </navigation>

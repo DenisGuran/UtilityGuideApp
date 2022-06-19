@@ -1,6 +1,7 @@
 package com.utilityhub.csapp.ui.utility.tutorial
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ResolveInfo
@@ -34,6 +35,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import java.io.File
 import java.io.FileOutputStream
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialBinding::inflate) {
@@ -41,6 +43,8 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
     private val args: TutorialFragmentArgs by navArgs()
     private val viewModel by viewModels<TutorialViewModel>()
     private var adapter = TutorialAdapter()
+    @Inject
+    lateinit var applicationContext : Context
 
     private lateinit var map: String
     private lateinit var landingSpot: String
@@ -150,14 +154,17 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
 
         coroutineScope {
             imageBitmaps.zip(fileNames).forEach { pair ->
+                val fileName = pair.second
                 val imageFile = async(Dispatchers.IO) {
-                    File(cachePath, "${pair.second}.jpg").also { file ->
+                    File(cachePath, "$fileName.${Constants.IMAGE_TYPE}").also { file ->
                         FileOutputStream(file).use { fileOutputStream ->
-                            pair.first.compress(
+                            val imageBitmap = pair.first
+                            imageBitmap.compress(
                                 Bitmap.CompressFormat.JPEG,
                                 100,
                                 fileOutputStream
                             )
+                            fileOutputStream.close()
                         }
                     }
                 }
@@ -167,8 +174,8 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
             imageFiles.awaitAll().forEach { file ->
                 val uri = async(Dispatchers.IO) {
                     FileProvider.getUriForFile(
-                        requireActivity(),
-                        requireContext().applicationContext.packageName + ".provider",
+                        requireContext(),
+                        applicationContext.packageName + ".provider",
                         file
                     )
                 }
@@ -183,7 +190,7 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
     private suspend fun shareTutorial() {
         val tutorialDetails = arrayListOf<String>()
         val tutorialUrls = arrayListOf<String>()
-        cachePath = File(requireActivity().externalCacheDir, CACHE_DIRECTORY)
+        cachePath = File(applicationContext.externalCacheDir, CACHE_DIRECTORY)
 
         tutorial.forEach { step ->
             step.img?.let { tutorialUrls.add(it) }
@@ -194,7 +201,6 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
         val sharedText = sharedSubject + "\n" +
                 tutorialDetails.joinToString(", ") + ".\n" +
                 Constants.SHARE_TUTORIAL_TEXT
-
 
         initShareIntent(
             sharedImageUris = getSharedImagesUri(getBitmaps(tutorialUrls), tutorialDetails),
@@ -222,17 +228,17 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
             putExtra(Intent.EXTRA_SUBJECT, sharedSubject)
             putExtra(Intent.EXTRA_TEXT, sharedText)
             putParcelableArrayListExtra(Intent.EXTRA_STREAM, sharedImageUris)
-            type = "image/jpg"
+            type = "image/${Constants.IMAGE_TYPE}"
         }, null)
 
-        val resInfoList: List<ResolveInfo> = requireContext().packageManager.queryIntentActivities(
+        val resInfoList: List<ResolveInfo> = applicationContext.packageManager.queryIntentActivities(
             shareIntent,
             PackageManager.MATCH_DEFAULT_ONLY
         )
         resInfoList.forEach { resolveInfo ->
             val packageName: String = resolveInfo.activityInfo.packageName
             sharedImageUris.forEach { sharedImageUri ->
-                requireContext().grantUriPermission(
+                applicationContext.grantUriPermission(
                     packageName,
                     sharedImageUri,
                     Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION

@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -25,7 +26,7 @@ class SmokeLandFragment :
     BaseFragment<FragmentSmokeLandBinding>(FragmentSmokeLandBinding::inflate),
     UtilityAdapter.OnUtilityClickListener {
 
-    private val viewModel by viewModels<LandViewModel>()
+    private val viewModel by activityViewModels<LandViewModel>()
     private val args: SmokeLandFragmentArgs by navArgs()
 
     private lateinit var map: String
@@ -114,6 +115,7 @@ class SmokeLandFragment :
 
     private fun getNavArgs() {
         map = args.map
+        viewModel.setCurrentMap(args.map)
     }
 
     private fun getLandingSpots() {

@@ -20,7 +20,10 @@ object Constants {
 
     const val SHARE_TUTORIAL_TEXT = "Checkout other tutorials on UtilityHub!"
 
+    const val ERROR_MESSAGE = "Unexpected error!"
+
     const val CACHE_DIRECTORY = "images/"
 
-    const val ERROR_MESSAGE = "Unexpected error!"
+    const val IMAGE_TYPE = "jpg"
+
 }

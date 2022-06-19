@@ -44,8 +44,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView8"
-        style="@style/TextView_Authentication_TitleStyle"
+        android:id="@+id/landSpot"
+        style="@style/TextView_Tutorial_TitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/land"
@@ -61,7 +61,7 @@
         android:theme="@style/SearchViewStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/landSpot"
         app:queryHint="@string/throw_pos" />
 
     <androidx.appcompat.widget.SwitchCompat

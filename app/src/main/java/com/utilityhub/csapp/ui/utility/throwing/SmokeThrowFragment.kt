@@ -45,9 +45,12 @@ class SmokeThrowFragment :
         setAdapter()
 
         binding.apply {
+            landSpot.text = landingSpot
+
             btnMaps.setOnClickListener {
                 navigateToMaps()
             }
+
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     searchView.clearFocus()
@@ -61,12 +64,12 @@ class SmokeThrowFragment :
                     return true
                 }
             })
+
             switchCompat.apply {
                 setOnTouchListener { _, _ ->
                     isTickrateTouched = true
                     false
                 }
-
                 setOnCheckedChangeListener { _, isChecked ->
                     if (isTickrateTouched) {
                         isTickrateTouched = false
