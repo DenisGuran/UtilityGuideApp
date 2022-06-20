@@ -76,6 +76,10 @@ class AuthRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun isUserLoggedIn(): Boolean {
+        return auth.currentUser != null
+    }
+
     override fun getUserProfile() = flow {
         try {
             auth.currentUser?.apply {

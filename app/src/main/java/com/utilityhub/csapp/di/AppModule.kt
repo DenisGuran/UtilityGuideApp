@@ -52,6 +52,7 @@ object AppModule {
     fun provideAuthUseCases(repository: AuthRepository) = AuthUseCases(
         addFirestoreUser = AddFirestoreUser(repository),
         getAuthState = GetAuthState(repository),
+        isLoggedIn = IsLoggedIn(repository),
         getUserProfile = GetUserProfile(repository),
         signInWithGoogle = SignInWithGoogle(repository),
         signOut = SignOut(repository),
@@ -66,8 +67,7 @@ object AppModule {
         getLandSpots = GetLandSpots(repository),
         getThrowSpots = GetThrowSpots(repository),
         addFavorite = AddFavorite(repository),
-        getFavorites = GetFavorites(repository),
-        shareTutorial = ShareTutorial(repository)
+        getFavorites = GetFavorites(repository)
     )
 
     @Singleton

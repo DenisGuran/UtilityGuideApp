@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.utilityhub.csapp.databinding.FragmentFavoritesBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.ui.core.BaseFragment
+import com.utilityhub.csapp.ui.home.profile.ProfileFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,7 +20,27 @@ class FavoritesFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getFavorites()
+        handleUserState()
+    }
+
+    private fun handleUserState() {
+        if (viewModel.isLoggedIn) {
+            getFavorites()
+            binding.apply {
+                loggedInLayout.visibility = View.VISIBLE
+                loggedOutLayout.visibility = View.GONE
+            }
+        } else {
+            binding.btnLogin.setOnClickListener {
+                navigateToAuth()
+            }
+        }
+    }
+
+
+    private fun navigateToAuth() {
+        val navAuth = ProfileFragmentDirections.actionHomeToAuthentication()
+        findNavController().navigate(navAuth)
     }
 
     private fun getFavorites() {
@@ -33,4 +55,5 @@ class FavoritesFragment :
             }
         }
     }
+
 }

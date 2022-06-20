@@ -122,20 +122,4 @@ class UtilityRepositoryImpl(
         }
     }
 
-    override fun shareTutorial(tutorial: MutableList<Tutorial>) = flow {
-        try {
-            val imageUris = arrayListOf<Uri>()
-            val tutorialSteps = arrayListOf<String>()
-            tutorial.forEach { step ->
-                val imageUri = Uri.parse(step.img)
-                imageUris.add(imageUri)
-                tutorialSteps.add(step.details!!)
-            }
-            emit(Response.Success(tutorialSteps))
-        } catch (e: Exception) {
-            emit(Response.Failure(e.message ?: Constants.ERROR_MESSAGE))
-        }
-    }
-
-
 }

@@ -71,5 +71,7 @@
     <string name="double_tap_to_exit">Press back again to exit</string>
 
     <string name="null_string">""</string>
+    <string name="favorites_logged_out">You must authenticate in order to access your favorites.</string>
+    <string name="profile_logged_out">You must authenticate in order to access your profile.</string>
 
 </resources>

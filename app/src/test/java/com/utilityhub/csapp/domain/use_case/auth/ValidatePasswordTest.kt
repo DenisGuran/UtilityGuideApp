@@ -15,7 +15,7 @@ class ValidatePasswordTest {
     }
 
     @Test
-    fun `Password has less than 6 chars, returns error`() {
+    fun `Password has less than 6 chars, return error`() {
         val response = validatePassword("12345")
 
         assertEquals(response.isValid, false)
@@ -23,7 +23,7 @@ class ValidatePasswordTest {
     }
 
     @Test
-    fun `Password is blank, returns error`() {
+    fun `Password is blank, return error`() {
         val response = validatePassword("")
 
         assertEquals(response.isValid, false)
@@ -31,7 +31,7 @@ class ValidatePasswordTest {
     }
 
     @Test
-    fun `Password is correct, returns true`() {
+    fun `Password is correct, return true`() {
         val response = validatePassword("123456")
 
         assertEquals(response.isValid, true)

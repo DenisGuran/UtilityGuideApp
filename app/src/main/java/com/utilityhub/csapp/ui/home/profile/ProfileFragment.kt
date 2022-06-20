@@ -17,14 +17,26 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        getUserProfile()
+        handleUserState()
+    }
 
-        binding.apply {
-            btnLogout.setOnClickListener {
-                signOut()
+    private fun handleUserState() {
+        if (viewModel.isLoggedIn) {
+            getUserProfile()
+            binding.apply {
+                loggedInLayout.visibility = View.VISIBLE
+                loggedOutLayout.visibility = View.GONE
+                btnLogout.setOnClickListener {
+                    signOut()
+                }
+            }
+        } else {
+            binding.btnLogin.setOnClickListener {
+                navigateToAuth()
             }
         }
     }
+
 
     private fun navigateToAuth() {
         val navAuth = ProfileFragmentDirections.actionHomeToAuthentication()

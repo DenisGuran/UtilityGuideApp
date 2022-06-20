@@ -37,8 +37,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private var password: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        checkUserState()
         super.onViewCreated(view, savedInstanceState)
+
+        checkUserState()
 
         initGoogleResultLauncher()
 

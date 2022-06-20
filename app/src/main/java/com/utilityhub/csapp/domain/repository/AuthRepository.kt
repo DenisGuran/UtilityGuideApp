@@ -24,4 +24,6 @@ interface AuthRepository {
     fun getUserAuthState(): Flow<Boolean>
 
     fun getUserProfile(): Flow<Response<User>>
+
+    fun isUserLoggedIn(): Boolean
 }

@@ -5,6 +5,18 @@
     android:layout_height="wrap_content"
     android:background="@drawable/tutorial_layout_bg">
 
+    <com.jsibbold.zoomage.ZoomageView
+        android:id="@+id/zoomView"
+        android:layout_width="380dp"
+        android:layout_height="230dp"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/stairs_smoke"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textview_above"
         android:layout_width="wrap_content"
@@ -20,24 +32,6 @@
         app:layout_constraintBottom_toTopOf="@+id/zoomView"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
-
-    <com.jsibbold.zoomage.ZoomageView
-        android:id="@+id/zoomView"
-        android:layout_width="380dp"
-        android:layout_height="230dp"
-        android:layout_centerInParent="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/stairs_smoke"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:zoomage_animateOnReset="true"
-        app:zoomage_maxScale="8"
-        app:zoomage_minScale="0.6"
-        app:zoomage_restrictBounds="false"
-        app:zoomage_translatable="true"
-        app:zoomage_zoomable="true" />
 
     <ImageView
         android:id="@+id/info_view"

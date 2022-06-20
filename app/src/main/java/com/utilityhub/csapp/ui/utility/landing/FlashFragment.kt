@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.activity.OnBackPressedCallback
-import androidx.fragment.app.activityViewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import com.utilityhub.csapp.R
 import com.utilityhub.csapp.databinding.FragmentFlashBinding
@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class FlashFragment : BaseFragment<FragmentFlashBinding>(FragmentFlashBinding::inflate),
     UtilityAdapter.OnUtilityClickListener {
 
-    private val viewModel by activityViewModels<LandViewModel>()
+    private val viewModel by hiltNavGraphViewModels<LandViewModel>(R.id.nav_utility)
 
     private val utilityType = "Flashes"
     private lateinit var map : String

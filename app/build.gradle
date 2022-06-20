@@ -47,6 +47,7 @@ dependencies {
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    implementation "androidx.hilt:hilt-navigation-fragment:$hilt_navigation_fragment_version"
     // AndroidX
     implementation "androidx.core:core-ktx:$core_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
@@ -74,7 +75,7 @@ dependencies {
     // Google
     implementation "com.google.android.gms:play-services-auth:$play_services_auth_version"
     // Coil
-    implementation("io.coil-kt:coil:$coil_version")
+    implementation "io.coil-kt:coil:$coil_version"
     // Testing
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

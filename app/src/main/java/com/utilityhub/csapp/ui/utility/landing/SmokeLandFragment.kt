@@ -8,6 +8,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.utilityhub.csapp.R
@@ -26,7 +27,7 @@ class SmokeLandFragment :
     BaseFragment<FragmentSmokeLandBinding>(FragmentSmokeLandBinding::inflate),
     UtilityAdapter.OnUtilityClickListener {
 
-    private val viewModel by activityViewModels<LandViewModel>()
+    private val viewModel by hiltNavGraphViewModels<LandViewModel>(R.id.nav_utility)
     private val args: SmokeLandFragmentArgs by navArgs()
 
     private lateinit var map: String
