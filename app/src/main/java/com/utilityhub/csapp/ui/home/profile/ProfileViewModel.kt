@@ -18,7 +18,7 @@ class ProfileViewModel @Inject constructor(
         authUseCases.isLoggedIn()
 
     val userProfile =
-        authUseCases.getUserProfile()
+        authUseCases.getUserProfile().asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
 
     fun signOut() = liveData(Dispatchers.IO + viewModelScope.coroutineContext) {
         authUseCases.signOut().collect { response ->

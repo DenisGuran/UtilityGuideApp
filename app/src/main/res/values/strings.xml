@@ -73,5 +73,8 @@
     <string name="null_string">""</string>
     <string name="favorites_logged_out">You must authenticate in order to access your favorites.</string>
     <string name="profile_logged_out">You must authenticate in order to access your profile.</string>
+    <string name="a_site">A Site</string>
+    <string name="b_site">B Site</string>
+    <string name="one_way">One Way</string>
 
 </resources>

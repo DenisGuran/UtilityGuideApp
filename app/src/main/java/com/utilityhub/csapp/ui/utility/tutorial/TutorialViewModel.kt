@@ -18,6 +18,7 @@ class TutorialViewModel @Inject constructor(
         utilityType: String,
         landingSpot: String,
         throwingSpot: String
-    ) = utilityUseCases.addFavorite(map, utilityType, landingSpot, throwingSpot).asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
+    ) = utilityUseCases.addFavorite(map, utilityType, landingSpot, throwingSpot)
+        .asLiveData(Dispatchers.IO + viewModelScope.coroutineContext)
 
 }
