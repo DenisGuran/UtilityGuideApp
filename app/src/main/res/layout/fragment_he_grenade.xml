@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/retake_layout"
+    android:id="@+id/he_grenade_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/mirage_background_blur"
-    tools:context=".ui.utility.landing.RetakeFragment">
+    tools:context=".ui.utility.landing.HeGrenadeFragment">
 
     <TextView
         android:id="@+id/retake"

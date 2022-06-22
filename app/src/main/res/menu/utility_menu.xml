@@ -12,13 +12,13 @@
         android:title="@string/flashes" />
 
     <item
-        android:id="@+id/molotovFragment"
+        android:id="@+id/nav_utility_molotov"
         android:icon="@drawable/molotov"
         android:title="@string/molotovs" />
 
     <item
-        android:id="@+id/retakeFragment"
-        android:icon="@drawable/hegrenade"
+        android:id="@+id/nav_utility_he"
+        android:icon="@drawable/he_grenade"
         android:title="@string/he_grenades" />
 
 </menu>

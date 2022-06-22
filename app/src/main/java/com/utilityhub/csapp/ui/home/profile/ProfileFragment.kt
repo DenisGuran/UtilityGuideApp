@@ -2,6 +2,8 @@ package com.utilityhub.csapp.ui.home.profile
 
 import android.os.Bundle
 import android.view.View
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.utilityhub.csapp.databinding.FragmentProfileBinding
@@ -18,6 +20,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         super.onViewCreated(view, savedInstanceState)
 
         handleUserState()
+
     }
 
     private fun handleUserState() {
@@ -57,10 +60,11 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
             when (response) {
                 is Response.Success -> {
                     val currentUser = response.data
-                    binding.apply {
-                        email.text = currentUser.email
-                        username.text = currentUser.username
-                    }
+                    binding.username.text =
+                        if(currentUser.username!!.endsWith("s"))
+                            "${currentUser.username}'"
+                        else
+                            "${currentUser.username}'s"
                 }
                 is Response.Failure -> {
                     print(response.errorMessage)

@@ -11,11 +11,11 @@
         android:id="@+id/loggedOutLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone">
 
         <TextView
             android:id="@+id/logoutDescription"
@@ -25,7 +25,7 @@
             android:text="@string/profile_logged_out"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toTopOf="@+id/glHorizontalTop40" />
@@ -76,55 +76,99 @@
         android:id="@+id/loggedInLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:visibility="visible"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
 
-        <TextView
-            android:id="@+id/usernameText"
+        <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/username"
-            android:textColor="@color/white"
-            android:textSize="20sp"
+            android:gravity="center_horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/glHorizontalTop"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft2">
+
+            <TextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/lora_italic_semibold"
+                android:text="@string/username"
+                android:textColor="@color/yellow"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/usernameText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/lora_italic_semibold"
+                android:text="@string/preferences"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/glHorizontalBottom"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRight2"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft2"
-            app:layout_constraintTop_toTopOf="@+id/glHorizontalTop" />
+            app:layout_constraintTop_toTopOf="@+id/glHorizontalTop">
 
-        <TextView
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/usernameText"
-            app:layout_constraintStart_toEndOf="@+id/usernameText"
-            app:layout_constraintTop_toTopOf="@+id/usernameText" />
+            <TextView
+                android:id="@+id/twTickrate"
+                style="@style/TextView_Profile_Preferences"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_tickrate"
+                android:textColor="@color/text_color"
+                app:layout_constraintBottom_toTopOf="@+id/textView4"
+                app:layout_constraintStart_toStartOf="@+id/textView4"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="spread" />
 
-        <TextView
-            android:id="@+id/emailText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/email"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/usernameText"
-            app:layout_constraintTop_toBottomOf="@+id/usernameText" />
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/TextView_Profile_Preferences"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_tickrate"
+                android:textColor="@color/text_color"
+                app:layout_constraintBottom_toTopOf="@+id/textView6"
+                app:layout_constraintStart_toStartOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/twTickrate" />
 
-        <TextView
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@+id/emailText"
-            app:layout_constraintStart_toEndOf="@+id/emailText"
-            app:layout_constraintTop_toTopOf="@+id/emailText" />
+            <TextView
+                android:id="@+id/textView6"
+                style="@style/TextView_Profile_Preferences"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/default_tickrate"
+                android:textColor="@color/text_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchTickrate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOff="@string/tickrate_128"
+                android:textOn="@string/tickrate_64"
+                android:thumb="@drawable/custom_thumb_tickrate"
+                app:layout_constraintBottom_toBottomOf="@+id/twTickrate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/twTickrate"
+                app:layout_constraintTop_toTopOf="@+id/twTickrate"
+                app:showText="true"
+                app:switchTextAppearance="@style/Tickrate_Text"
+                app:trackTint="@color/black_transparent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogout"
@@ -136,7 +180,8 @@
             app:iconTint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/glHorizontalBottom" />
+            app:layout_constraintTop_toBottomOf="@id/glHorizontalBottom"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineRight2"
@@ -162,16 +207,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintGuide_percent="0.25"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/glHorizontalMid"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintGuide_percent="0.50"
+            app:layout_constraintGuide_percent="0.2"
             app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.constraintlayout.widget.Guideline
@@ -180,12 +216,12 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintGuide_percent="0.85"
+            app:layout_constraintGuide_percent="0.75"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/twProfile"
         style="@style/TextView_Authentication_TitleStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

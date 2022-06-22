@@ -2,18 +2,15 @@ package com.utilityhub.csapp.ui.utility.landing
 
 import android.os.Bundle
 import android.util.Log
-import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.utilityhub.csapp.R
 import com.utilityhub.csapp.core.Constants
-import com.utilityhub.csapp.databinding.FragmentSmokeLandBinding
+import com.utilityhub.csapp.databinding.FragmentSmokeBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.Utility
 import com.utilityhub.csapp.ui.adapters.UtilityAdapter
@@ -23,15 +20,17 @@ import com.utilityhub.csapp.ui.home.maps.MapsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SmokeLandFragment :
-    BaseFragment<FragmentSmokeLandBinding>(FragmentSmokeLandBinding::inflate),
+class SmokeFragment :
+    BaseFragment<FragmentSmokeBinding>(FragmentSmokeBinding::inflate),
     UtilityAdapter.OnUtilityClickListener {
 
     private val viewModel by hiltNavGraphViewModels<LandViewModel>(R.id.nav_utility)
-    private val args: SmokeLandFragmentArgs by navArgs()
+    private val args: SmokeFragmentArgs by navArgs()
 
     private lateinit var map: String
     private var utilityType = Constants.SMOKES_REF
+    private var utilityFilters = arrayListOf<String>()
+    private var searchText = ""
 
     private var landingSpots = ArrayList<Utility>()
     private var adapter = UtilityAdapter(this)
@@ -43,7 +42,11 @@ class SmokeLandFragment :
         getLandingSpots()
         setAdapter()
         onBackPressedGoToMaps()
+    }
 
+    override fun onStart() {
+        super.onStart()
+        setUpBottomNavBar()
         binding.apply {
             searchView.apply {
                 setOnQueryTextListener(object : OnQueryTextListener {
@@ -53,20 +56,50 @@ class SmokeLandFragment :
                     }
 
                     override fun onQueryTextChange(newText: String?): Boolean {
-                        newText?.let {
-                            adapter.filter.filter(it)
+                        searchText = newText!!
+
+                        if (searchText.isNotBlank()) {
+                            utilityFilters.add(searchText)
+                            filterByTagsAndText()
+                            utilityFilters.remove(searchText)
+                        } else {
+                            adapter.filter.filter("")
+                            filterByTagsAndText()
                         }
+
                         return true
                     }
                 })
             }
+            chipGroup.setOnCheckedStateChangeListener { _, checkedIds ->
+                if (utilityFilters.isNotEmpty())
+                    utilityFilters.clear()
+                checkedIds.forEach {
+                    when (it) {
+                        chipASite.id -> utilityFilters.add("A")
+                        chipBSite.id -> utilityFilters.add("B")
+                        chipOneWay.id -> utilityFilters.add("OW")
+                        chipRetake.id -> utilityFilters.add("RT")
+                    }
+                }
+                if (searchText.isNotBlank())
+                    utilityFilters.add(searchText)
+                adapter.filter.filter("")
+                filterByTagsAndText()
+                utilityFilters.remove(searchText)
+            }
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        setUpBottomNavBar()
+    override fun onResume() {
+        super.onResume()
+        binding.searchView.setQuery("", false)
+    }
 
+    private fun filterByTagsAndText() {
+        utilityFilters.forEach {
+            adapter.filter.filter(it)
+        }
     }
 
     private fun setUpBottomNavBar() {
@@ -76,28 +109,6 @@ class SmokeLandFragment :
             bottomNav.inflateMenu(R.menu.utility_menu)
         }
 
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.nav_utility_smoke -> {
-                utilityType = Constants.SMOKES_REF
-                true
-            }
-            R.id.flashFragment -> {
-                utilityType = "Flashes"
-                true
-            }
-            R.id.molotovFragment -> {
-                utilityType = "Molotovs"
-                true
-            }
-            R.id.retakeFragment -> {
-                utilityType = "He grenades"
-                true
-            }
-            else -> true
-        }
     }
 
     private fun onBackPressedGoToMaps() {
@@ -142,7 +153,7 @@ class SmokeLandFragment :
     override fun onUtilityClick(utility: Utility) {
         val landingSpot = utility.name!!
         val navThrow =
-            SmokeLandFragmentDirections.actionSmokeLandFragmentToSmokeThrowFragment(
+            SmokeFragmentDirections.actionSmokeFragmentToThrowFragment(
                 map = map,
                 utilityType = utilityType,
                 landingSpot = landingSpot

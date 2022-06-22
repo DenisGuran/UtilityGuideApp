@@ -21,7 +21,7 @@ class FlashFragment : BaseFragment<FragmentFlashBinding>(FragmentFlashBinding::i
 
     private val viewModel by hiltNavGraphViewModels<LandViewModel>(R.id.nav_utility)
 
-    private val utilityType = "Flashes"
+    private val utilityType = "Smokes"
     private lateinit var map : String
 
     private var landingSpots = ArrayList<Utility>()
@@ -33,6 +33,7 @@ class FlashFragment : BaseFragment<FragmentFlashBinding>(FragmentFlashBinding::i
         viewModel.currentMap.observe(viewLifecycleOwner) {
             map = it
             getLandingSpots()
+            setAdapter()
         }
         onBackPressedGoToMaps()
     }
@@ -49,7 +50,7 @@ class FlashFragment : BaseFragment<FragmentFlashBinding>(FragmentFlashBinding::i
                         Log.i("FLASH LAND", landingSpots.toString())
                         Log.i("MAP", map)
                         Log.i("utility", utilityType)
-
+                        adapter.setData(landingSpots)
                     }
                     is Response.Failure -> Log.w("getLandingSpots", response.errorMessage)
                 }
@@ -69,8 +70,19 @@ class FlashFragment : BaseFragment<FragmentFlashBinding>(FragmentFlashBinding::i
             })
     }
 
+    private fun setAdapter() {
+        binding.recyclerView.adapter = adapter
+    }
+
     override fun onUtilityClick(utility: Utility) {
-        TODO("Not yet implemented")
+        val landingSpot = utility.name!!
+        val navThrow =
+            FlashFragmentDirections.actionFlashFragmentToThrowFragment(
+                map = map,
+                utilityType = utilityType,
+                landingSpot = landingSpot
+            )
+        findNavController().navigate(navThrow)
     }
 
 }

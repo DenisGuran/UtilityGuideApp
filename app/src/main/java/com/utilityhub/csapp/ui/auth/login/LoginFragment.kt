@@ -3,6 +3,7 @@ package com.utilityhub.csapp.ui.auth.login
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -37,9 +38,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private var password: String = ""
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
         checkUserState()
+        super.onViewCreated(view, savedInstanceState)
 
         initGoogleResultLauncher()
 
@@ -100,6 +100,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         viewModel.firebaseSignInWithGoogle(idToken).observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Response.Success -> {
+                    Log.i("firebaseGoogle", response.data.toString())
                     val isNewUser = response.data
                     if (isNewUser) {
                         addUserToFirestore()
@@ -109,7 +110,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 }
                 is Response.Failure -> {
                     progressBar.hide()
-                    print(response.errorMessage)
+                    Log.i("firebaseGoogle", response.errorMessage)
                 }
             }
         }
@@ -125,10 +126,13 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
     private fun addUserToFirestore() {
         viewModel.addUserToFirestore().observe(viewLifecycleOwner) { response ->
             when (response) {
-                is Response.Success -> progressBar.hide()
+                is Response.Success -> {
+                    Log.i("addUserToFirestore", response.data.toString())
+                    progressBar.hide()
+                }
                 is Response.Failure -> {
                     progressBar.hide()
-                    print(response.errorMessage)
+                    Log.i("addUserToFirestore", response.errorMessage)
                 }
             }
         }
@@ -179,7 +183,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 is Response.Success -> progressBar.hide()
                 is Response.Failure -> {
                     progressBar.hide()
-                    Toast.makeText(requireContext(), "Invalid credentials. Please try again.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Invalid credentials. Please try again.",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }

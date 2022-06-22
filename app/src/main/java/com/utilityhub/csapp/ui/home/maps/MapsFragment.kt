@@ -1,5 +1,9 @@
 package com.utilityhub.csapp.ui.home.maps
 
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.VectorDrawable
 import android.os.Bundle
 import android.view.View
@@ -9,6 +13,9 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
+import coil.ImageLoader
+import coil.request.ImageRequest
+import coil.request.SuccessResult
 import com.utilityhub.csapp.R
 import com.utilityhub.csapp.core.Constants
 import com.utilityhub.csapp.core.Constants.MAP
@@ -18,10 +25,15 @@ import com.utilityhub.csapp.ui.core.MainActivity
 import com.utilityhub.csapp.ui.adapters.MapAdapter
 import com.utilityhub.csapp.ui.core.BaseFragment
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::inflate),
     MapAdapter.OnMapClickListener {
+
+    @Inject
+    lateinit var applicationContext : Context
 
     private var backPressedTime: Long = 0L
     private lateinit var backPressedToast: Toast
@@ -76,12 +88,29 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
         binding.recyclerView.adapter = adapter
     }
 
-    private fun getPinBitmap(drawable: Int) =
-        (ResourcesCompat.getDrawable(
-            this.resources,
-            drawable,
-            null
-        ) as VectorDrawable).toBitmap()
+    private suspend fun getBitmaps(urls: ArrayList<String>): ArrayList<Bitmap> {
+        val imageDrawables = arrayListOf<Deferred<Drawable>>()
+        val imageBitmaps = arrayListOf<Deferred<Bitmap>>()
+
+        coroutineScope {
+            urls.forEach { url ->
+                val request = ImageRequest.Builder(requireContext())
+                    .data(url)
+                    .build()
+                val result = async(Dispatchers.IO) {
+                    (ImageLoader(requireContext()).execute(request) as SuccessResult).drawable
+                }
+                imageDrawables.add(result)
+            }
+
+            imageDrawables.awaitAll().forEach { drawable ->
+                val bitmap = async { (drawable as BitmapDrawable).bitmap }
+                imageBitmaps.add(bitmap)
+            }
+        }
+
+        return imageBitmaps.awaitAll() as ArrayList<Bitmap>
+    }
 
     override fun onMapClick(position: Int) {
         val selectedMapName = maps[position].name
@@ -89,6 +118,13 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
         findNavController().navigate(navLand)
         findNavController().setGraph(R.navigation.nav_utility, bundleOf(MAP to selectedMapName))
     }
+
+    private fun getPinBitmap(drawable: Int) =
+        (ResourcesCompat.getDrawable(
+            applicationContext.resources,
+            drawable,
+            null
+        ) as VectorDrawable).toBitmap()
 
     private fun initData() {
 

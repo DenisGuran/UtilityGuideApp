@@ -15,7 +15,8 @@ class UtilityAdapter(
     private val onUtilityClickListener: OnUtilityClickListener
 ) : ListAdapter<Utility, UtilityAdapter.UtilityViewHolder>(DiffCallback), Filterable {
 
-    private var utilityList = arrayListOf<Utility>()
+    private var mainUtilityList = arrayListOf<Utility>()
+    private var sortedUtilityList = arrayListOf<Utility>()
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -34,7 +35,8 @@ class UtilityAdapter(
     override fun getItemCount() = currentList.size
 
     fun setData(list: ArrayList<Utility>?) {
-        this.utilityList = list!!
+        this.mainUtilityList = list!!
+        sortedUtilityList = mainUtilityList
         submitList(list)
     }
 
@@ -78,11 +80,12 @@ class UtilityAdapter(
             override fun performFiltering(charSequence: CharSequence?): FilterResults {
                 val filteredList = arrayListOf<Utility>()
                 if (charSequence == null || charSequence.isEmpty()) {
-                    filteredList.addAll(utilityList)
+                    filteredList.addAll(mainUtilityList)
                 } else {
-                    utilityList.forEach { item ->
-                        if (item.name?.lowercase()
-                                ?.contains(charSequence.toString().lowercase()) == true
+                    mainUtilityList.forEach { item ->
+                        if (item.name?.lowercase()?.contains(
+                                charSequence.toString().lowercase()
+                            ) == true && item in sortedUtilityList
                         ) {
                             filteredList.add(item)
                         }
@@ -91,6 +94,9 @@ class UtilityAdapter(
                 val results = FilterResults()
                 results.values = filteredList
                 results.count = filteredList.size
+
+                if (filteredList.isNotEmpty())
+                    sortedUtilityList = filteredList
                 return results
             }
 

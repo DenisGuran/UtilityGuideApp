@@ -9,38 +9,40 @@
         android:name="map"
         app:argType="string" />
 
-    <fragment
-        android:id="@+id/molotovFragment"
-        android:name="com.utilityhub.csapp.ui.utility.landing.MolotovFragment"
-        android:label="fragment_molotov"
-        tools:layout="@layout/fragment_molotov" />
-    <fragment
-        android:id="@+id/retakeFragment"
-        android:name="com.utilityhub.csapp.ui.utility.landing.RetakeFragment"
-        android:label="fragment_retake"
-        tools:layout="@layout/fragment_retake" />
     <navigation
         android:id="@+id/nav_utility_smoke"
-        app:startDestination="@id/smokeLandFragment">
+        app:startDestination="@id/smokeFragment">
         <argument
             android:name="map"
             app:argType="string" />
         <fragment
-            android:id="@+id/smokeThrowFragment"
-            android:name="com.utilityhub.csapp.ui.utility.throwing.SmokeThrowFragment"
-            android:label="fragment_smoke_throw"
-            tools:layout="@layout/fragment_smoke_throw">
+            android:id="@+id/smokeFragment"
+            android:name="com.utilityhub.csapp.ui.utility.landing.SmokeFragment"
+            android:label="fragment_smoke"
+            tools:layout="@layout/fragment_smoke">
             <action
-                android:id="@+id/action_smokeThrowFragment_to_tutorialFragment"
-                app:destination="@id/tutorialFragment" />
+                android:id="@+id/action_smokeFragment_to_throwFragment"
+                app:destination="@id/throwFragment" />
             <argument
-                android:name="landingSpot"
+                android:name="map"
                 app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/throwFragment"
+            android:name="com.utilityhub.csapp.ui.utility.throwing.ThrowFragment"
+            android:label="fragment_throw"
+            tools:layout="@layout/fragment_throw">
+            <action
+                android:id="@+id/action_throwFragment_to_tutorialFragment"
+                app:destination="@id/tutorialFragment" />
             <argument
                 android:name="map"
                 app:argType="string" />
             <argument
                 android:name="utilityType"
+                app:argType="string" />
+            <argument
+                android:name="landingSpot"
                 app:argType="string" />
         </fragment>
         <fragment
@@ -61,18 +63,6 @@
                 android:name="utilityType"
                 app:argType="string" />
         </fragment>
-        <fragment
-            android:id="@+id/smokeLandFragment"
-            android:name="com.utilityhub.csapp.ui.utility.landing.SmokeLandFragment"
-            android:label="fragment_smoke_land"
-            tools:layout="@layout/fragment_smoke_land">
-            <action
-                android:id="@+id/action_smokeLandFragment_to_smokeThrowFragment"
-                app:destination="@id/smokeThrowFragment" />
-            <argument
-                android:name="map"
-                app:argType="string" />
-        </fragment>
     </navigation>
     <navigation
         android:id="@+id/nav_utility_flash"
@@ -81,13 +71,31 @@
             android:id="@+id/flashFragment"
             android:name="com.utilityhub.csapp.ui.utility.landing.FlashFragment"
             android:label="fragment_flash"
-            tools:layout="@layout/fragment_flash" >
+            tools:layout="@layout/fragment_flash">
             <action
-                android:id="@+id/action_flashFragment_to_smokeThrowFragment2"
-                app:destination="@id/smokeThrowFragment2" />
+                android:id="@+id/action_flashFragment_to_throwFragment"
+                app:destination="@id/throwFragment" />
         </fragment>
         <fragment
-            android:id="@+id/tutorialFragment2"
+            android:id="@+id/throwFragment"
+            android:name="com.utilityhub.csapp.ui.utility.throwing.ThrowFragment"
+            android:label="fragment_throw"
+            tools:layout="@layout/fragment_throw">
+            <action
+                android:id="@+id/action_throwFragment_to_tutorialFragment"
+                app:destination="@id/tutorialFragment" />
+            <argument
+                android:name="map"
+                app:argType="string" />
+            <argument
+                android:name="utilityType"
+                app:argType="string" />
+            <argument
+                android:name="landingSpot"
+                app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/tutorialFragment"
             android:name="com.utilityhub.csapp.ui.utility.tutorial.TutorialFragment"
             android:label="fragment_tutorial"
             tools:layout="@layout/fragment_tutorial">
@@ -104,14 +112,95 @@
                 android:name="utilityType"
                 app:argType="string" />
         </fragment>
+    </navigation>
+    <navigation android:id="@+id/nav_utility_molotov"
+        app:startDestination="@id/molotovFragment">
         <fragment
-            android:id="@+id/smokeThrowFragment2"
-            android:name="com.utilityhub.csapp.ui.utility.throwing.SmokeThrowFragment"
-            android:label="fragment_smoke_throw"
-            tools:layout="@layout/fragment_smoke_throw">
+            android:id="@+id/molotovFragment"
+            android:name="com.utilityhub.csapp.ui.utility.landing.MolotovFragment"
+            android:label="fragment_molotov"
+            tools:layout="@layout/fragment_molotov" >
+            <action
+                android:id="@+id/action_molotovFragment_to_throwFragment"
+                app:destination="@id/throwFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/throwFragment"
+            android:name="com.utilityhub.csapp.ui.utility.throwing.ThrowFragment"
+            android:label="fragment_throw"
+            tools:layout="@layout/fragment_throw">
+            <action
+                android:id="@+id/action_throwFragment_to_tutorialFragment"
+                app:destination="@id/tutorialFragment" />
+            <argument
+                android:name="map"
+                app:argType="string" />
+            <argument
+                android:name="utilityType"
+                app:argType="string" />
             <argument
                 android:name="landingSpot"
                 app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/tutorialFragment"
+            android:name="com.utilityhub.csapp.ui.utility.tutorial.TutorialFragment"
+            android:label="fragment_tutorial"
+            tools:layout="@layout/fragment_tutorial">
+            <argument
+                android:name="landingSpot"
+                app:argType="string" />
+            <argument
+                android:name="throwingSpot"
+                app:argType="com.utilityhub.csapp.domain.model.UtilityThrow" />
+            <argument
+                android:name="map"
+                app:argType="string" />
+            <argument
+                android:name="utilityType"
+                app:argType="string" />
+        </fragment>
+    </navigation>
+    <navigation android:id="@+id/nav_utility_he"
+        app:startDestination="@id/heGrenadeFragment">
+        <fragment
+            android:id="@+id/heGrenadeFragment"
+            android:name="com.utilityhub.csapp.ui.utility.landing.HeGrenadeFragment"
+            android:label="fragment_he_grenade"
+            tools:layout="@layout/fragment_he_grenade" >
+            <action
+                android:id="@+id/action_heGrenadeFragment_to_throwFragment"
+                app:destination="@id/throwFragment" />
+        </fragment>
+        <fragment
+            android:id="@+id/throwFragment"
+            android:name="com.utilityhub.csapp.ui.utility.throwing.ThrowFragment"
+            android:label="fragment_throw"
+            tools:layout="@layout/fragment_throw">
+            <action
+                android:id="@+id/action_throwFragment_to_tutorialFragment"
+                app:destination="@id/tutorialFragment" />
+            <argument
+                android:name="map"
+                app:argType="string" />
+            <argument
+                android:name="utilityType"
+                app:argType="string" />
+            <argument
+                android:name="landingSpot"
+                app:argType="string" />
+        </fragment>
+        <fragment
+            android:id="@+id/tutorialFragment"
+            android:name="com.utilityhub.csapp.ui.utility.tutorial.TutorialFragment"
+            android:label="fragment_tutorial"
+            tools:layout="@layout/fragment_tutorial">
+            <argument
+                android:name="landingSpot"
+                app:argType="string" />
+            <argument
+                android:name="throwingSpot"
+                app:argType="com.utilityhub.csapp.domain.model.UtilityThrow" />
             <argument
                 android:name="map"
                 app:argType="string" />

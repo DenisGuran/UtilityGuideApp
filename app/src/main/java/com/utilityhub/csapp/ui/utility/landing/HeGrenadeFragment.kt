@@ -6,13 +6,13 @@ import androidx.activity.OnBackPressedCallback
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import com.utilityhub.csapp.R
-import com.utilityhub.csapp.databinding.FragmentMolotovBinding
+import com.utilityhub.csapp.databinding.FragmentHeGrenadeBinding
 import com.utilityhub.csapp.ui.core.BaseFragment
 import com.utilityhub.csapp.ui.home.maps.MapsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MolotovFragment : BaseFragment<FragmentMolotovBinding>(FragmentMolotovBinding::inflate) {
+class HeGrenadeFragment : BaseFragment<FragmentHeGrenadeBinding>(FragmentHeGrenadeBinding::inflate) {
 
     private val viewModel by hiltNavGraphViewModels<LandViewModel>(R.id.nav_utility)
 

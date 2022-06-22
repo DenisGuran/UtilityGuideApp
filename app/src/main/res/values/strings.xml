@@ -76,5 +76,7 @@
     <string name="a_site">A Site</string>
     <string name="b_site">B Site</string>
     <string name="one_way">One Way</string>
+    <string name="preferences">preferences</string>
+    <string name="default_tickrate">Default tick rate</string>
 
 </resources>

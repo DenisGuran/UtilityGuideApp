@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.utilityhub.csapp.R
-import com.utilityhub.csapp.databinding.FragmentSmokeThrowBinding
+import com.utilityhub.csapp.databinding.FragmentThrowBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.Utility
 import com.utilityhub.csapp.domain.model.UtilityThrow
@@ -19,8 +19,8 @@ import com.utilityhub.csapp.ui.home.maps.MapsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SmokeThrowFragment :
-    BaseFragment<FragmentSmokeThrowBinding>(FragmentSmokeThrowBinding::inflate),
+class ThrowFragment :
+    BaseFragment<FragmentThrowBinding>(FragmentThrowBinding::inflate),
     UtilityAdapter.OnUtilityClickListener {
 
     private var throwSpots = ArrayList<UtilityThrow>()
@@ -28,12 +28,12 @@ class SmokeThrowFragment :
     private var adapter = UtilityAdapter(this)
 
     private val viewModel by viewModels<ThrowViewModel>()
-    private val args: SmokeThrowFragmentArgs by navArgs()
+    private val args: ThrowFragmentArgs by navArgs()
 
     private lateinit var map: String
     private lateinit var landingSpot: String
     private lateinit var utilityType: String
-    private var isTickrateTouched = false
+    private var isTickRateTouched = false
     private var tickrate = "128"
 
     @SuppressLint("ClickableViewAccessibility")
@@ -65,18 +65,18 @@ class SmokeThrowFragment :
                 }
             })
 
-            switchCompat.apply {
+            switchTickrate.apply {
                 setOnTouchListener { _, _ ->
-                    isTickrateTouched = true
+                    isTickRateTouched = true
                     false
                 }
                 setOnCheckedChangeListener { _, isChecked ->
-                    if (isTickrateTouched) {
-                        isTickrateTouched = false
+                    if (isTickRateTouched) {
+                        isTickRateTouched = false
                         tickrate = if (isChecked) {
-                            switchCompat.textOn.toString()
+                            textOn.toString()
                         } else {
-                            switchCompat.textOff.toString()
+                            textOff.toString()
                         }
                     }
                 }
@@ -133,7 +133,7 @@ class SmokeThrowFragment :
     override fun onUtilityClick(utility: Utility) {
         val throwingSpot = throwSpots[throwSpotsWithoutTutorial.indexOf(utility)]
         val navTutorial =
-            SmokeThrowFragmentDirections.actionSmokeThrowFragmentToTutorialFragment(
+            ThrowFragmentDirections.actionThrowFragmentToTutorialFragment(
                 map = map,
                 utilityType = utilityType,
                 landingSpot = landingSpot,
