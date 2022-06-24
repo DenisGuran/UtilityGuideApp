@@ -79,4 +79,11 @@
     <string name="preferences">preferences</string>
     <string name="default_tickrate">Default tick rate</string>
 
+    <string-array name="utilities">
+        <item>Smoke</item>
+        <item>Flash</item>
+        <item>Molotov</item>
+        <item>He grenade</item>
+    </string-array>
+
 </resources>

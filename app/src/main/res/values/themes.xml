@@ -55,6 +55,8 @@
         <item name="boxStrokeWidthFocused">0dp</item>
         <item name="hintEnabled">false</item>
         <item name="errorEnabled">true</item>
+        <item name="endIconMode">clear_text</item>
+
         <item name="android:layout_marginTop">4dp</item>
         <item name="helperTextTextColor">@color/helper_text_color</item>
     </style>
@@ -102,8 +104,12 @@
         <item name="android:layout_marginTop">16dp</item>
     </style>
 
+    <style name="SpinnerStyle" parent="Widget.AppCompat.ListView.DropDown">
+        <item name="android:backgroundTint">@color/black</item>
+    </style>
+
     <style name="Tickrate_Text">
-        <item name="android:textColor">@color/yellow</item>
+        <item name="android:textColor">@color/tickrate_color</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">12sp</item>
     </style>

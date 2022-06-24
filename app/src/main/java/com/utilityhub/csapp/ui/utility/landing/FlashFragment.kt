@@ -7,6 +7,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import com.utilityhub.csapp.R
+import com.utilityhub.csapp.core.Constants
 import com.utilityhub.csapp.databinding.FragmentFlashBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.Utility
@@ -21,7 +22,6 @@ class FlashFragment : BaseFragment<FragmentFlashBinding>(FragmentFlashBinding::i
 
     private val viewModel by hiltNavGraphViewModels<LandViewModel>(R.id.nav_utility)
 
-    private val utilityType = "Smokes"
     private lateinit var map : String
 
     private var landingSpots = ArrayList<Utility>()
@@ -47,9 +47,6 @@ class FlashFragment : BaseFragment<FragmentFlashBinding>(FragmentFlashBinding::i
                             landingSpots.clear()
                         }
                         landingSpots.addAll(response.data)
-                        Log.i("FLASH LAND", landingSpots.toString())
-                        Log.i("MAP", map)
-                        Log.i("utility", utilityType)
                         adapter.setData(landingSpots)
                     }
                     is Response.Failure -> Log.w("getLandingSpots", response.errorMessage)
@@ -83,6 +80,10 @@ class FlashFragment : BaseFragment<FragmentFlashBinding>(FragmentFlashBinding::i
                 landingSpot = landingSpot
             )
         findNavController().navigate(navThrow)
+    }
+
+    companion object {
+        private const val utilityType = Constants.FLASHES_REF
     }
 
 }

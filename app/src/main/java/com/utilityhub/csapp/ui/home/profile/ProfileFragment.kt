@@ -1,11 +1,13 @@
 package com.utilityhub.csapp.ui.home.profile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.utilityhub.csapp.R
 import com.utilityhub.csapp.databinding.FragmentProfileBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.ui.core.BaseFragment
@@ -33,9 +35,32 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                     signOut()
                 }
             }
+            initSpinner()
         } else {
             binding.btnLogin.setOnClickListener {
                 navigateToAuth()
+            }
+        }
+    }
+
+    private fun initSpinner() {
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.utilities,
+            R.layout.dropdown_item
+        )
+            .also { arrayAdapter ->
+                arrayAdapter.setDropDownViewResource(R.layout.dropdown_item)
+                binding.utilitySpinner.adapter = arrayAdapter
+            }
+
+        binding.utilitySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(adapterView: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+                Log.i("ASD",adapterView!!.getItemAtPosition(position).toString())
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
             }
         }
     }
@@ -61,7 +86,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                 is Response.Success -> {
                     val currentUser = response.data
                     binding.username.text =
-                        if(currentUser.username!!.endsWith("s"))
+                        if (currentUser.username!!.endsWith("s"))
                             "${currentUser.username}'"
                         else
                             "${currentUser.username}'s"

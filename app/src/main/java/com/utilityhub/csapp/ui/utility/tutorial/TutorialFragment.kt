@@ -43,8 +43,9 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
     private val args: TutorialFragmentArgs by navArgs()
     private val viewModel by viewModels<TutorialViewModel>()
     private var adapter = TutorialAdapter()
+
     @Inject
-    lateinit var applicationContext : Context
+    lateinit var applicationContext: Context
 
     private lateinit var map: String
     private lateinit var landingSpot: String
@@ -73,12 +74,11 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
                 )
             }
             btnShare.setOnClickListener {
-                lifecycleScope.launch(Dispatchers.IO) {
+                lifecycleScope.launch(Dispatchers.Default) {
                     shareTutorial()
                 }
             }
         }
-
     }
 
     private fun getNavArgs() {
@@ -182,9 +182,7 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
                 imageUris.add(uri)
             }
         }
-
         return imageUris.awaitAll() as ArrayList<Uri>
-
     }
 
     private suspend fun shareTutorial() {
@@ -197,7 +195,7 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
             tutorialDetails.add(step.details.toString().trim())
         }
 
-        val sharedSubject = throwingSpot.name + " to " + landingSpot
+        val sharedSubject = "${throwingSpot.name} to $landingSpot"
         val sharedText = sharedSubject + "\n" +
                 tutorialDetails.joinToString(", ") + ".\n" +
                 Constants.SHARE_TUTORIAL_TEXT
@@ -231,10 +229,11 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
             type = "image/${Constants.IMAGE_TYPE}"
         }, null)
 
-        val resInfoList: List<ResolveInfo> = applicationContext.packageManager.queryIntentActivities(
-            shareIntent,
-            PackageManager.MATCH_DEFAULT_ONLY
-        )
+        val resInfoList: List<ResolveInfo> =
+            applicationContext.packageManager.queryIntentActivities(
+                shareIntent,
+                PackageManager.MATCH_DEFAULT_ONLY
+            )
         resInfoList.forEach { resolveInfo ->
             val packageName: String = resolveInfo.activityInfo.packageName
             sharedImageUris.forEach { sharedImageUri ->

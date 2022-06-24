@@ -144,8 +144,8 @@
                 android:fontFamily="@font/lora_italic_bold"
                 android:gravity="center"
                 android:paddingHorizontal="1dp"
-                android:text="128/64"
-                android:textColor="#37FF00"
+                android:text="128 + 64"
+                android:textColor="@color/tickrate_color"
                 android:textSize="12sp" />
         </TableRow>
     </TableLayout>

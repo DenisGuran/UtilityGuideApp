@@ -16,6 +16,7 @@
     <color name="edit_text_line_color">#FFFFFF</color>
     <color name="text_color">#FFFFFF</color>
     <color name="title_color">#FFFFFF</color>
+    <color name="tickrate_color">@color/yellow</color>
     <color name="app_title_color">#FFFFFF</color>
     <color name="icon_color">#FFFFFF</color>
     <color name="input_text_color">#FFFFFF</color>

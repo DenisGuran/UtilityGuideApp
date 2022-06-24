@@ -132,16 +132,40 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="spread" />
 
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switchTickrate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textOff="@string/tickrate_128"
+                android:textOn="@string/tickrate_64"
+                android:thumb="@drawable/custom_thumb_tickrate"
+                app:layout_constraintBottom_toBottomOf="@+id/twTickrate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/twTickrate"
+                app:showText="true"
+                app:switchTextAppearance="@style/Tickrate_Text"
+                app:trackTint="@color/black_transparent" />
+
             <TextView
                 android:id="@+id/textView4"
                 style="@style/TextView_Profile_Preferences"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/default_tickrate"
+                android:text="Starting utility"
                 android:textColor="@color/text_color"
                 app:layout_constraintBottom_toTopOf="@+id/textView6"
                 app:layout_constraintStart_toStartOf="@+id/textView6"
                 app:layout_constraintTop_toBottomOf="@+id/twTickrate" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:theme="@style/SpinnerStyle"
+                android:id="@+id/utilitySpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView4" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -154,20 +178,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switchTickrate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textOff="@string/tickrate_128"
-                android:textOn="@string/tickrate_64"
-                android:thumb="@drawable/custom_thumb_tickrate"
-                app:layout_constraintBottom_toBottomOf="@+id/twTickrate"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/twTickrate"
-                app:layout_constraintTop_toTopOf="@+id/twTickrate"
-                app:showText="true"
-                app:switchTextAppearance="@style/Tickrate_Text"
-                app:trackTint="@color/black_transparent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.button.MaterialButton

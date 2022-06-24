@@ -28,7 +28,6 @@ class SmokeFragment :
     private val args: SmokeFragmentArgs by navArgs()
 
     private lateinit var map: String
-    private var utilityType = Constants.SMOKES_REF
     private var utilityFilters = arrayListOf<String>()
     private var searchText = ""
 
@@ -159,6 +158,10 @@ class SmokeFragment :
                 landingSpot = landingSpot
             )
         findNavController().navigate(navThrow)
+    }
+
+    companion object {
+        private const val utilityType = Constants.SMOKES_REF
     }
 
 }

@@ -47,10 +47,10 @@
         style="@style/TextInputLayout_AuthenticationStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="@+id/layoutPassword"
         app:layout_constraintStart_toStartOf="@+id/layoutPassword"
-        app:layout_constraintTop_toBottomOf="@+id/layoutPassword"
-        app:passwordToggleEnabled="true">
+        app:layout_constraintTop_toBottomOf="@+id/layoutPassword">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputConfirmPassword"
@@ -70,10 +70,10 @@
         style="@style/TextInputLayout_AuthenticationStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="@+id/layoutEmail"
         app:layout_constraintStart_toStartOf="@+id/layoutEmail"
-        app:layout_constraintTop_toBottomOf="@+id/layoutEmail"
-        app:passwordToggleEnabled="true">
+        app:layout_constraintTop_toBottomOf="@+id/layoutEmail">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/inputPassword"

@@ -12,6 +12,8 @@ object Constants {
     const val THROW_REF: String = "Throw"
     const val FAVORITES_REF: String = "Favorites"
 
+    const val IO_DISPATCHER: String = "IO_DISPATCHER"
+
     // Utility variables
     const val MAP: String = "map"
 
