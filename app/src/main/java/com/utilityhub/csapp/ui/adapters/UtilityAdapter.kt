@@ -83,11 +83,14 @@ class UtilityAdapter(
                     filteredList.addAll(mainUtilityList)
                 } else {
                     mainUtilityList.forEach { item ->
-                        if (item.name?.lowercase()?.contains(
-                                charSequence.toString().lowercase()
-                            ) == true && item in sortedUtilityList
-                        ) {
-                            filteredList.add(item)
+                        if (item in sortedUtilityList) {
+                            if (item.tags?.contains(charSequence.toString()) == true) {
+                                filteredList.add(item)
+                            } else if (item.name?.lowercase()
+                                    ?.contains(charSequence.toString().lowercase()) == true
+                            ) {
+                                filteredList.add(item)
+                            }
                         }
                     }
                 }

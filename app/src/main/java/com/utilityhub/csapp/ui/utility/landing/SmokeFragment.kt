@@ -77,8 +77,8 @@ class SmokeFragment :
                     when (it) {
                         chipASite.id -> utilityFilters.add("A")
                         chipBSite.id -> utilityFilters.add("B")
-                        chipOneWay.id -> utilityFilters.add("OW")
-                        chipRetake.id -> utilityFilters.add("RT")
+                        chipOneWay.id -> utilityFilters.add("One way")
+                        chipRetake.id -> utilityFilters.add("Retake")
                     }
                 }
                 if (searchText.isNotBlank())
@@ -138,6 +138,7 @@ class SmokeFragment :
                             landingSpots.clear()
                         }
                         landingSpots.addAll(response.data)
+                        Log.i("ASD", landingSpots.toString())
                         adapter.setData(landingSpots)
                     }
                     is Response.Failure -> Log.w("getLandingSpots", response.errorMessage)

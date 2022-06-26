@@ -8,5 +8,6 @@ import kotlinx.parcelize.RawValue
 data class UtilityThrow(
     var name: String? = null,
     var img: String? = null,
+    var tags: MutableList<String>? = null,
     var tutorial: @RawValue MutableList<Tutorial>? = null
 ) : Parcelable

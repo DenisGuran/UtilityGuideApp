@@ -5,6 +5,7 @@ import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
+import com.utilityhub.csapp.core.Constants
 import com.utilityhub.csapp.core.Constants.IO_DISPATCHER
 import com.utilityhub.csapp.core.Constants.MAPS_REF
 import com.utilityhub.csapp.core.Constants.USERS_REF
@@ -21,6 +22,7 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import java.io.File
 import javax.inject.Named
 import javax.inject.Singleton
 
@@ -30,9 +32,14 @@ import javax.inject.Singleton
 object AppModule {
     @Singleton
     @Provides
-    fun provideContext(application: Application): Context {
-        return application.applicationContext
-    }
+    fun provideContext(application: Application): Context
+        = application.applicationContext
+
+    @Singleton
+    @Provides
+    fun provideCachePath(
+        context: Context
+    ) = File(context.externalCacheDir, Constants.CACHE_DIRECTORY)
 
     @Singleton
     @Provides

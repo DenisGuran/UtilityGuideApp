@@ -12,6 +12,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
@@ -23,7 +24,6 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 import com.utilityhub.csapp.R
 import com.utilityhub.csapp.core.Constants
-import com.utilityhub.csapp.core.Constants.CACHE_DIRECTORY
 import com.utilityhub.csapp.databinding.FragmentTutorialBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.Tutorial
@@ -46,16 +46,20 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
 
     @Inject
     lateinit var applicationContext: Context
+    @Inject
+    lateinit var cachePath : File
 
+    private lateinit var shareResult: ActivityResultLauncher<Intent>
     private lateinit var map: String
     private lateinit var landingSpot: String
     private lateinit var throwingSpot: UtilityThrow
     private lateinit var tutorial: ArrayList<Tutorial>
     private lateinit var utilityType: String
-    private lateinit var cachePath: File
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initShareResultLauncher()
 
         getNavArgs()
         setAdapter()
@@ -188,7 +192,6 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
     private suspend fun shareTutorial() {
         val tutorialDetails = arrayListOf<String>()
         val tutorialUrls = arrayListOf<String>()
-        cachePath = File(applicationContext.externalCacheDir, CACHE_DIRECTORY)
 
         tutorial.forEach { step ->
             step.img?.let { tutorialUrls.add(it) }
@@ -206,12 +209,6 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
             sharedSubject = sharedSubject
         )
     }
-
-    private val shareResult =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == 0)
-                cachePath.deleteRecursively()
-        }
 
     @SuppressLint("QueryPermissionsNeeded")
     private fun initShareIntent(
@@ -246,6 +243,14 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
         }
 
         shareResult.launch(shareIntent)
+    }
+
+    private fun initShareResultLauncher(){
+        shareResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == 0)
+                    cachePath.deleteRecursively()
+            }
     }
 
     private fun navigateToMaps() {

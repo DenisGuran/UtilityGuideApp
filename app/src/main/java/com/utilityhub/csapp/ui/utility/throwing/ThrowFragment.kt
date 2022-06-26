@@ -103,7 +103,8 @@ class ThrowFragment :
                     throwSpotsWithoutTutorial.addAll(throwSpots.map {
                         Utility(
                             name = it.name,
-                            img = it.img
+                            img = it.img,
+                            tags = it.tags
                         )
                     } as ArrayList<Utility>)
 
