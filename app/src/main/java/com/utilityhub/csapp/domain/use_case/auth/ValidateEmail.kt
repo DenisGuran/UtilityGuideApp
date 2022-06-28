@@ -2,7 +2,7 @@ package com.utilityhub.csapp.domain.use_case.auth
 
 import android.util.Patterns
 import com.utilityhub.csapp.R
-import com.utilityhub.csapp.core.UiText
+import com.utilityhub.csapp.common.UiText
 import com.utilityhub.csapp.domain.model.ValidationResponse
 
 class ValidateEmail {

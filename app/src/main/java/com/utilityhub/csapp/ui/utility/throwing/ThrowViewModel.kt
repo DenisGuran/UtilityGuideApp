@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
-import com.utilityhub.csapp.core.Constants
+import com.utilityhub.csapp.common.Constants
 import com.utilityhub.csapp.domain.repository.PreferencesRepository
 import com.utilityhub.csapp.domain.use_case.utility.UtilityUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,4 +1,4 @@
-package com.utilityhub.csapp.core
+package com.utilityhub.csapp.common
 
 import android.content.Context
 import androidx.annotation.StringRes

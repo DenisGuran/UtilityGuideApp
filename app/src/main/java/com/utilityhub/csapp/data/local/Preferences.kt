@@ -1,6 +1,6 @@
 package com.utilityhub.csapp.data.local
 
-import com.utilityhub.csapp.core.Constants
+import com.utilityhub.csapp.common.Constants
 import kotlinx.serialization.Serializable
 
 @Serializable

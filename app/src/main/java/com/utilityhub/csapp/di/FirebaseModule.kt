@@ -4,8 +4,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.FirebaseFirestoreSettings
-import com.utilityhub.csapp.core.Constants.MAPS_REF
-import com.utilityhub.csapp.core.Constants.USERS_REF
+import com.utilityhub.csapp.common.Constants.MAPS_REF
+import com.utilityhub.csapp.common.Constants.USERS_REF
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -8,8 +8,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.navigation.fragment.findNavController
 import com.utilityhub.csapp.R
-import com.utilityhub.csapp.core.Constants
-import com.utilityhub.csapp.core.Constants.MAP
+import com.utilityhub.csapp.common.Constants
+import com.utilityhub.csapp.common.Constants.MAP
 import com.utilityhub.csapp.databinding.FragmentMapsBinding
 import com.utilityhub.csapp.domain.model.Map
 import com.utilityhub.csapp.ui.adapters.MapAdapter

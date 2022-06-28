@@ -6,7 +6,7 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.utilityhub.csapp.data.local.Preferences
-import com.utilityhub.csapp.core.Constants
+import com.utilityhub.csapp.common.Constants
 import com.utilityhub.csapp.databinding.FragmentProfileBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.ui.core.BaseFragment

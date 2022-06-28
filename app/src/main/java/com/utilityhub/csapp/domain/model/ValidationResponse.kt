@@ -1,7 +1,7 @@
 package com.utilityhub.csapp.domain.model
 
 import com.utilityhub.csapp.R
-import com.utilityhub.csapp.core.UiText
+import com.utilityhub.csapp.common.UiText
 
 data class ValidationResponse(
     val isValid: Boolean,

@@ -5,9 +5,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.firestore.CollectionReference
-import com.utilityhub.csapp.core.Constants
-import com.utilityhub.csapp.core.Constants.ERROR_MESSAGE
-import com.utilityhub.csapp.core.Constants.USERS_REF
+import com.utilityhub.csapp.common.Constants
+import com.utilityhub.csapp.common.Constants.ERROR_MESSAGE
+import com.utilityhub.csapp.common.Constants.USERS_REF
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.User
 import com.utilityhub.csapp.domain.repository.AuthRepository

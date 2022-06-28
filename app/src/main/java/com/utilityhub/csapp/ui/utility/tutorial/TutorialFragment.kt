@@ -24,8 +24,8 @@ import coil.ImageLoader
 import coil.request.ImageRequest
 import coil.request.SuccessResult
 import com.utilityhub.csapp.R
-import com.utilityhub.csapp.core.Constants
-import com.utilityhub.csapp.core.Utils
+import com.utilityhub.csapp.common.Constants
+import com.utilityhub.csapp.common.Utils
 import com.utilityhub.csapp.databinding.FragmentTutorialBinding
 import com.utilityhub.csapp.domain.model.Favorite
 import com.utilityhub.csapp.domain.model.Response

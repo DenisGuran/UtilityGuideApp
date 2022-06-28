@@ -5,10 +5,10 @@ import android.content.Context
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
-import com.utilityhub.csapp.core.Constants
-import com.utilityhub.csapp.core.Constants.IO_DISPATCHER
-import com.utilityhub.csapp.core.Constants.MAPS_REF
-import com.utilityhub.csapp.core.Constants.USERS_REF
+import com.utilityhub.csapp.common.Constants
+import com.utilityhub.csapp.common.Constants.IO_DISPATCHER
+import com.utilityhub.csapp.common.Constants.MAPS_REF
+import com.utilityhub.csapp.common.Constants.USERS_REF
 import com.utilityhub.csapp.data.repository.AuthRepositoryImpl
 import com.utilityhub.csapp.data.repository.PreferencesRepositoryImpl
 import com.utilityhub.csapp.data.repository.UtilityRepositoryImpl

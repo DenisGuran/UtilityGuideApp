@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.utilityhub.csapp.core.Utils
+import com.utilityhub.csapp.common.Utils
 import com.utilityhub.csapp.databinding.LayoutFavoriteBinding
 import com.utilityhub.csapp.domain.model.Favorite
 

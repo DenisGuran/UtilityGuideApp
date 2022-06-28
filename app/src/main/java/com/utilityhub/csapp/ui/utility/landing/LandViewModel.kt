@@ -1,7 +1,7 @@
 package com.utilityhub.csapp.ui.utility.landing
 
 import androidx.lifecycle.*
-import com.utilityhub.csapp.core.Constants
+import com.utilityhub.csapp.common.Constants
 import com.utilityhub.csapp.domain.use_case.utility.UtilityUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher

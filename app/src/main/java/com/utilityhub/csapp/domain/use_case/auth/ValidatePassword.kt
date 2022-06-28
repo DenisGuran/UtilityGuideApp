@@ -1,8 +1,8 @@
 package com.utilityhub.csapp.domain.use_case.auth
 
 import com.utilityhub.csapp.R
-import com.utilityhub.csapp.core.Constants.MIN_PASSWORD_LENGTH
-import com.utilityhub.csapp.core.UiText
+import com.utilityhub.csapp.common.Constants.MIN_PASSWORD_LENGTH
+import com.utilityhub.csapp.common.UiText
 import com.utilityhub.csapp.domain.model.ValidationResponse
 
 class ValidatePassword {

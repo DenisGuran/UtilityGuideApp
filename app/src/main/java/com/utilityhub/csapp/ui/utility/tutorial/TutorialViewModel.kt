@@ -3,7 +3,7 @@ package com.utilityhub.csapp.ui.utility.tutorial
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import com.utilityhub.csapp.core.Constants
+import com.utilityhub.csapp.common.Constants
 import com.utilityhub.csapp.domain.model.Favorite
 import com.utilityhub.csapp.domain.use_case.auth.AuthUseCases
 import com.utilityhub.csapp.domain.use_case.utility.UtilityUseCases

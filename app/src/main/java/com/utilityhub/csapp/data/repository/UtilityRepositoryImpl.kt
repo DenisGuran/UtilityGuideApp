@@ -3,7 +3,7 @@ package com.utilityhub.csapp.data.repository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue
-import com.utilityhub.csapp.core.Constants
+import com.utilityhub.csapp.common.Constants
 import com.utilityhub.csapp.domain.model.*
 import com.utilityhub.csapp.domain.repository.UtilityRepository
 import kotlinx.coroutines.channels.awaitClose
