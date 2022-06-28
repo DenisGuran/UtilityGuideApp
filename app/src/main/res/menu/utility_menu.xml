@@ -3,22 +3,22 @@
 
     <item
         android:id="@+id/nav_utility_smoke"
-        android:icon="@drawable/smoke"
+        android:icon="@drawable/ic_smoke"
         android:title="@string/smokes" />
 
     <item
         android:id="@+id/nav_utility_flash"
-        android:icon="@drawable/flash"
+        android:icon="@drawable/ic_flash"
         android:title="@string/flashes" />
 
     <item
         android:id="@+id/nav_utility_molotov"
-        android:icon="@drawable/molotov"
+        android:icon="@drawable/ic_molotov"
         android:title="@string/molotovs" />
 
     <item
         android:id="@+id/nav_utility_he"
-        android:icon="@drawable/he_grenade"
+        android:icon="@drawable/ic_he_grenade"
         android:title="@string/he_grenades" />
 
 </menu>

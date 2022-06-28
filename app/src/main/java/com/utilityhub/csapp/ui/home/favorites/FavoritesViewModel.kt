@@ -8,22 +8,24 @@ import com.utilityhub.csapp.domain.use_case.auth.AuthUseCases
 import com.utilityhub.csapp.domain.use_case.utility.UtilityUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 import javax.inject.Named
 
 @HiltViewModel
 class FavoritesViewModel @Inject constructor(
-    utilityUseCases: UtilityUseCases,
+    private val utilityUseCases: UtilityUseCases,
     authUseCases: AuthUseCases,
     @Named(Constants.IO_DISPATCHER)
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
+    val isLoggedIn = authUseCases.isLoggedIn()
+
     val favorites =
         utilityUseCases.getFavorites().asLiveData(ioDispatcher + viewModelScope.coroutineContext)
 
-    val isLoggedIn =
-        authUseCases.isLoggedIn()
+    fun getTutorial(map: String, utilityType: String, landingSpot: String, throwingSpot: String) =
+        utilityUseCases.getTutorial(map, utilityType, landingSpot, throwingSpot)
+            .asLiveData(ioDispatcher + viewModelScope.coroutineContext)
 
 }

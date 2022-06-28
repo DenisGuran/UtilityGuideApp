@@ -74,11 +74,36 @@
             app:destination="@id/nav_utility"
             app:popUpTo="@id/home"
             app:popUpToInclusive="true" />
-        <fragment
-            android:id="@+id/favoritesFragment"
-            android:name="com.utilityhub.csapp.ui.home.favorites.FavoritesFragment"
-            android:label="fragment_favorites"
-            tools:layout="@layout/fragment_favorites" />
+        <navigation android:id="@+id/nav_favorites"
+            app:startDestination="@id/favoritesFragment">
+            <fragment
+                android:id="@+id/favoritesFragment"
+                android:name="com.utilityhub.csapp.ui.home.favorites.FavoritesFragment"
+                android:label="fragment_favorites"
+                tools:layout="@layout/fragment_favorites" >
+                <action
+                    android:id="@+id/action_favoritesFragment_to_tutorialFragment"
+                    app:destination="@id/tutorialFragment" />
+            </fragment>
+            <fragment
+                android:id="@+id/tutorialFragment"
+                android:name="com.utilityhub.csapp.ui.utility.tutorial.TutorialFragment"
+                android:label="fragment_tutorial"
+                tools:layout="@layout/fragment_tutorial">
+                <argument
+                    android:name="landingSpot"
+                    app:argType="string" />
+                <argument
+                    android:name="throwingSpot"
+                    app:argType="com.utilityhub.csapp.domain.model.UtilityThrow" />
+                <argument
+                    android:name="map"
+                    app:argType="string" />
+                <argument
+                    android:name="utilityType"
+                    app:argType="string" />
+            </fragment>
+        </navigation>
     </navigation>
     <include app:graph="@navigation/nav_utility" />
     <action

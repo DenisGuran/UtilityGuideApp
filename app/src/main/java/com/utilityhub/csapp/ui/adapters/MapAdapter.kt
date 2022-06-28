@@ -44,7 +44,8 @@ class MapAdapter(private val onMapClickListener: OnMapClickListener) :
                 mapCard.setOnClickListener {
                     val position = bindingAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
-                        onMapClickListener.onMapClick(position)
+                        val selectedMap = currentList[position]
+                        onMapClickListener.onMapClick(selectedMap)
                     }
                 }
             }
@@ -56,15 +57,12 @@ class MapAdapter(private val onMapClickListener: OnMapClickListener) :
                 ivBackground.load(map.background) {
                     crossfade(enable = true)
                 }
-                ivPin.load(map.pin) {
-                    crossfade(enable = true)
-                }
             }
         }
     }
 
     interface OnMapClickListener {
-        fun onMapClick(position: Int)
+        fun onMapClick(map: Map)
     }
 
 }

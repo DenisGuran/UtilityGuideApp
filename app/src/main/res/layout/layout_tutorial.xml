@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="1dp"
-        android:background="@drawable/text_bg"
+        android:background="@drawable/step_bg"
         android:fontFamily="@font/lora_italic_semibold"
         android:gravity="center"
         android:text="@string/s1"

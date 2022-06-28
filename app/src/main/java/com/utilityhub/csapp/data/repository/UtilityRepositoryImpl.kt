@@ -1,6 +1,5 @@
 package com.utilityhub.csapp.data.repository
 
-import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue
@@ -64,12 +63,39 @@ class UtilityRepositoryImpl(
             }
         }
 
-    override fun getFavorites() = flow {
-        try {
+    override fun getFavorites() =
+        callbackFlow {
             val userFavoritesRef = usersRef.document(auth.currentUser!!.uid)
-            userFavoritesRef.get().await().also {
-                val favorites = it.data!!.getValue(Constants.FAVORITES_REF) as ArrayList<*>
-                emit(Response.Success(favorites))
+            val snapshotListener = userFavoritesRef.addSnapshotListener { snapshot, e ->
+                val response = if (snapshot != null) {
+                    val favorites =
+                        snapshot.toObject(UserData::class.java)!!.favorites
+                    Response.Success(favorites)
+                } else {
+                    Response.Failure(e?.message ?: e.toString())
+                }
+                trySend(response).isSuccess
+            }
+            awaitClose {
+                snapshotListener.remove()
+            }
+        }
+
+    override fun getTutorial(
+        map: String,
+        utilityType: String,
+        landingSpot: String,
+        throwingSpot: String
+    ) = flow {
+        try {
+            val tutorialRef = mapsRef
+                .document(map)
+                .collection(utilityType)
+                .document(landingSpot)
+                .collection(Constants.THROW_REF)
+                .document(throwingSpot)
+            tutorialRef.get().await().also {
+                emit(Response.Success(it.toObject(UtilityThrow::class.java)!!))
             }
         } catch (e: Exception) {
             emit(Response.Failure(e.message ?: Constants.ERROR_MESSAGE))
@@ -77,20 +103,11 @@ class UtilityRepositoryImpl(
     }
 
     override fun addFavorite(
-        map: String,
-        utilityType: String,
-        landingSpot: String,
-        throwingSpot: String
+        favorite: Favorite
     ) = flow {
         try {
-            val favoriteRef = Favorite(
-                map = map,
-                utilityType = utilityType,
-                landing = landingSpot,
-                throwing = throwingSpot
-            )
             val currentUserRef = usersRef.document(auth.currentUser!!.uid)
-            currentUserRef.update(Constants.FAVORITES_REF, FieldValue.arrayUnion(favoriteRef))
+            currentUserRef.update(Constants.FAVORITES_REF, FieldValue.arrayUnion(favorite))
                 .await().also {
                     emit(Response.Success(true))
                 }
@@ -100,20 +117,11 @@ class UtilityRepositoryImpl(
     }
 
     override fun deleteFavorite(
-        map: String,
-        utilityType: String,
-        landingSpot: String,
-        throwingSpot: String
+        favorite: Favorite
     ) = flow {
         try {
-            val favoriteRef = Favorite(
-                map = map,
-                utilityType = utilityType,
-                landing = landingSpot,
-                throwing = throwingSpot
-            )
             val currentUserRef = usersRef.document(auth.currentUser!!.uid)
-            currentUserRef.update(Constants.FAVORITES_REF, FieldValue.arrayRemove(favoriteRef))
+            currentUserRef.update(Constants.FAVORITES_REF, FieldValue.arrayRemove(favorite))
                 .await().also {
                     emit(Response.Success(true))
                 }

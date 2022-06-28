@@ -1,5 +1,6 @@
 package com.utilityhub.csapp.domain.repository
 
+import com.utilityhub.csapp.domain.model.Favorite
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.Utility
 import com.utilityhub.csapp.domain.model.UtilityThrow
@@ -15,20 +16,21 @@ interface UtilityRepository {
         landingSpot: String
     ): Flow<Response<ArrayList<UtilityThrow>>>
 
-    fun getFavorites(): Flow<Response<ArrayList<*>>>
+    fun getFavorites(): Flow<Response<MutableList<Favorite>?>>
 
-    fun addFavorite(
+    fun getTutorial(
         map: String,
         utilityType: String,
         landingSpot: String,
         throwingSpot: String
+    ): Flow<Response<UtilityThrow>>
+
+    fun addFavorite(
+        favorite: Favorite
     ): Flow<Response<Boolean>>
 
     fun deleteFavorite(
-        map: String,
-        utilityType: String,
-        landingSpot: String,
-        throwingSpot: String
+        favorite: Favorite
     ): Flow<Response<Boolean>>
 
 }

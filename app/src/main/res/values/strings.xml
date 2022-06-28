@@ -59,6 +59,7 @@
     <string name="or">OR</string>
     <string name="share_tutorial">share tutorial</string>
     <string name="add_to_favorites">Add to favorites</string>
+    <string name="remove_from_favorites">Remove from favorites</string>
     <string name="share">Share</string>
     <string name="profile">Profile</string>
     <string name="tickrate">Tick rate</string>
@@ -78,12 +79,15 @@
     <string name="one_way">One Way</string>
     <string name="preferences">preferences</string>
     <string name="default_tickrate">Default tick rate</string>
+    <string name="to">To</string>
+    <string name="mid">Mid</string>
+    <string name="self_pop">Self-pop</string>
 
     <string-array name="utilities">
-        <item>Smoke</item>
-        <item>Flash</item>
-        <item>Molotov</item>
-        <item>He grenade</item>
+        <item>Smokes</item>
+        <item>Flashes</item>
+        <item>Molotovs</item>
+        <item>HEs</item>
     </string-array>
 
 </resources>

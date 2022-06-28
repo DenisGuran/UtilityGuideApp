@@ -10,8 +10,10 @@ import com.utilityhub.csapp.core.Constants.IO_DISPATCHER
 import com.utilityhub.csapp.core.Constants.MAPS_REF
 import com.utilityhub.csapp.core.Constants.USERS_REF
 import com.utilityhub.csapp.data.repository.AuthRepositoryImpl
+import com.utilityhub.csapp.data.repository.PreferencesRepositoryImpl
 import com.utilityhub.csapp.data.repository.UtilityRepositoryImpl
 import com.utilityhub.csapp.domain.repository.AuthRepository
+import com.utilityhub.csapp.domain.repository.PreferencesRepository
 import com.utilityhub.csapp.domain.repository.UtilityRepository
 import com.utilityhub.csapp.domain.use_case.auth.*
 import com.utilityhub.csapp.domain.use_case.utility.*
@@ -32,8 +34,7 @@ import javax.inject.Singleton
 object AppModule {
     @Singleton
     @Provides
-    fun provideContext(application: Application): Context
-        = application.applicationContext
+    fun provideContext(application: Application): Context = application.applicationContext
 
     @Singleton
     @Provides
@@ -83,8 +84,15 @@ object AppModule {
         getLandSpots = GetLandSpots(repository),
         getThrowSpots = GetThrowSpots(repository),
         addFavorite = AddFavorite(repository),
-        getFavorites = GetFavorites(repository)
+        getFavorites = GetFavorites(repository),
+        getTutorial = GetTutorial(repository),
+        deleteFavorite = DeleteFavorite(repository)
     )
+
+    @Singleton
+    @Provides
+    fun providePreferencesRepository(context: Context): PreferencesRepository =
+        PreferencesRepositoryImpl(context)
 
     @Singleton
     @Provides

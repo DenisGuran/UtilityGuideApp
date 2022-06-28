@@ -67,11 +67,17 @@
     <navigation
         android:id="@+id/nav_utility_flash"
         app:startDestination="@id/flashFragment">
+        <argument
+            android:name="map"
+            app:argType="string" />
         <fragment
             android:id="@+id/flashFragment"
             android:name="com.utilityhub.csapp.ui.utility.landing.FlashFragment"
             android:label="fragment_flash"
             tools:layout="@layout/fragment_flash">
+            <argument
+                android:name="map"
+                app:argType="string" />
             <action
                 android:id="@+id/action_flashFragment_to_throwFragment"
                 app:destination="@id/throwFragment" />

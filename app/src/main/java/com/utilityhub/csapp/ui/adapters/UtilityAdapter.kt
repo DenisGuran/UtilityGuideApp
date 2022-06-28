@@ -1,5 +1,6 @@
 package com.utilityhub.csapp.ui.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -78,6 +79,7 @@ class UtilityAdapter(
     override fun getFilter(): Filter =
         object : Filter() {
             override fun performFiltering(charSequence: CharSequence?): FilterResults {
+                Log.i("C", charSequence.toString())
                 val filteredList = arrayListOf<Utility>()
                 if (charSequence == null || charSequence.isEmpty()) {
                     filteredList.addAll(mainUtilityList)
@@ -87,7 +89,7 @@ class UtilityAdapter(
                             if (item.tags?.contains(charSequence.toString()) == true) {
                                 filteredList.add(item)
                             } else if (item.name?.lowercase()
-                                    ?.contains(charSequence.toString().lowercase()) == true
+                                    ?.contains(charSequence.toString()) == true
                             ) {
                                 filteredList.add(item)
                             }
@@ -98,8 +100,7 @@ class UtilityAdapter(
                 results.values = filteredList
                 results.count = filteredList.size
 
-                if (filteredList.isNotEmpty())
-                    sortedUtilityList = filteredList
+                sortedUtilityList = filteredList
                 return results
             }
 
@@ -107,7 +108,7 @@ class UtilityAdapter(
                 charSequence: CharSequence?,
                 filterResults: FilterResults?
             ) {
-                submitList((filterResults?.values as ArrayList<Utility>))
+                submitList(filterResults?.values as ArrayList<Utility>)
             }
 
         }

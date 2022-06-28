@@ -3,44 +3,33 @@ package com.utilityhub.csapp.ui.utility.landing
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
-import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.utilityhub.csapp.R
 import com.utilityhub.csapp.core.Constants
+import com.utilityhub.csapp.core.Utils
 import com.utilityhub.csapp.databinding.FragmentSmokeBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.Utility
-import com.utilityhub.csapp.ui.adapters.UtilityAdapter
-import com.utilityhub.csapp.ui.core.BaseFragment
+import com.utilityhub.csapp.ui.core.BaseLandFragment
 import com.utilityhub.csapp.ui.core.MainActivity
-import com.utilityhub.csapp.ui.home.maps.MapsFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SmokeFragment :
-    BaseFragment<FragmentSmokeBinding>(FragmentSmokeBinding::inflate),
-    UtilityAdapter.OnUtilityClickListener {
+class SmokeFragment : BaseLandFragment<FragmentSmokeBinding>(
+    FragmentSmokeBinding::inflate
+) {
 
-    private val viewModel by hiltNavGraphViewModels<LandViewModel>(R.id.nav_utility)
     private val args: SmokeFragmentArgs by navArgs()
-
-    private lateinit var map: String
-    private var utilityFilters = arrayListOf<String>()
-    private var searchText = ""
-
-    private var landingSpots = ArrayList<Utility>()
-    private var adapter = UtilityAdapter(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         getNavArgs()
+        setBackground()
         getLandingSpots()
         setAdapter()
-        onBackPressedGoToMaps()
     }
 
     override fun onStart() {
@@ -56,7 +45,6 @@ class SmokeFragment :
 
                     override fun onQueryTextChange(newText: String?): Boolean {
                         searchText = newText!!
-
                         if (searchText.isNotBlank()) {
                             utilityFilters.add(searchText)
                             filterByTagsAndText()
@@ -75,10 +63,11 @@ class SmokeFragment :
                     utilityFilters.clear()
                 checkedIds.forEach {
                     when (it) {
-                        chipASite.id -> utilityFilters.add("A")
-                        chipBSite.id -> utilityFilters.add("B")
-                        chipOneWay.id -> utilityFilters.add("One way")
-                        chipRetake.id -> utilityFilters.add("Retake")
+                        chipASite.id -> utilityFilters.add(Constants.TAG_A_SITE)
+                        chipBSite.id -> utilityFilters.add(Constants.TAG_B_SITE)
+                        chipMid.id -> utilityFilters.add(Constants.TAG_MID)
+                        chipOneWay.id -> utilityFilters.add(Constants.TAG_ONE_WAY)
+                        chipRetake.id -> utilityFilters.add(Constants.TAG_RETAKE)
                     }
                 }
                 if (searchText.isNotBlank())
@@ -95,7 +84,12 @@ class SmokeFragment :
         binding.searchView.setQuery("", false)
     }
 
+    private fun setAdapter() {
+        binding.recyclerView.adapter = adapter
+    }
+
     private fun filterByTagsAndText() {
+        Log.i("TAGS", utilityFilters.toString())
         utilityFilters.forEach {
             adapter.filter.filter(it)
         }
@@ -107,30 +101,22 @@ class SmokeFragment :
             bottomNav.menu.clear()
             bottomNav.inflateMenu(R.menu.utility_menu)
         }
-
     }
 
-    private fun onBackPressedGoToMaps() {
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    findNavController().popBackStack()
-                    findNavController().setGraph(R.navigation.nav_graph)
-                    val navHome = MapsFragmentDirections.actionGlobalHome()
-                    findNavController().navigate(navHome)
-                }
-            }
+    private fun setBackground() {
+        val backgroundBlur = Utils.getMapBackgroundBlurDrawable(
+            viewModel.currentMap.value.toString(),
+            requireContext()
         )
+        binding.smokeLayout.background = backgroundBlur
     }
 
     private fun getNavArgs() {
-        map = args.map
         viewModel.setCurrentMap(args.map)
     }
 
     private fun getLandingSpots() {
-        viewModel.getLandingSpots(map = map, utilityType = utilityType)
+        viewModel.getLandingSpots(utilityType = utilityType)
             .observe(viewLifecycleOwner) { response ->
                 when (response) {
                     is Response.Success -> {
@@ -138,7 +124,6 @@ class SmokeFragment :
                             landingSpots.clear()
                         }
                         landingSpots.addAll(response.data)
-                        Log.i("ASD", landingSpots.toString())
                         adapter.setData(landingSpots)
                     }
                     is Response.Failure -> Log.w("getLandingSpots", response.errorMessage)
@@ -146,15 +131,11 @@ class SmokeFragment :
             }
     }
 
-    private fun setAdapter() {
-        binding.recyclerView.adapter = adapter
-    }
-
     override fun onUtilityClick(utility: Utility) {
         val landingSpot = utility.name!!
         val navThrow =
             SmokeFragmentDirections.actionSmokeFragmentToThrowFragment(
-                map = map,
+                map = viewModel.currentMap.value.toString(),
                 utilityType = utilityType,
                 landingSpot = landingSpot
             )

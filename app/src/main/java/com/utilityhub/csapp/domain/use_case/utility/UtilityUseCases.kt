@@ -4,5 +4,7 @@ data class UtilityUseCases(
     val getLandSpots: GetLandSpots,
     val getThrowSpots: GetThrowSpots,
     val addFavorite: AddFavorite,
-    val getFavorites: GetFavorites
+    val deleteFavorite: DeleteFavorite,
+    val getFavorites: GetFavorites,
+    val getTutorial: GetTutorial
 )

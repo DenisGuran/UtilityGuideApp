@@ -6,26 +6,27 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.utilityhub.csapp.databinding.FragmentFavoritesBinding
+import com.utilityhub.csapp.domain.model.Favorite
 import com.utilityhub.csapp.domain.model.Response
+import com.utilityhub.csapp.ui.adapters.FavoriteAdapter
 import com.utilityhub.csapp.ui.core.BaseFragment
 import com.utilityhub.csapp.ui.home.profile.ProfileFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FavoritesFragment :
-    BaseFragment<FragmentFavoritesBinding>(FragmentFavoritesBinding::inflate) {
+    BaseFragment<FragmentFavoritesBinding>(FragmentFavoritesBinding::inflate),
+    FavoriteAdapter.OnFavoriteClickListener {
 
     private val viewModel by viewModels<FavoritesViewModel>()
+    private var adapter = FavoriteAdapter(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        handleUserState()
-    }
-
-    private fun handleUserState() {
         if (viewModel.isLoggedIn) {
             getFavorites()
+            setAdapter()
             binding.apply {
                 loggedInLayout.visibility = View.VISIBLE
                 loggedOutLayout.visibility = View.GONE
@@ -37,6 +38,9 @@ class FavoritesFragment :
         }
     }
 
+    private fun setAdapter() {
+        binding.recyclerView.adapter = adapter
+    }
 
     private fun navigateToAuth() {
         val navAuth = ProfileFragmentDirections.actionHomeToAuthentication()
@@ -47,11 +51,35 @@ class FavoritesFragment :
         viewModel.favorites.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Response.Success -> {
-                    Log.i("Favorites", response.data.toString())
+                    adapter.submitList(response.data)
                 }
-                is Response.Failure -> {
+                is Response.Failure ->
                     Log.w("Error", response.errorMessage)
+            }
+        }
+    }
+
+    override fun onFavoriteClick(favorite: Favorite) {
+        viewModel.getTutorial(
+            map = favorite.map!!,
+            utilityType = favorite.utilityType!!,
+            landingSpot = favorite.landing!!,
+            throwingSpot = favorite.throwing!!
+        ).observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Response.Success -> {
+                    val navTutorial =
+                        FavoritesFragmentDirections.actionFavoritesFragmentToTutorialFragment(
+                            map = favorite.map!!,
+                            utilityType = favorite.utilityType!!,
+                            landingSpot = favorite.landing!!,
+                            throwingSpot = response.data
+                        )
+                    findNavController().navigate(navTutorial)
                 }
+                is Response.Failure ->
+                    Log.w("Error", response.errorMessage)
+
             }
         }
     }

@@ -115,10 +115,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/glHorizontalBottom"
+            app:layout_constraintBottom_toTopOf="@+id/glHorizontal50"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRight2"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft2"
-            app:layout_constraintTop_toTopOf="@+id/glHorizontalTop">
+            app:layout_constraintTop_toTopOf="@+id/glHorizontalTop30">
 
             <TextView
                 android:id="@+id/twTickrate"
@@ -127,8 +127,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/default_tickrate"
                 android:textColor="@color/text_color"
-                app:layout_constraintBottom_toTopOf="@+id/textView4"
-                app:layout_constraintStart_toStartOf="@+id/textView4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="spread" />
 
@@ -145,38 +145,6 @@
                 app:showText="true"
                 app:switchTextAppearance="@style/Tickrate_Text"
                 app:trackTint="@color/black_transparent" />
-
-            <TextView
-                android:id="@+id/textView4"
-                style="@style/TextView_Profile_Preferences"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Starting utility"
-                android:textColor="@color/text_color"
-                app:layout_constraintBottom_toTopOf="@+id/textView6"
-                app:layout_constraintStart_toStartOf="@+id/textView6"
-                app:layout_constraintTop_toBottomOf="@+id/twTickrate" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                style="@style/Widget.AppCompat.Spinner.Underlined"
-                android:theme="@style/SpinnerStyle"
-                android:id="@+id/utilitySpinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="@+id/textView4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView4" />
-
-            <TextView
-                android:id="@+id/textView6"
-                style="@style/TextView_Profile_Preferences"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/default_tickrate"
-                android:textColor="@color/text_color"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -227,6 +195,24 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintGuide_percent="0.75"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glHorizontalTop30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.30"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/glHorizontal50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.50"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

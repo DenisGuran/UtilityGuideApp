@@ -1,13 +1,12 @@
 package com.utilityhub.csapp.ui.home.profile
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.utilityhub.csapp.R
+import com.utilityhub.csapp.data.local.Preferences
+import com.utilityhub.csapp.core.Constants
 import com.utilityhub.csapp.databinding.FragmentProfileBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.ui.core.BaseFragment
@@ -18,6 +17,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     private val viewModel by viewModels<ProfileViewModel>()
 
+    private var defaultTickrate = Constants.TAG_128
+    private var isTickRateTouched = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -25,17 +27,35 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun handleUserState() {
         if (viewModel.isLoggedIn) {
             getUserProfile()
+            getPreferences()
             binding.apply {
                 loggedInLayout.visibility = View.VISIBLE
                 loggedOutLayout.visibility = View.GONE
                 btnLogout.setOnClickListener {
                     signOut()
                 }
+                switchTickrate.apply {
+                    setOnTouchListener { _, _ ->
+                        isTickRateTouched = true
+                        false
+                    }
+                    setOnCheckedChangeListener { _, isChecked ->
+                        if (isTickRateTouched) {
+                            isTickRateTouched = false
+                            defaultTickrate = if (isChecked) {
+                                textOn.toString()
+                            } else {
+                                textOff.toString()
+                            }
+                            viewModel.savePreferences(Preferences(tickrate = defaultTickrate))
+                        }
+                    }
+                }
             }
-            initSpinner()
         } else {
             binding.btnLogin.setOnClickListener {
                 navigateToAuth()
@@ -43,24 +63,13 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
         }
     }
 
-    private fun initSpinner() {
-        ArrayAdapter.createFromResource(
-            requireContext(),
-            R.array.utilities,
-            R.layout.dropdown_item
-        )
-            .also { arrayAdapter ->
-                arrayAdapter.setDropDownViewResource(R.layout.dropdown_item)
-                binding.utilitySpinner.adapter = arrayAdapter
-            }
-
-        binding.utilitySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(adapterView: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-                Log.i("ASD",adapterView!!.getItemAtPosition(position).toString())
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+    private fun getPreferences() {
+        viewModel.getPreferences().observe(viewLifecycleOwner) {
+            if (it.tickrate != defaultTickrate) {
+                binding.switchTickrate.apply {
+                    isChecked = true
+                    requestFocus()
+                }
             }
         }
     }

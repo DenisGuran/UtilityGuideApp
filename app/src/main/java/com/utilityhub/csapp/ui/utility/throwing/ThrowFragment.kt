@@ -9,6 +9,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.utilityhub.csapp.R
+import com.utilityhub.csapp.core.Constants
+import com.utilityhub.csapp.core.Utils
 import com.utilityhub.csapp.databinding.FragmentThrowBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.Utility
@@ -34,15 +36,17 @@ class ThrowFragment :
     private lateinit var landingSpot: String
     private lateinit var utilityType: String
     private var isTickRateTouched = false
-    private var tickrate = "128"
+    private var tickrate = Constants.TAG_128
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         getNavArgs()
+        setBackground()
         getThrowingSpots()
         setAdapter()
+        getPreferences()
 
         binding.apply {
             landSpot.text = landingSpot
@@ -64,7 +68,6 @@ class ThrowFragment :
                     return true
                 }
             })
-
             switchTickrate.apply {
                 setOnTouchListener { _, _ ->
                     isTickRateTouched = true
@@ -78,11 +81,23 @@ class ThrowFragment :
                         } else {
                             textOff.toString()
                         }
+                        adapter.filter.filter(tickrate)
                     }
                 }
             }
         }
+    }
 
+    private fun getPreferences(){
+        viewModel.getPreferences().observe(viewLifecycleOwner){
+            if(it.tickrate != tickrate){
+                binding.switchTickrate.apply {
+                    isChecked = true
+                    requestFocus()
+                }
+            }
+            adapter.filter.filter(it.tickrate)
+        }
     }
 
     private fun getThrowingSpots() {
@@ -113,6 +128,11 @@ class ThrowFragment :
                 is Response.Failure -> Log.w("getThrowingSpots", response.errorMessage)
             }
         }
+    }
+
+    private fun setBackground() {
+        val backgroundBlur = Utils.getMapBackgroundBlurDrawable(map, requireContext())
+        binding.throwLayout.background = backgroundBlur
     }
 
     private fun getNavArgs() {

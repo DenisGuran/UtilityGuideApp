@@ -5,7 +5,6 @@
     android:id="@+id/flash_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/mirage_background_blur"
     tools:context=".ui.utility.landing.FlashFragment">
 
     <androidx.appcompat.widget.SearchView
@@ -69,24 +68,23 @@
                     android:text="@string/b_site" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chipRetake"
+                    android:id="@+id/chipMid"
                     style="@style/Chip_UtilityStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/retake" />
+                    android:text="@string/mid" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chipOneWay"
+                    android:id="@+id/chipSelfFlash"
                     style="@style/Chip_UtilityStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/one_way" />
+                    android:text="@string/self_pop" />
             </com.google.android.material.chip.ChipGroup>
 
         </HorizontalScrollView>
 
     </LinearLayout>
-
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineLeft"

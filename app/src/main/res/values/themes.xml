@@ -12,12 +12,6 @@
         <item name="android:windowBackground">#000000</item>
     </style>
 
-    <!-- Bottom navigation font. -->
-    <style name="BottomNavigationStyle"
-        parent="Widget.Design.BottomNavigationView">
-        <item name="android:fontFamily">@font/lora_italic_bold</item>
-    </style>
-
     <style name="MaterialButton_AuthenticationStyle">
         <item name="android:fontFamily">@font/lora_italic_bold</item>
         <item name="android:insetTop">0dp</item>
@@ -83,7 +77,7 @@
         <item name="android:tint">@color/white</item>
     </style>
 
-    <style name="TextView_Tutorial_TitleStyle">
+    <style name="TextView_Tutorial_TitleStyle" parent="@style/Outlined_Text">
         <item name="android:textColor">@color/title_color</item>
         <item name="android:textSize">20sp</item>
         <item name="android:fontFamily">@font/lora_italic_semibold</item>
@@ -112,6 +106,13 @@
         <item name="android:textColor">@color/tickrate_color</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Outlined_Text">
+        <item name="android:shadowColor">@color/black</item>
+        <item name="android:shadowDx">-2</item>
+        <item name="android:shadowDy">2</item>
+        <item name="android:shadowRadius">0.01</item>
     </style>
 
 

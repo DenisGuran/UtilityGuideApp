@@ -18,12 +18,12 @@ class LandViewModel @Inject constructor(
     private var _map = MutableLiveData("")
     val currentMap: LiveData<String> = _map
 
-    fun setCurrentMap(currentMap: String) {
-        _map.value = currentMap
+    fun setCurrentMap(map: String) {
+        _map.value = map
     }
 
-    fun getLandingSpots(map: String, utilityType: String) =
-        utilityUseCases.getLandSpots(map, utilityType)
+    fun getLandingSpots(utilityType: String) =
+        utilityUseCases.getLandSpots(currentMap.value!!, utilityType)
             .asLiveData(ioDispatcher + viewModelScope.coroutineContext)
 
 }

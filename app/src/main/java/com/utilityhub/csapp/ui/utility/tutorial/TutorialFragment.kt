@@ -12,6 +12,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
@@ -24,7 +25,9 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 import com.utilityhub.csapp.R
 import com.utilityhub.csapp.core.Constants
+import com.utilityhub.csapp.core.Utils
 import com.utilityhub.csapp.databinding.FragmentTutorialBinding
+import com.utilityhub.csapp.domain.model.Favorite
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.Tutorial
 import com.utilityhub.csapp.domain.model.UtilityThrow
@@ -46,8 +49,9 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
 
     @Inject
     lateinit var applicationContext: Context
+
     @Inject
-    lateinit var cachePath : File
+    lateinit var cachePath: File
 
     private lateinit var shareResult: ActivityResultLauncher<Intent>
     private lateinit var map: String
@@ -62,25 +66,66 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
         initShareResultLauncher()
 
         getNavArgs()
+        setBackground()
         setAdapter()
-        setTutorialName()
+        setTutorialDetails()
 
         binding.apply {
             btnMaps.setOnClickListener {
                 navigateToMaps()
             }
-            btnFavorites.setOnClickListener {
-                addToFavorites(
-                    map = map,
-                    utilityType = utilityType,
-                    landingSpot = landingSpot,
-                    throwingSpot = throwingSpot.name!!
-                )
-            }
             btnShare.setOnClickListener {
                 lifecycleScope.launch(Dispatchers.Default) {
                     shareTutorial()
                 }
+            }
+            if (!viewModel.isLoggedIn)
+                btnFavorites.setOnClickListener {
+                    Toast.makeText(
+                        requireContext(),
+                        "You must be logged in to add to your favorites",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            else
+                handleFavoritesButton()
+        }
+    }
+
+    private fun handleFavoritesButton() {
+        val currentTutorial = Favorite(
+            map = map,
+            utilityType = utilityType,
+            landing = landingSpot,
+            throwing = throwingSpot.name!!
+        )
+        viewModel.favorites.observe(viewLifecycleOwner) { response ->
+            if (response is Response.Success) {
+                val favoritesList = response.data!!
+                if (favoritesList.contains(currentTutorial))
+                    removeFavoriteSettings(currentTutorial)
+                else
+                    addFavoriteSettings(currentTutorial)
+            }
+        }
+    }
+
+    private fun removeFavoriteSettings(currentTutorial: Favorite) {
+        binding.btnFavorites.apply {
+            setIconTintResource(R.color.red)
+            setText(R.string.remove_from_favorites)
+            setOnClickListener {
+                removeFromFavorites(currentTutorial)
+            }
+        }
+    }
+
+    private fun addFavoriteSettings(currentTutorial: Favorite) {
+        binding.btnFavorites.apply {
+            setIconTintResource(R.color.icon_color)
+            setText(R.string.add_to_favorites)
+            setOnClickListener {
+                addToFavorites(currentTutorial)
             }
         }
     }
@@ -89,34 +134,55 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
         landingSpot = args.landingSpot
         throwingSpot = args.throwingSpot
         tutorial = throwingSpot.tutorial as ArrayList<Tutorial>
-        adapter.submitList(tutorial)
         map = args.map
         utilityType = args.utilityType
     }
 
-    private fun setTutorialName() {
-        binding.textview1.text = throwingSpot.name.plus(" to ").plus(landingSpot)
+    private fun setTutorialDetails() {
+        binding.tutorialTitle.text = throwingSpot.name.plus(" to ").plus(landingSpot)
+        binding.tutorialTickrate.text = throwingSpot.tags?.joinToString("/")
     }
 
     private fun setAdapter() {
+        adapter.submitList(tutorial)
         binding.recyclerView.adapter = adapter
     }
 
-    private fun setLayoutBackground() {
-        //TODO : switch case with map name -> set background accordingly
+    private fun setBackground() {
+        val backgroundBlur = Utils.getMapBackgroundBlurDrawable(map, requireContext())
+        binding.tutorialLayout.background = backgroundBlur
     }
 
     private fun addToFavorites(
-        map: String,
-        utilityType: String,
-        landingSpot: String,
-        throwingSpot: String
+        favorite: Favorite
     ) {
-        viewModel.addTutorialToFavorites(map, utilityType, landingSpot, throwingSpot)
+        viewModel.addTutorialToFavorites(favorite)
             .observe(viewLifecycleOwner) { response ->
                 when (response) {
-                    is Response.Success -> Log.i("addToFavorites", "SUCCESS")
+                    is Response.Success ->
+                        Toast.makeText(
+                            requireContext(),
+                            "Successfully added to Favorites",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     is Response.Failure -> Log.w("addToFavorites", response.errorMessage)
+                }
+            }
+    }
+
+    private fun removeFromFavorites(
+        favorite: Favorite
+    ) {
+        viewModel.removeTutorialFromFavorites(favorite)
+            .observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Response.Success ->
+                        Toast.makeText(
+                            requireContext(),
+                            "Successfully removed from Favorites",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    is Response.Failure -> Log.w("removeFromFavorites", response.errorMessage)
                 }
             }
     }
@@ -245,7 +311,7 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
         shareResult.launch(shareIntent)
     }
 
-    private fun initShareResultLauncher(){
+    private fun initShareResultLauncher() {
         shareResult =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
                 if (result.resultCode == 0)
