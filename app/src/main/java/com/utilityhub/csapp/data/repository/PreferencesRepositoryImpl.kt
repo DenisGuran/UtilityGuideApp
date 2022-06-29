@@ -14,7 +14,7 @@ val Context.dataStore by dataStore("preferences.json", PreferencesSerializer)
 @Singleton
 class PreferencesRepositoryImpl(private val context: Context) : PreferencesRepository {
 
-    override suspend fun savePreferencees(preferences: Preferences) {
+    override suspend fun savePreferences(preferences: Preferences) {
         context.dataStore.updateData {
             it.copy(tickrate = preferences.tickrate)
         }

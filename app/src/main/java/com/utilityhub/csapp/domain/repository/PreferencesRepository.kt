@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface PreferencesRepository {
 
-    suspend fun savePreferencees(preferences: Preferences)
+    suspend fun savePreferences(preferences: Preferences)
 
     suspend fun getPreferences(): Flow<Preferences>
 }

@@ -36,7 +36,7 @@ class ProfileViewModel @Inject constructor(
 
     fun savePreferences(preferences: Preferences) {
         viewModelScope.launch(ioDispatcher) {
-            preferencesRepository.savePreferencees(preferences = preferences)
+            preferencesRepository.savePreferences(preferences = preferences)
         }
     }
 
