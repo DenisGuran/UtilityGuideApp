@@ -44,6 +44,9 @@
             <argument
                 android:name="landingSpot"
                 app:argType="string" />
+            <argument
+                android:name="landId"
+                app:argType="string" />
         </fragment>
         <fragment
             android:id="@+id/tutorialFragment"
@@ -61,6 +64,9 @@
                 app:argType="string" />
             <argument
                 android:name="utilityType"
+                app:argType="string" />
+            <argument
+                android:name="landId"
                 app:argType="string" />
         </fragment>
     </navigation>
@@ -99,6 +105,9 @@
             <argument
                 android:name="landingSpot"
                 app:argType="string" />
+            <argument
+                android:name="landId"
+                app:argType="string" />
         </fragment>
         <fragment
             android:id="@+id/tutorialFragment"
@@ -116,6 +125,9 @@
                 app:argType="string" />
             <argument
                 android:name="utilityType"
+                app:argType="string" />
+            <argument
+                android:name="landId"
                 app:argType="string" />
         </fragment>
     </navigation>
@@ -147,6 +159,9 @@
             <argument
                 android:name="landingSpot"
                 app:argType="string" />
+            <argument
+                android:name="landId"
+                app:argType="string" />
         </fragment>
         <fragment
             android:id="@+id/tutorialFragment"
@@ -164,6 +179,9 @@
                 app:argType="string" />
             <argument
                 android:name="utilityType"
+                app:argType="string" />
+            <argument
+                android:name="landId"
                 app:argType="string" />
         </fragment>
     </navigation>
@@ -195,6 +213,9 @@
             <argument
                 android:name="landingSpot"
                 app:argType="string" />
+            <argument
+                android:name="landId"
+                app:argType="string" />
         </fragment>
         <fragment
             android:id="@+id/tutorialFragment"
@@ -212,6 +233,9 @@
                 app:argType="string" />
             <argument
                 android:name="utilityType"
+                app:argType="string" />
+            <argument
+                android:name="landId"
                 app:argType="string" />
         </fragment>
     </navigation>

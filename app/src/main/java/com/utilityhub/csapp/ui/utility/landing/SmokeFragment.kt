@@ -132,12 +132,12 @@ class SmokeFragment : BaseLandFragment<FragmentSmokeBinding>(
     }
 
     override fun onUtilityClick(utility: Utility) {
-        val landingSpot = utility.name!!
         val navThrow =
             SmokeFragmentDirections.actionSmokeFragmentToThrowFragment(
                 map = viewModel.currentMap.value.toString(),
                 utilityType = utilityType,
-                landingSpot = landingSpot
+                landingSpot = utility.name!!,
+                landId = utility.id!!
             )
         findNavController().navigate(navThrow)
     }

@@ -114,12 +114,12 @@ class MolotovFragment : BaseLandFragment<FragmentMolotovBinding>(
     }
 
     override fun onUtilityClick(utility: Utility) {
-        val landingSpot = utility.name!!
         val navThrow =
             MolotovFragmentDirections.actionMolotovFragmentToThrowFragment(
                 map = viewModel.currentMap.value.toString(),
                 utilityType = utilityType,
-                landingSpot = landingSpot
+                landingSpot = utility.name!!,
+                landId = utility.id!!
             )
         findNavController().navigate(navThrow)
     }

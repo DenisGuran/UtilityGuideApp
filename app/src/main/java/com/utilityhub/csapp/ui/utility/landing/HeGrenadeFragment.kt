@@ -112,12 +112,12 @@ class HeGrenadeFragment : BaseLandFragment<FragmentHeGrenadeBinding>(
     }
 
     override fun onUtilityClick(utility: Utility) {
-        val landingSpot = utility.name!!
         val navThrow =
             HeGrenadeFragmentDirections.actionHeGrenadeFragmentToThrowFragment(
                 map = viewModel.currentMap.value.toString(),
                 utilityType = utilityType,
-                landingSpot = landingSpot
+                landingSpot = utility.name!!,
+                landId = utility.id!!
             )
         findNavController().navigate(navThrow)
     }

@@ -43,7 +43,7 @@ class UtilityAdapter(
 
     companion object DiffCallback : DiffUtil.ItemCallback<Utility>() {
         override fun areItemsTheSame(oldItem: Utility, newItem: Utility) =
-            oldItem.name == newItem.name
+            oldItem.id == newItem.id
 
         override fun areContentsTheSame(oldItem: Utility, newItem: Utility) =
             oldItem == newItem

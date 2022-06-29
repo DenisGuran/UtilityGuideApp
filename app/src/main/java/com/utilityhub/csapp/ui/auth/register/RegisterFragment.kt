@@ -82,8 +82,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         viewModel.addUserToFirestore().observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Response.Success -> {
-                    progressBar.hide()
-                    navigateToLogin()
+                    if(response.data){
+                        progressBar.hide()
+                        navigateToLogin()
+                    }
                 }
                 is Response.Failure -> {
                     progressBar.hide()

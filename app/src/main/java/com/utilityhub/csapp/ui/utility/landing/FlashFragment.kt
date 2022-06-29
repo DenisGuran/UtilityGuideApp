@@ -113,12 +113,12 @@ class FlashFragment : BaseLandFragment<FragmentFlashBinding>(
     }
 
     override fun onUtilityClick(utility: Utility) {
-        val landingSpot = utility.name!!
         val navThrow =
             FlashFragmentDirections.actionFlashFragmentToThrowFragment(
                 map = viewModel.currentMap.value.toString(),
                 utilityType = utilityType,
-                landingSpot = landingSpot
+                landingSpot = utility.name!!,
+                landId = utility.id!!
             )
         findNavController().navigate(navThrow)
     }

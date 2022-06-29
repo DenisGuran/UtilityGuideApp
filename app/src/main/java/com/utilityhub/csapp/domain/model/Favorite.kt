@@ -6,7 +6,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Favorite(
     var landing: String? = null,
+    var landId: String? = null,
     var map: String? = null,
     var throwing: String? = null,
+    var throwId: String? = null,
     var utilityType: String? = null
 ) : Parcelable

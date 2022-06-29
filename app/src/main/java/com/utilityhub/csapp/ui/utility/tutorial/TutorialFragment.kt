@@ -56,6 +56,7 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
     private lateinit var shareResult: ActivityResultLauncher<Intent>
     private lateinit var map: String
     private lateinit var landingSpot: String
+    private lateinit var landId: String
     private lateinit var throwingSpot: UtilityThrow
     private lateinit var tutorial: ArrayList<Tutorial>
     private lateinit var utilityType: String
@@ -97,12 +98,20 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
             map = map,
             utilityType = utilityType,
             landing = landingSpot,
-            throwing = throwingSpot.name!!
+            landId = landId,
+            throwing = throwingSpot.name,
+            throwId = throwingSpot.id
         )
         viewModel.favorites.observe(viewLifecycleOwner) { response ->
             if (response is Response.Success) {
                 val favoritesList = response.data!!
-                if (favoritesList.contains(currentTutorial))
+                val isFavoriteSaved = favoritesList.find { favorite ->
+                    favorite.map == currentTutorial.map &&
+                            favorite.utilityType == currentTutorial.utilityType &&
+                            favorite.landId == currentTutorial.landId &&
+                            favorite.throwId == currentTutorial.throwId
+                }
+                if(isFavoriteSaved != null)
                     removeFavoriteSettings(currentTutorial)
                 else
                     addFavoriteSettings(currentTutorial)
@@ -132,6 +141,7 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
 
     private fun getNavArgs() {
         landingSpot = args.landingSpot
+        landId = args.landId
         throwingSpot = args.throwingSpot
         tutorial = throwingSpot.tutorial as ArrayList<Tutorial>
         map = args.map

@@ -102,7 +102,15 @@
                 <argument
                     android:name="utilityType"
                     app:argType="string" />
+                <argument
+                    android:name="landId"
+                    app:argType="string" />
             </fragment>
+            <action
+                android:id="@+id/action_global_mapsFragment"
+                app:destination="@id/mapsFragment"
+                app:popUpTo="@id/mapsFragment"
+                app:popUpToInclusive="true" />
         </navigation>
     </navigation>
     <include app:graph="@navigation/nav_utility" />

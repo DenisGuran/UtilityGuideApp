@@ -39,6 +39,17 @@
                 tools:ignore="ContentDescription" />
 
             <ImageView
+                android:id="@+id/btnFavorites"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:src="@drawable/ic_favorite"
+                app:layout_constraintEnd_toEndOf="@+id/iv_background"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/red"
+                tools:ignore="ContentDescription" />
+
+            <ImageView
                 android:id="@+id/utility"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -61,7 +72,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/throwSpot"
                 app:layout_constraintEnd_toStartOf="@+id/throwSpot"
                 app:layout_constraintTop_toTopOf="@+id/throwSpot"
-                app:tint="@color/white"
+                app:tint="@color/teal_200"
                 tools:ignore="ContentDescription" />
 
             <TextView
@@ -89,7 +100,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/landSpot"
                 app:layout_constraintEnd_toStartOf="@+id/landSpot"
                 app:layout_constraintTop_toTopOf="@+id/landSpot"
-                app:tint="@color/white"
+                app:tint="@color/dark_yellow"
                 tools:ignore="ContentDescription" />
 
             <TextView

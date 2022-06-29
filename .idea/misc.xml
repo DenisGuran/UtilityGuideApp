@@ -46,7 +46,7 @@
         <entry key="..\:/Android Studio/UtilityGuideApp/app/src/main/res/layout/activity_main.xml" value="0.2863247863247863" />
         <entry key="..\:/Android Studio/UtilityGuideApp/app/src/main/res/layout/activity_navi.xml" value="0.31851851851851853" />
         <entry key="..\:/Android Studio/UtilityGuideApp/app/src/main/res/layout/card_layout.xml" value="0.33" />
-        <entry key="..\:/Android Studio/UtilityGuideApp/app/src/main/res/layout/fragment_favorites.xml" value="0.33796296296296297" />
+        <entry key="..\:/Android Studio/UtilityGuideApp/app/src/main/res/layout/fragment_favorites.xml" value="0.30253164556962026" />
         <entry key="..\:/Android Studio/UtilityGuideApp/app/src/main/res/layout/fragment_flash.xml" value="0.3009833262077811" />
         <entry key="..\:/Android Studio/UtilityGuideApp/app/src/main/res/layout/fragment_forgot_password.xml" value="0.2969230769230769" />
         <entry key="..\:/Android Studio/UtilityGuideApp/app/src/main/res/layout/fragment_he_grenade.xml" value="0.2970464135021097" />
@@ -64,7 +64,7 @@
         <entry key="..\:/Android Studio/UtilityGuideApp/app/src/main/res/layout/fragment_tutorial.xml" value="0.33" />
         <entry key="..\:/Android Studio/UtilityGuideApp/app/src/main/res/layout/layout_card_map.xml" value="0.2863247863247863" />
         <entry key="..\:/Android Studio/UtilityGuideApp/app/src/main/res/layout/layout_card_utility.xml" value="0.1" />
-        <entry key="..\:/Android Studio/UtilityGuideApp/app/src/main/res/layout/layout_favorite.xml" value="0.2970464135021097" />
+        <entry key="..\:/Android Studio/UtilityGuideApp/app/src/main/res/layout/layout_favorite.xml" value="0.3009833262077811" />
         <entry key="..\:/Android Studio/UtilityGuideApp/app/src/main/res/layout/layout_item_tutorial.xml" value="0.5" />
         <entry key="..\:/Android Studio/UtilityGuideApp/app/src/main/res/layout/layout_map.xml" value="0.2863247863247863" />
         <entry key="..\:/Android Studio/UtilityGuideApp/app/src/main/res/layout/layout_tutorial.xml" value="0.2863247863247863" />
@@ -143,7 +143,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.18" />
+        <option name="scale" value="0.33" />
       </ProjectState>
     </option>
   </component>

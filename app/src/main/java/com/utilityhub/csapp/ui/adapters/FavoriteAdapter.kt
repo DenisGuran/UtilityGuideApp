@@ -43,11 +43,20 @@ class FavoriteAdapter(
     inner class FavoriteViewHolder(private val binding: LayoutFavoriteBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.posCard.setOnClickListener {
-                val position = bindingAdapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    val selectedFavorite = currentList[position]
-                    onFavoriteClickListener.onFavoriteClick(selectedFavorite)
+            binding.apply{
+                posCard.setOnClickListener {
+                    val position = bindingAdapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val selectedFavorite = currentList[position]
+                        onFavoriteClickListener.onFavoriteClick(selectedFavorite)
+                    }
+                }
+                btnFavorites.setOnClickListener {
+                    val position = bindingAdapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        val selectedFavorite = currentList[position]
+                        onFavoriteClickListener.onRemoveFavoriteClick(selectedFavorite)
+                    }
                 }
             }
         }
@@ -64,6 +73,7 @@ class FavoriteAdapter(
 
     interface OnFavoriteClickListener {
         fun onFavoriteClick(favorite: Favorite)
+        fun onRemoveFavoriteClick(favorite: Favorite)
     }
 
 }

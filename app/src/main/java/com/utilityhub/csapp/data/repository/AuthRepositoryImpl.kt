@@ -8,6 +8,7 @@ import com.google.firebase.firestore.CollectionReference
 import com.utilityhub.csapp.common.Constants
 import com.utilityhub.csapp.common.Constants.ERROR_MESSAGE
 import com.utilityhub.csapp.common.Constants.USERS_REF
+import com.utilityhub.csapp.domain.model.Favorite
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.User
 import com.utilityhub.csapp.domain.repository.AuthRepository
@@ -40,15 +41,13 @@ class AuthRepositoryImpl @Inject constructor(
 
     override suspend fun addUserInDatabase() = flow {
         try {
-            auth.currentUser?.apply {
-                usersRef.document(uid).set(
-                    hashMapOf(
-                        Constants.FAVORITES_REF to HashMap<String, String>()
-                    )
+            val currentUserRef = usersRef.document(auth.currentUser!!.uid)
+            currentUserRef.set(
+                hashMapOf(
+                    Constants.FAVORITES_REF to emptyList<Favorite>()
                 )
-                    .await().also {
-                        emit(Response.Success(true))
-                    }
+            ).await().also {
+                emit(Response.Success(true))
             }
         } catch (e: Exception) {
             emit(Response.Failure(e.message ?: ERROR_MESSAGE))

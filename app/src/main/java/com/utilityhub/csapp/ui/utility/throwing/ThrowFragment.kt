@@ -34,6 +34,7 @@ class ThrowFragment :
 
     private lateinit var map: String
     private lateinit var landingSpot: String
+    private lateinit var landId: String
     private lateinit var utilityType: String
     private var isTickRateTouched = false
     private var tickrate = Constants.TAG_128
@@ -88,9 +89,9 @@ class ThrowFragment :
         }
     }
 
-    private fun getPreferences(){
-        viewModel.getPreferences().observe(viewLifecycleOwner){
-            if(it.tickrate != tickrate){
+    private fun getPreferences() {
+        viewModel.getPreferences().observe(viewLifecycleOwner) {
+            if (it.tickrate != tickrate) {
                 binding.switchTickrate.apply {
                     isChecked = true
                     requestFocus()
@@ -104,7 +105,7 @@ class ThrowFragment :
         viewModel.getThrowingSpots(
             map = map,
             utilityType = utilityType,
-            landingSpot = landingSpot
+            landingSpot = landId
         ).observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Response.Success -> {
@@ -117,6 +118,7 @@ class ThrowFragment :
                     }
                     throwSpotsWithoutTutorial.addAll(throwSpots.map {
                         Utility(
+                            id = it.id,
                             name = it.name,
                             img = it.img,
                             tags = it.tags
@@ -137,6 +139,7 @@ class ThrowFragment :
 
     private fun getNavArgs() {
         landingSpot = args.landingSpot
+        landId = args.landId
         map = args.map
         utilityType = args.utilityType
     }
@@ -158,6 +161,7 @@ class ThrowFragment :
                 map = map,
                 utilityType = utilityType,
                 landingSpot = landingSpot,
+                landId = landId,
                 throwingSpot = throwingSpot
             )
         findNavController().navigate(navTutorial)

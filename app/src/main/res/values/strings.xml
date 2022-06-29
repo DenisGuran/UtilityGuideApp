@@ -82,6 +82,9 @@
     <string name="to">To</string>
     <string name="mid">Mid</string>
     <string name="self_pop">Self-pop</string>
+    <string name="empty_favorites">No favorites to show</string>
+    <string name="checkout_tutorials">Checkout our tutorials and add the ones you like to this section</string>
+    <string name="browse_tutorials">Browse Tutorials</string>
 
     <string-array name="utilities">
         <item>Smokes</item>

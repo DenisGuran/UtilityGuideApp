@@ -3,6 +3,7 @@ package com.utilityhub.csapp.ui.home.favorites
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.utilityhub.csapp.databinding.FragmentFavoritesBinding
@@ -47,11 +48,26 @@ class FavoritesFragment :
         findNavController().navigate(navAuth)
     }
 
+    private fun navigateToMaps() {
+        val navMaps = FavoritesFragmentDirections.actionGlobalMapsFragment()
+        findNavController().navigate(navMaps)
+    }
+
     private fun getFavorites() {
         viewModel.favorites.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Response.Success -> {
-                    adapter.submitList(response.data)
+                    val favorites = response.data!!
+                    if (favorites.isNullOrEmpty()) {
+                        binding.emptyFavLayout.visibility = View.VISIBLE
+                        binding.btnBrowseTutorials.setOnClickListener {
+                            navigateToMaps()
+                        }
+                    } else if(binding.emptyFavLayout.visibility == View.VISIBLE){
+                        binding.emptyFavLayout.visibility = View.GONE
+                    }
+
+                    adapter.submitList(favorites)
                 }
                 is Response.Failure ->
                     Log.w("Error", response.errorMessage)
@@ -63,8 +79,8 @@ class FavoritesFragment :
         viewModel.getTutorial(
             map = favorite.map!!,
             utilityType = favorite.utilityType!!,
-            landingSpot = favorite.landing!!,
-            throwingSpot = favorite.throwing!!
+            landingSpot = favorite.landId!!,
+            throwingSpot = favorite.throwId!!
         ).observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Response.Success -> {
@@ -73,6 +89,7 @@ class FavoritesFragment :
                             map = favorite.map!!,
                             utilityType = favorite.utilityType!!,
                             landingSpot = favorite.landing!!,
+                            landId = favorite.landId!!,
                             throwingSpot = response.data
                         )
                     findNavController().navigate(navTutorial)
@@ -82,6 +99,21 @@ class FavoritesFragment :
 
             }
         }
+    }
+
+    override fun onRemoveFavoriteClick(favorite: Favorite) {
+        viewModel.removeTutorialFromFavorites(favorite)
+            .observe(viewLifecycleOwner) { response ->
+                when (response) {
+                    is Response.Success ->
+                        Toast.makeText(
+                            requireContext(),
+                            "Successfully removed from Favorites",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    is Response.Failure -> Log.w("removeFromFavorites", response.errorMessage)
+                }
+            }
     }
 
 }

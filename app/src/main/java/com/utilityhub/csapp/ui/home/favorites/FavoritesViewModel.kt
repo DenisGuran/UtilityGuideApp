@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.utilityhub.csapp.common.Constants
+import com.utilityhub.csapp.domain.model.Favorite
 import com.utilityhub.csapp.domain.use_case.auth.AuthUseCases
 import com.utilityhub.csapp.domain.use_case.utility.UtilityUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,6 +27,10 @@ class FavoritesViewModel @Inject constructor(
 
     fun getTutorial(map: String, utilityType: String, landingSpot: String, throwingSpot: String) =
         utilityUseCases.getTutorial(map, utilityType, landingSpot, throwingSpot)
+            .asLiveData(ioDispatcher + viewModelScope.coroutineContext)
+
+    fun removeTutorialFromFavorites(favorite: Favorite) =
+        utilityUseCases.deleteFavorite(favorite)
             .asLiveData(ioDispatcher + viewModelScope.coroutineContext)
 
 }
