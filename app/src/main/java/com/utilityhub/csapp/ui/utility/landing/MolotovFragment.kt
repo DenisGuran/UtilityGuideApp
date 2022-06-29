@@ -73,13 +73,7 @@ class MolotovFragment : BaseLandFragment<FragmentMolotovBinding>(
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        binding.searchView.setQuery("", false)
-    }
-
     private fun filterByTagsAndText() {
-        Log.i("TAGS", utilityFilters.toString())
         utilityFilters.forEach {
             adapter.filter.filter(it)
         }

@@ -24,7 +24,7 @@
             android:layout_height="90dp"
             android:contentDescription="@string/smokes"
             android:scaleType="centerCrop"
-            android:src="@drawable/stairs_smoke" />
+            android:src="@drawable/mirage_background" />
 
         <TextView
             android:id="@+id/pos_name"

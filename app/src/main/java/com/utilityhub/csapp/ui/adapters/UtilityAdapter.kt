@@ -79,7 +79,6 @@ class UtilityAdapter(
     override fun getFilter(): Filter =
         object : Filter() {
             override fun performFiltering(charSequence: CharSequence?): FilterResults {
-                Log.i("C", charSequence.toString())
                 val filteredList = arrayListOf<Utility>()
                 if (charSequence == null || charSequence.isEmpty()) {
                     filteredList.addAll(mainUtilityList)

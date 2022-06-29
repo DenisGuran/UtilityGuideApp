@@ -79,17 +79,11 @@ class SmokeFragment : BaseLandFragment<FragmentSmokeBinding>(
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        binding.searchView.setQuery("", false)
-    }
-
     private fun setAdapter() {
         binding.recyclerView.adapter = adapter
     }
 
     private fun filterByTagsAndText() {
-        Log.i("TAGS", utilityFilters.toString())
         utilityFilters.forEach {
             adapter.filter.filter(it)
         }
