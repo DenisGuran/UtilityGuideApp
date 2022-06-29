@@ -2,6 +2,7 @@ package com.utilityhub.csapp.ui.auth.register
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.widget.ContentLoadingProgressBar
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -88,8 +89,12 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                     }
                 }
                 is Response.Failure -> {
+                    Toast.makeText(
+                        requireContext(),
+                        response.errorMessage,
+                        Toast.LENGTH_LONG
+                    ).show()
                     progressBar.hide()
-                    print(response.errorMessage)
                 }
             }
         }

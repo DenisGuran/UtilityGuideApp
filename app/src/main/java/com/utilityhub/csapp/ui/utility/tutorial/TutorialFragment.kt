@@ -84,7 +84,7 @@ class TutorialFragment : BaseFragment<FragmentTutorialBinding>(FragmentTutorialB
                 btnFavorites.setOnClickListener {
                     Toast.makeText(
                         requireContext(),
-                        "You must be logged in to add to your favorites",
+                        "You must authenticate to add a favorite.",
                         Toast.LENGTH_LONG
                     ).show()
                 }
