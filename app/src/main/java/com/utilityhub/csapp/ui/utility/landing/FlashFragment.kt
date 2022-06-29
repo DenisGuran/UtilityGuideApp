@@ -124,7 +124,7 @@ class FlashFragment : BaseLandFragment<FragmentFlashBinding>(
     }
 
     companion object {
-        private const val utilityType = Constants.SMOKES_REF
+        private const val utilityType = Constants.FLASHES_REF
     }
 
 }
