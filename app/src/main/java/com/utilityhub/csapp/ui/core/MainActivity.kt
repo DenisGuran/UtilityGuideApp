@@ -1,8 +1,8 @@
 package com.utilityhub.csapp.ui.core
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -30,18 +30,14 @@ class MainActivity : AppCompatActivity() {
 
             navController.addOnDestinationChangedListener { _, destination, _ ->
                 bottomNav.apply {
-                    if (destination.id == R.id.loginFragment &&
-                        visibility != View.GONE
+                    if (destination.id == R.id.loginFragment && isVisible
                     ) {
-                        visibility = View.GONE
-                    } else if (destination.id == R.id.mapsFragment) {
-                        if (visibility == View.GONE) {
-                            visibility = View.INVISIBLE
-                        }
-                        if (menu.getItem(0).itemId == R.id.nav_utility_smoke) {
-                            menu.clear()
-                            inflateMenu(R.menu.home_menu)
-                        }
+                        isVisible = false
+                    } else if (destination.id == R.id.mapsFragment &&
+                        menu.getItem(0).itemId == R.id.nav_utility_smoke
+                    ) {
+                        menu.clear()
+                        inflateMenu(R.menu.home_menu)
                     } else if (destination.id == R.id.smokeFragment &&
                         menu.getItem(0).itemId == R.id.mapsFragment
                     ) {

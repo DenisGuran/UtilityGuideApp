@@ -23,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/nav_bg"
+        android:visibility="gone"
         app:itemIconTint="@drawable/bottom_nav_selector"
         app:itemTextColor="@color/white"
         app:labelVisibilityMode="selected"

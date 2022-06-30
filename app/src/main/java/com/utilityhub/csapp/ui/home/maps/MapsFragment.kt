@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.utilityhub.csapp.R
 import com.utilityhub.csapp.common.Constants
@@ -23,7 +24,7 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
     MapAdapter.OnMapClickListener {
 
     @Inject
-    lateinit var applicationContext : Context
+    lateinit var applicationContext: Context
 
     private var backPressedTime: Long = 0L
     private lateinit var backPressedToast: Toast
@@ -44,8 +45,10 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
 
     private fun setUpBottomNavBar() {
         val bottomNav = (requireActivity() as MainActivity).bottomNav
-        if (bottomNav.visibility == View.INVISIBLE) {
-            bottomNav.visibility = View.VISIBLE
+        bottomNav.apply {
+            if (!isVisible) {
+                isVisible = true
+            }
         }
     }
 
@@ -80,7 +83,7 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
         findNavController().setGraph(R.navigation.nav_utility, bundleOf(MAP to selectedMapName))
     }
 
-    companion object{
+    companion object {
 
         private val maps = arrayListOf(
             Map(
