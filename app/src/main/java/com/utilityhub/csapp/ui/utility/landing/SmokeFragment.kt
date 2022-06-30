@@ -6,14 +6,12 @@ import android.view.View
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.utilityhub.csapp.R
 import com.utilityhub.csapp.common.Constants
 import com.utilityhub.csapp.common.Utils
 import com.utilityhub.csapp.databinding.FragmentSmokeBinding
 import com.utilityhub.csapp.domain.model.Response
 import com.utilityhub.csapp.domain.model.Utility
 import com.utilityhub.csapp.ui.core.BaseLandFragment
-import com.utilityhub.csapp.ui.core.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,7 +32,6 @@ class SmokeFragment : BaseLandFragment<FragmentSmokeBinding>(
 
     override fun onStart() {
         super.onStart()
-        setUpBottomNavBar()
         binding.apply {
             searchView.apply {
                 setOnQueryTextListener(object : OnQueryTextListener {
@@ -86,14 +83,6 @@ class SmokeFragment : BaseLandFragment<FragmentSmokeBinding>(
     private fun filterByTagsAndText() {
         utilityFilters.forEach {
             adapter.filter.filter(it)
-        }
-    }
-
-    private fun setUpBottomNavBar() {
-        val bottomNav = (requireActivity() as MainActivity).bottomNav
-        if (bottomNav.menu.getItem(0).itemId == R.id.mapsFragment) {
-            bottomNav.menu.clear()
-            bottomNav.inflateMenu(R.menu.utility_menu)
         }
     }
 

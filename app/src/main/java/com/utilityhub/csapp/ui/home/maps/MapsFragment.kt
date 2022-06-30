@@ -47,10 +47,6 @@ class MapsFragment : BaseFragment<FragmentMapsBinding>(FragmentMapsBinding::infl
         if (bottomNav.visibility == View.INVISIBLE) {
             bottomNav.visibility = View.VISIBLE
         }
-        if (bottomNav.menu.getItem(0).itemId == R.id.nav_utility_smoke) {
-            bottomNav.menu.clear()
-            bottomNav.inflateMenu(R.menu.home_menu)
-        }
     }
 
     private fun doubleTapToExit() {

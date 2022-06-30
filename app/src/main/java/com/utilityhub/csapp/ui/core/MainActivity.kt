@@ -25,18 +25,31 @@ class MainActivity : AppCompatActivity() {
         binding.apply {
             val navHostFragment = navHostFragment.getFragment<NavHostFragment>()
             val navController = navHostFragment.navController
-
             bottomNav.setupWithNavController(navController)
             this@MainActivity.bottomNav = bottomNav
 
             navController.addOnDestinationChangedListener { _, destination, _ ->
-                if (destination.id == R.id.loginFragment && bottomNav.visibility != View.GONE) {
-                    bottomNav.visibility = View.GONE
-                }else if (destination.id == R.id.mapsFragment && bottomNav.visibility == View.GONE) {
-                    bottomNav.visibility = View.INVISIBLE
+                bottomNav.apply {
+                    if (destination.id == R.id.loginFragment &&
+                        visibility != View.GONE
+                    ) {
+                        visibility = View.GONE
+                    } else if (destination.id == R.id.mapsFragment) {
+                        if (visibility == View.GONE) {
+                            visibility = View.INVISIBLE
+                        }
+                        if (menu.getItem(0).itemId == R.id.nav_utility_smoke) {
+                            menu.clear()
+                            inflateMenu(R.menu.home_menu)
+                        }
+                    } else if (destination.id == R.id.smokeFragment &&
+                        menu.getItem(0).itemId == R.id.mapsFragment
+                    ) {
+                        menu.clear()
+                        inflateMenu(R.menu.utility_menu)
+                    }
                 }
             }
         }
     }
-
 }
