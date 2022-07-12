@@ -27,7 +27,6 @@ class ThrowFragment :
 
     private var throwSpots = ArrayList<UtilityThrow>()
     private var throwSpotsWithoutTutorial = ArrayList<Utility>()
-    private var throwSpotsFiltered = arrayListOf<Utility>()
     private var adapter = UtilityAdapter(this)
 
     private val viewModel by viewModels<ThrowViewModel>()
@@ -151,6 +150,8 @@ class ThrowFragment :
                             tags = it.tags
                         )
                     } as ArrayList<Utility>)
+
+                    val throwSpotsFiltered = arrayListOf<Utility>()
 
                     throwSpotsWithoutTutorial.forEach {
                         if(it.tags?.contains(viewModel.defaultTickrate.value) == true)
