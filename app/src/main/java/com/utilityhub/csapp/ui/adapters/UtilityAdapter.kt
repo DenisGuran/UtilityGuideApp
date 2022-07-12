@@ -1,6 +1,5 @@
 package com.utilityhub.csapp.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -36,9 +35,13 @@ class UtilityAdapter(
     override fun getItemCount() = currentList.size
 
     fun setData(list: ArrayList<Utility>?) {
+        setMainList(list)
+        submitList(list)
+    }
+
+    fun setMainList(list: ArrayList<Utility>?) {
         this.mainUtilityList = list!!
         sortedUtilityList = mainUtilityList
-        submitList(list)
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<Utility>() {

@@ -1,9 +1,6 @@
 package com.utilityhub.csapp.ui.utility.throwing
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.liveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.utilityhub.csapp.common.Constants
 import com.utilityhub.csapp.domain.repository.PreferencesRepository
 import com.utilityhub.csapp.domain.use_case.utility.UtilityUseCases
@@ -19,6 +16,13 @@ class ThrowViewModel @Inject constructor(
     @Named(Constants.IO_DISPATCHER)
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
+
+    private var _defaultTickrate = MutableLiveData(Constants.TAG_128)
+    val defaultTickrate: LiveData<String> = _defaultTickrate
+
+    fun setDefaultTickrate(tickrate: String) {
+        _defaultTickrate.value = tickrate
+    }
 
     fun getThrowingSpots(map: String, utilityType: String, landingSpot: String) =
         utilityUseCases.getThrowSpots(map, utilityType, landingSpot)

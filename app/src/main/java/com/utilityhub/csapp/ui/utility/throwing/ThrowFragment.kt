@@ -27,6 +27,7 @@ class ThrowFragment :
 
     private var throwSpots = ArrayList<UtilityThrow>()
     private var throwSpotsWithoutTutorial = ArrayList<Utility>()
+    private var throwSpotsFiltered = arrayListOf<Utility>()
     private var adapter = UtilityAdapter(this)
 
     private val viewModel by viewModels<ThrowViewModel>()
@@ -37,17 +38,16 @@ class ThrowFragment :
     private lateinit var landId: String
     private lateinit var utilityType: String
     private var isTickRateTouched = false
-    private var tickrate = Constants.TAG_128
+    private var utilityFilters = arrayListOf("")
+    private var searchText = ""
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         getNavArgs()
         setBackground()
-        getThrowingSpots()
-        setAdapter()
         getPreferences()
+        setAdapter()
 
         binding.apply {
             landSpot.text = landingSpot
@@ -55,7 +55,13 @@ class ThrowFragment :
             btnMaps.setOnClickListener {
                 navigateToMaps()
             }
+        }
+    }
 
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onStart() {
+        super.onStart()
+        binding.apply {
             searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String?): Boolean {
                     searchView.clearFocus()
@@ -63,8 +69,14 @@ class ThrowFragment :
                 }
 
                 override fun onQueryTextChange(newText: String?): Boolean {
-                    newText?.let {
-                        adapter.filter.filter(it)
+                    searchText = newText!!
+                    if (searchText.isNotBlank()) {
+                        utilityFilters.add(searchText)
+                        filterByTagsAndText()
+                        utilityFilters.remove(searchText)
+                    } else {
+                        adapter.filter.filter("")
+                        filterByTagsAndText()
                     }
                     return true
                 }
@@ -76,13 +88,20 @@ class ThrowFragment :
                 }
                 setOnCheckedChangeListener { _, isChecked ->
                     if (isTickRateTouched) {
+                        if (utilityFilters.isNotEmpty())
+                            utilityFilters.clear()
                         isTickRateTouched = false
-                        tickrate = if (isChecked) {
+                        val tickrate = if (isChecked) {
                             textOn.toString()
                         } else {
                             textOff.toString()
                         }
-                        adapter.filter.filter(tickrate)
+                        utilityFilters.add(tickrate)
+                        if (searchText.isNotBlank())
+                            utilityFilters.add(searchText)
+                        adapter.filter.filter("")
+                        filterByTagsAndText()
+                        utilityFilters.remove(searchText)
                     }
                 }
             }
@@ -91,13 +110,21 @@ class ThrowFragment :
 
     private fun getPreferences() {
         viewModel.getPreferences().observe(viewLifecycleOwner) {
-            if (it.tickrate != tickrate) {
-                binding.switchTickrate.apply {
-                    isChecked = true
-                    requestFocus()
-                }
+            viewModel.setDefaultTickrate(it.tickrate)
+            getThrowingSpots()
+            binding.switchTickrate.apply {
+                isChecked = it.tickrate != Constants.TAG_128
+                requestFocus()
+                if(utilityFilters.isNullOrEmpty())
+                utilityFilters.add(it.tickrate)
             }
-            adapter.filter.filter(it.tickrate)
+        }
+    }
+
+    private fun filterByTagsAndText() {
+        println(utilityFilters.toString())
+        utilityFilters.forEach {
+            adapter.filter.filter(it)
         }
     }
 
@@ -125,7 +152,13 @@ class ThrowFragment :
                         )
                     } as ArrayList<Utility>)
 
-                    adapter.setData(throwSpotsWithoutTutorial)
+                    throwSpotsWithoutTutorial.forEach {
+                        if(it.tags?.contains(viewModel.defaultTickrate.value) == true)
+                            throwSpotsFiltered.add(it)
+                    }
+
+                    adapter.setMainList(throwSpotsWithoutTutorial)
+                    adapter.submitList(throwSpotsFiltered)
                 }
                 is Response.Failure -> Log.w("getThrowingSpots", response.errorMessage)
             }
